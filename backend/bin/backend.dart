@@ -11,7 +11,7 @@ const _port = 8080;
 
 void main(List<String> args) async {
   var app = Router();
-  app.mount('/user/', userApi().router)
+  app.mount('/user/', userApi().router);
   app.get('/hello', (Request request) {
     Response.ok('Hello hit backend');
   });
