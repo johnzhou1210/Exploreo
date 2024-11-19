@@ -16,14 +16,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: const ColorScheme(
             brightness: Brightness.light,
-            primary: Color.fromARGB(255, 0, 0, 0),
+            primary: Color.fromARGB(255, 0, 133, 235),
             onPrimary: Colors.white,
             secondary: Colors.grey,
             onSecondary: Colors.white,
             error: Colors.red,
             onError: Colors.red,
             surface: Colors.white,
-            onSurface: Color.fromARGB(255, 25, 152, 255)),
+            onSurface: Color.fromARGB(255, 0, 0, 0)),
         useMaterial3: true,
       ),
       home: HomeScreen(),
