@@ -1,3 +1,4 @@
+import 'package:exploreo/screens/TripsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Exploreo',
       theme: ThemeData(
         colorScheme: const ColorScheme(
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
             onSurface: Color.fromARGB(255, 0, 0, 0)),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      // home: HomeScreen(),
+      home: TripsScreen(),
     );
   }
 }
