@@ -10,6 +10,7 @@ environment:
 dependencies:
   orm: ^5.1.0
   shelf: ^1.4.2
+  shelf_docker_shutdown: ^1.1.0
   shelf_router: ^1.1.4
   # path: ^1.8.0
 
