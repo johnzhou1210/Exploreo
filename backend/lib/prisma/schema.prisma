@@ -8,54 +8,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model place_tags {
-  place_id Int
-  tag_id   Int
-  places   places @relation(fields: [place_id], references: [place_id], onDelete: NoAction, onUpdate: NoAction)
-  tags     tags   @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction)
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  trips     Trip[]
 
-  @@id([place_id, tag_id])
+  @@map("users")
 }
 
-model places {
-  place_id    Int          @id @default(autoincrement())
-  trip_id     Int
-  user_id     Int
-  title       String       @db.VarChar(100)
+model Trip {
+  id          Int      @id @default(autoincrement())
+  tripName    String   @map("trip_name")
+  description String?  @map("description")
+  startDate   DateTime @map("start_date")
+  endDate     DateTime @map("end_date")
+  places      Place[]
+  users       User[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("trips")
+}
+
+model Place {
+  id          Int            @id @default(autoincrement())
+  placeName   String         @map("place_name")
   description String?
-  start_time  DateTime     @db.Timestamp(6)
-  end_time    DateTime?    @db.Timestamp(6)
-  place_tags  place_tags[]
-  trips       trips        @relation(fields: [trip_id], references: [trip_id], onDelete: NoAction, onUpdate: NoAction)
-  users       users        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  note        String?
+  trip        Trip           @relation(fields: [tripId], references: [id])
+  tripId      Int            @map("trip_id")
+  tags        TagsOnPlaces[]
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  @@map("places")
 }
 
-model tags {
-  tag_id      Int          @id @default(autoincrement())
-  tag_name    String       @unique @db.VarChar(50)
-  description String?
-  place_tags  place_tags[]
+model Tag {
+  id        Int            @id @default(autoincrement()) @map("id")
+  tagName   String         @unique @map("tag_name")
+  places    TagsOnPlaces[]
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  @@map("tags")
 }
 
-model trips {
-  trip_id     Int       @id @default(autoincrement())
-  user_id     Int
-  title       String    @db.VarChar(100)
-  description String?
-  start_date  DateTime  @db.Date
-  end_date    DateTime? @db.Date
-  created_at  DateTime? @default(now()) @db.Timestamp(6)
-  updated_at  DateTime? @default(now()) @db.Timestamp(6)
-  places      places[]
-  users       users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
-}
+model TagsOnPlaces {
+  placeId Int   @map("place_id")
+  tagId   Int   @map("tag_id")
+  place   Place @relation(fields: [placeId], references: [id])
+  tag     Tag   @relation(fields: [tagId], references: [id])
 
-model users {
-  user_id    Int      @id @default(autoincrement())
-  username   String   @db.VarChar(50)
-  email      String   @unique @db.VarChar(100)
-  first_name String?  @db.VarChar(50)
-  last_name  String?  @db.VarChar(50)
-  places     places[]
-  trips      trips[]
+  @@id([placeId, tagId])
+  @@map("places_tags")
 }

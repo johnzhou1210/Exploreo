@@ -11,7 +11,7 @@ class UserApi {
     router.get('/', (Request request) async {
 
       try {
-        var users = await prisma.users.findMany();
+        var users = await prisma.user.findMany();
         var usersJson = users.map((user) => user.toJson()).toList();
 
         return Response.ok(
