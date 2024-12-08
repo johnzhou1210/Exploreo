@@ -209,6 +209,6 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
     String start = formatter.format(range.start);
     String end = formatter.format(range.end);
-    return '$start -$end';
+    return '$start - $end';
   }
 }
