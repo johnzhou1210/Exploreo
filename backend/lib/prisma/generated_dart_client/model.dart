@@ -1,6 +1,19 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'model.dart' as _i1;
-import 'prisma.dart' as _i2;
+import 'package:orm/orm.dart' as _i1;
+
+import 'model.dart' as _i2;
+import 'prisma.dart' as _i3;
+
+enum LoginType implements _i1.PrismaEnum {
+  email._('EMAIL'),
+  google._('GOOGLE'),
+  facebook._('FACEBOOK');
+
+  const LoginType._(this.name);
+
+  @override
+  final String name;
+}
 
 class Tag {
   const Tag({
@@ -26,9 +39,9 @@ class Tag {
           _ => json['updatedAt']
         },
         places: (json['places'] as Iterable?)
-            ?.map((json) => _i1.TagsOnPlaces.fromJson(json)),
+            ?.map((json) => _i2.TagsOnPlaces.fromJson(json)),
         $count: json['_count'] is Map
-            ? _i2.TagCountOutputType.fromJson(json['_count'])
+            ? _i3.TagCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -40,9 +53,9 @@ class Tag {
 
   final DateTime? updatedAt;
 
-  final Iterable<_i1.TagsOnPlaces>? places;
+  final Iterable<_i2.TagsOnPlaces>? places;
 
-  final _i2.TagCountOutputType? $count;
+  final _i3.TagCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -65,17 +78,17 @@ class TagsOnPlaces {
   factory TagsOnPlaces.fromJson(Map json) => TagsOnPlaces(
         placeId: json['placeId'],
         tagId: json['tagId'],
-        place: json['place'] is Map ? _i1.Place.fromJson(json['place']) : null,
-        tag: json['tag'] is Map ? _i1.Tag.fromJson(json['tag']) : null,
+        place: json['place'] is Map ? _i2.Place.fromJson(json['place']) : null,
+        tag: json['tag'] is Map ? _i2.Tag.fromJson(json['tag']) : null,
       );
 
   final int? placeId;
 
   final int? tagId;
 
-  final _i1.Place? place;
+  final _i2.Place? place;
 
-  final _i1.Tag? tag;
+  final _i2.Tag? tag;
 
   Map<String, dynamic> toJson() => {
         'placeId': placeId,
@@ -115,11 +128,11 @@ class Place {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
-        trip: json['trip'] is Map ? _i1.Trip.fromJson(json['trip']) : null,
+        trip: json['trip'] is Map ? _i2.Trip.fromJson(json['trip']) : null,
         tags: (json['tags'] as Iterable?)
-            ?.map((json) => _i1.TagsOnPlaces.fromJson(json)),
+            ?.map((json) => _i2.TagsOnPlaces.fromJson(json)),
         $count: json['_count'] is Map
-            ? _i2.PlaceCountOutputType.fromJson(json['_count'])
+            ? _i3.PlaceCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -137,11 +150,11 @@ class Place {
 
   final DateTime? updatedAt;
 
-  final _i1.Trip? trip;
+  final _i2.Trip? trip;
 
-  final Iterable<_i1.TagsOnPlaces>? tags;
+  final Iterable<_i2.TagsOnPlaces>? tags;
 
-  final _i2.PlaceCountOutputType? $count;
+  final _i3.PlaceCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -196,11 +209,11 @@ class Trip {
           _ => json['updatedAt']
         },
         places: (json['places'] as Iterable?)
-            ?.map((json) => _i1.Place.fromJson(json)),
+            ?.map((json) => _i2.Place.fromJson(json)),
         users: (json['users'] as Iterable?)
-            ?.map((json) => _i1.User.fromJson(json)),
+            ?.map((json) => _i2.User.fromJson(json)),
         $count: json['_count'] is Map
-            ? _i2.TripCountOutputType.fromJson(json['_count'])
+            ? _i3.TripCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -218,11 +231,11 @@ class Trip {
 
   final DateTime? updatedAt;
 
-  final Iterable<_i1.Place>? places;
+  final Iterable<_i2.Place>? places;
 
-  final Iterable<_i1.User>? users;
+  final Iterable<_i2.User>? users;
 
-  final _i2.TripCountOutputType? $count;
+  final _i3.TripCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -245,6 +258,9 @@ class User {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.trips,
     this.$count,
   });
@@ -263,10 +279,16 @@ class User {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        password: json['password'],
+        loginType: json['loginType'] != null
+            ? _i2.LoginType.values
+                .firstWhere((e) => e.name == json['loginType'])
+            : null,
+        providerId: json['providerId'],
         trips: (json['trips'] as Iterable?)
-            ?.map((json) => _i1.Trip.fromJson(json)),
+            ?.map((json) => _i2.Trip.fromJson(json)),
         $count: json['_count'] is Map
-            ? _i2.UserCountOutputType.fromJson(json['_count'])
+            ? _i3.UserCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -280,9 +302,15 @@ class User {
 
   final DateTime? updatedAt;
 
-  final Iterable<_i1.Trip>? trips;
+  final String? password;
 
-  final _i2.UserCountOutputType? $count;
+  final _i2.LoginType? loginType;
+
+  final String? providerId;
+
+  final Iterable<_i2.Trip>? trips;
+
+  final _i3.UserCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -290,6 +318,9 @@ class User {
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'password': password,
+        'loginType': loginType?.name,
+        'providerId': providerId,
         'trips': trips?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
       };
@@ -302,6 +333,9 @@ class CreateManyUserAndReturnOutputType {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   factory CreateManyUserAndReturnOutputType.fromJson(Map json) =>
@@ -319,6 +353,12 @@ class CreateManyUserAndReturnOutputType {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        password: json['password'],
+        loginType: json['loginType'] != null
+            ? _i2.LoginType.values
+                .firstWhere((e) => e.name == json['loginType'])
+            : null,
+        providerId: json['providerId'],
       );
 
   final int? id;
@@ -331,12 +371,21 @@ class CreateManyUserAndReturnOutputType {
 
   final DateTime? updatedAt;
 
+  final String? password;
+
+  final _i2.LoginType? loginType;
+
+  final String? providerId;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'password': password,
+        'loginType': loginType?.name,
+        'providerId': providerId,
       };
 }
 
@@ -432,7 +481,7 @@ class CreateManyPlaceAndReturnOutputType {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
-        trip: json['trip'] is Map ? _i1.Trip.fromJson(json['trip']) : null,
+        trip: json['trip'] is Map ? _i2.Trip.fromJson(json['trip']) : null,
       );
 
   final int? id;
@@ -449,7 +498,7 @@ class CreateManyPlaceAndReturnOutputType {
 
   final DateTime? updatedAt;
 
-  final _i1.Trip? trip;
+  final _i2.Trip? trip;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -515,17 +564,17 @@ class CreateManyTagsOnPlacesAndReturnOutputType {
       CreateManyTagsOnPlacesAndReturnOutputType(
         placeId: json['placeId'],
         tagId: json['tagId'],
-        place: json['place'] is Map ? _i1.Place.fromJson(json['place']) : null,
-        tag: json['tag'] is Map ? _i1.Tag.fromJson(json['tag']) : null,
+        place: json['place'] is Map ? _i2.Place.fromJson(json['place']) : null,
+        tag: json['tag'] is Map ? _i2.Tag.fromJson(json['tag']) : null,
       );
 
   final int? placeId;
 
   final int? tagId;
 
-  final _i1.Place? place;
+  final _i2.Place? place;
 
-  final _i1.Tag? tag;
+  final _i2.Tag? tag;
 
   Map<String, dynamic> toJson() => {
         'placeId': placeId,

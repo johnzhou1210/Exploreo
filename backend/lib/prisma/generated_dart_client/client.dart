@@ -2478,7 +2478,26 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   }) : _engine = engine;
 
   static final datamodel = _i4.DataModel.fromJson({
-    'enums': [],
+    'enums': [
+      {
+        'name': 'LoginType',
+        'values': [
+          {
+            'name': 'EMAIL',
+            'dbName': null,
+          },
+          {
+            'name': 'GOOGLE',
+            'dbName': null,
+          },
+          {
+            'name': 'FACEBOOK',
+            'dbName': null,
+          },
+        ],
+        'dbName': null,
+      }
+    ],
     'models': [
       {
         'name': 'User',
@@ -2558,6 +2577,46 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'type': 'DateTime',
             'isGenerated': false,
             'isUpdatedAt': true,
+          },
+          {
+            'name': 'password',
+            'kind': 'scalar',
+            'isList': false,
+            'isRequired': false,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'String',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'loginType',
+            'kind': 'enum',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': false,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': true,
+            'type': 'LoginType',
+            'default': 'EMAIL',
+            'isGenerated': false,
+            'isUpdatedAt': false,
+          },
+          {
+            'name': 'providerId',
+            'kind': 'scalar',
+            'isList': false,
+            'isRequired': true,
+            'isUnique': true,
+            'isId': false,
+            'isReadOnly': false,
+            'hasDefaultValue': false,
+            'type': 'String',
+            'isGenerated': false,
+            'isUpdatedAt': false,
           },
           {
             'name': 'trips',
@@ -3059,6 +3118,14 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
         ],
       },
       {
+        'model': 'User',
+        'type': 'unique',
+        'isDefinedOnField': true,
+        'fields': [
+          {'name': 'providerId'}
+        ],
+      },
+      {
         'model': 'Trip',
         'type': 'id',
         'isDefinedOnField': true,
@@ -3129,7 +3196,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   @override
   get $engine => _engine ??= _i5.BinaryEngine(
         schema:
-            'generator client {\n  provider = "dart run orm"\n  output   = "generated_dart_client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  username  String?\n  createdAt DateTime @default(now()) @map("created_at")\n  updatedAt DateTime @updatedAt @map("updated_at")\n  trips     Trip[]\n\n  @@map("users")\n}\n\nmodel Trip {\n  id          Int      @id @default(autoincrement())\n  tripName    String   @map("trip_name")\n  description String?  @map("description")\n  startDate   DateTime @map("start_date")\n  endDate     DateTime @map("end_date")\n  places      Place[]\n  users       User[]\n  createdAt   DateTime @default(now()) @map("created_at")\n  updatedAt   DateTime @updatedAt @map("updated_at")\n\n  @@map("trips")\n}\n\nmodel Place {\n  id          Int            @id @default(autoincrement())\n  placeName   String         @map("place_name")\n  description String?\n  note        String?\n  trip        Trip           @relation(fields: [tripId], references: [id])\n  tripId      Int            @map("trip_id")\n  tags        TagsOnPlaces[]\n  createdAt   DateTime       @default(now()) @map("created_at")\n  updatedAt   DateTime       @updatedAt @map("updated_at")\n\n  @@map("places")\n}\n\nmodel Tag {\n  id        Int            @id @default(autoincrement()) @map("id")\n  tagName   String         @unique @map("tag_name")\n  places    TagsOnPlaces[]\n  createdAt DateTime       @default(now()) @map("created_at")\n  updatedAt DateTime       @updatedAt @map("updated_at")\n\n  @@map("tags")\n}\n\nmodel TagsOnPlaces {\n  placeId Int   @map("place_id")\n  tagId   Int   @map("tag_id")\n  place   Place @relation(fields: [placeId], references: [id])\n  tag     Tag   @relation(fields: [tagId], references: [id])\n\n  @@id([placeId, tagId])\n  @@map("places_tags")\n}\n',
+            'generator client {\n  provider = "dart run orm"\n  output   = "generated_dart_client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel User {\n  id         Int       @id @default(autoincrement())\n  email      String    @unique\n  username   String?\n  createdAt  DateTime  @default(now()) @map("created_at")\n  updatedAt  DateTime  @updatedAt @map("updated_at")\n  password   String?\n  loginType  LoginType @default(EMAIL)\n  providerId String    @unique\n  trips      Trip[]\n\n  @@map("users")\n}\n\nenum LoginType {\n  EMAIL\n  GOOGLE\n  FACEBOOK\n}\n\nmodel Trip {\n  id          Int      @id @default(autoincrement())\n  tripName    String   @map("trip_name")\n  description String?  @map("description")\n  startDate   DateTime @map("start_date")\n  endDate     DateTime @map("end_date")\n  places      Place[]\n  users       User[]\n  createdAt   DateTime @default(now()) @map("created_at")\n  updatedAt   DateTime @updatedAt @map("updated_at")\n\n  @@map("trips")\n}\n\nmodel Place {\n  id          Int            @id @default(autoincrement())\n  placeName   String         @map("place_name")\n  description String?\n  note        String?\n  trip        Trip           @relation(fields: [tripId], references: [id])\n  tripId      Int            @map("trip_id")\n  tags        TagsOnPlaces[]\n  createdAt   DateTime       @default(now()) @map("created_at")\n  updatedAt   DateTime       @updatedAt @map("updated_at")\n\n  @@map("places")\n}\n\nmodel Tag {\n  id        Int            @id @default(autoincrement()) @map("id")\n  tagName   String         @unique @map("tag_name")\n  places    TagsOnPlaces[]\n  createdAt DateTime       @default(now()) @map("created_at")\n  updatedAt DateTime       @updatedAt @map("updated_at")\n\n  @@map("tags")\n}\n\nmodel TagsOnPlaces {\n  placeId Int   @map("place_id")\n  tagId   Int   @map("tag_id")\n  place   Place @relation(fields: [placeId], references: [id])\n  tag     Tag   @relation(fields: [tagId], references: [id])\n\n  @@id([placeId, tagId])\n  @@map("places_tags")\n}\n',
         datasources: const {
           'db': _i1.Datasource(
             _i1.DatasourceType.environment,

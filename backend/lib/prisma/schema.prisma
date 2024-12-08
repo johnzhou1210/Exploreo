@@ -9,14 +9,23 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String?
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  trips     Trip[]
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  username   String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  password   String?
+  loginType  LoginType @default(EMAIL)
+  providerId String    @unique
+  trips      Trip[]
 
   @@map("users")
+}
+
+enum LoginType {
+  EMAIL
+  GOOGLE
+  FACEBOOK
 }
 
 model Trip {

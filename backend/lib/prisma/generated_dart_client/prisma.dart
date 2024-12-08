@@ -3,6 +3,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:orm/orm.dart' as _i1;
 
+import 'model.dart' as _i3;
 import 'prisma.dart' as _i2;
 
 class TagCountOutputType {
@@ -470,6 +471,61 @@ class DateTimeFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
+class NestedEnumLoginTypeFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const NestedEnumLoginTypeFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+  });
+
+  final _i1.PrismaUnion<_i3.LoginType, _i1.Reference<_i3.LoginType>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? notIn;
+
+  final _i1.PrismaUnion<_i3.LoginType, _i2.NestedEnumLoginTypeFilter>? not;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+      };
+}
+
+class EnumLoginTypeFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const EnumLoginTypeFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+  });
+
+  final _i1.PrismaUnion<_i3.LoginType, _i1.Reference<_i3.LoginType>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? notIn;
+
+  final _i1.PrismaUnion<_i3.LoginType, _i2.NestedEnumLoginTypeFilter>? not;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+      };
+}
+
 class TripRelationFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
   const TripRelationFilter({
     this.$is,
@@ -819,6 +875,9 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.trips,
   });
 
@@ -839,6 +898,13 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? password;
+
+  final _i1.PrismaUnion<_i2.EnumLoginTypeFilter, _i3.LoginType>? loginType;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? providerId;
+
   final _i2.TripListRelationFilter? trips;
 
   @override
@@ -851,6 +917,9 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
       };
 }
@@ -860,18 +929,23 @@ class UserWhereUniqueInput
   const UserWhereUniqueInput({
     this.id,
     this.email,
+    this.providerId,
     this.AND,
     this.OR,
     this.NOT,
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
     this.trips,
   });
 
   final int? id;
 
   final String? email;
+
+  final String? providerId;
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? AND;
 
@@ -886,18 +960,26 @@ class UserWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? password;
+
+  final _i1.PrismaUnion<_i2.EnumLoginTypeFilter, _i3.LoginType>? loginType;
+
   final _i2.TripListRelationFilter? trips;
 
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
         'email': email,
+        'providerId': providerId,
         'AND': AND,
         'OR': OR,
         'NOT': NOT,
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
         'trips': trips,
       };
 }
@@ -1787,6 +1869,9 @@ class UserOrderByWithRelationInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.trips,
   });
 
@@ -1800,6 +1885,12 @@ class UserOrderByWithRelationInput
 
   final _i2.SortOrder? updatedAt;
 
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? password;
+
+  final _i2.SortOrder? loginType;
+
+  final _i2.SortOrder? providerId;
+
   final _i2.TripOrderByRelationAggregateInput? trips;
 
   @override
@@ -1809,6 +1900,9 @@ class UserOrderByWithRelationInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
       };
 }
@@ -1818,7 +1912,10 @@ enum UserScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   email<String>('email', 'User'),
   username<String>('username', 'User'),
   createdAt<DateTime>('createdAt', 'User'),
-  updatedAt<DateTime>('updatedAt', 'User');
+  updatedAt<DateTime>('updatedAt', 'User'),
+  password<String>('password', 'User'),
+  loginType<_i3.LoginType>('loginType', 'User'),
+  providerId<String>('providerId', 'User');
 
   const UserScalar(
     this.name,
@@ -2027,6 +2124,9 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.trips,
     this.$count,
   });
@@ -2041,6 +2141,12 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final bool? updatedAt;
 
+  final bool? password;
+
+  final bool? loginType;
+
+  final bool? providerId;
+
   final _i1.PrismaUnion<bool, _i2.UserTripsArgs>? trips;
 
   final _i1.PrismaUnion<bool, _i2.UserCountArgs>? $count;
@@ -2052,6 +2158,9 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
         '_count': $count,
       };
@@ -2670,6 +2779,9 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    required this.providerId,
     this.trips,
   });
 
@@ -2681,6 +2793,12 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final DateTime? updatedAt;
 
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? password;
+
+  final _i3.LoginType? loginType;
+
+  final String providerId;
+
   final _i2.TripCreateNestedManyWithoutUsersInput? trips;
 
   @override
@@ -2689,6 +2807,9 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
       };
 }
@@ -2730,6 +2851,9 @@ class UserUncheckedCreateInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    required this.providerId,
     this.trips,
   });
 
@@ -2743,6 +2867,12 @@ class UserUncheckedCreateInput
 
   final DateTime? updatedAt;
 
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? password;
+
+  final _i3.LoginType? loginType;
+
+  final String providerId;
+
   final _i2.TripUncheckedCreateNestedManyWithoutUsersInput? trips;
 
   @override
@@ -2752,6 +2882,9 @@ class UserUncheckedCreateInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
       };
 }
@@ -2774,6 +2907,9 @@ class UserCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    required this.providerId,
   });
 
   final int? id;
@@ -2786,6 +2922,12 @@ class UserCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final DateTime? updatedAt;
 
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? password;
+
+  final _i3.LoginType? loginType;
+
+  final String providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -2793,6 +2935,9 @@ class UserCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -2804,6 +2949,9 @@ class CreateManyUserAndReturnOutputTypeSelect
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final bool? id;
@@ -2816,6 +2964,12 @@ class CreateManyUserAndReturnOutputTypeSelect
 
   final bool? updatedAt;
 
+  final bool? password;
+
+  final bool? loginType;
+
+  final bool? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -2823,6 +2977,9 @@ class CreateManyUserAndReturnOutputTypeSelect
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -2851,6 +3008,16 @@ class DateTimeFieldUpdateOperationsInput
   const DateTimeFieldUpdateOperationsInput({this.set});
 
   final DateTime? set;
+
+  @override
+  Map<String, dynamic> toJson() => {'set': set};
+}
+
+class EnumLoginTypeFieldUpdateOperationsInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const EnumLoginTypeFieldUpdateOperationsInput({this.set});
+
+  final _i3.LoginType? set;
 
   @override
   Map<String, dynamic> toJson() => {'set': set};
@@ -4078,6 +4245,9 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.trips,
   });
 
@@ -4094,6 +4264,18 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   final _i2.TripUpdateManyWithoutUsersNestedInput? trips;
 
   @override
@@ -4102,6 +4284,9 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
       };
 }
@@ -4178,6 +4363,9 @@ class UserUncheckedUpdateInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.trips,
   });
 
@@ -4196,6 +4384,18 @@ class UserUncheckedUpdateInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   final _i2.TripUncheckedUpdateManyWithoutUsersNestedInput? trips;
 
   @override
@@ -4205,6 +4405,9 @@ class UserUncheckedUpdateInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         'trips': trips,
       };
 }
@@ -4216,6 +4419,9 @@ class UserUpdateManyMutationInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
@@ -4231,12 +4437,27 @@ class UserUpdateManyMutationInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'email': email,
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -4248,6 +4469,9 @@ class UserUncheckedUpdateManyInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -4265,6 +4489,18 @@ class UserUncheckedUpdateManyInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -4272,6 +4508,9 @@ class UserUncheckedUpdateManyInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -4282,6 +4521,9 @@ class UserCountAggregateOutputType {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.$all,
   });
 
@@ -4292,6 +4534,9 @@ class UserCountAggregateOutputType {
         username: json['username'],
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
+        password: json['password'],
+        loginType: json['loginType'],
+        providerId: json['providerId'],
         $all: json['_all'],
       );
 
@@ -4305,6 +4550,12 @@ class UserCountAggregateOutputType {
 
   final int? updatedAt;
 
+  final int? password;
+
+  final int? loginType;
+
+  final int? providerId;
+
   final int? $all;
 
   Map<String, dynamic> toJson() => {
@@ -4313,6 +4564,9 @@ class UserCountAggregateOutputType {
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         '_all': $all,
       };
 }
@@ -4346,6 +4600,9 @@ class UserMinAggregateOutputType {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   factory UserMinAggregateOutputType.fromJson(Map json) =>
@@ -4363,6 +4620,12 @@ class UserMinAggregateOutputType {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        password: json['password'],
+        loginType: json['loginType'] != null
+            ? _i3.LoginType.values
+                .firstWhere((e) => e.name == json['loginType'])
+            : null,
+        providerId: json['providerId'],
       );
 
   final int? id;
@@ -4375,12 +4638,21 @@ class UserMinAggregateOutputType {
 
   final DateTime? updatedAt;
 
+  final String? password;
+
+  final _i3.LoginType? loginType;
+
+  final String? providerId;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'password': password,
+        'loginType': loginType?.name,
+        'providerId': providerId,
       };
 }
 
@@ -4391,6 +4663,9 @@ class UserMaxAggregateOutputType {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   factory UserMaxAggregateOutputType.fromJson(Map json) =>
@@ -4408,6 +4683,12 @@ class UserMaxAggregateOutputType {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        password: json['password'],
+        loginType: json['loginType'] != null
+            ? _i3.LoginType.values
+                .firstWhere((e) => e.name == json['loginType'])
+            : null,
+        providerId: json['providerId'],
       );
 
   final int? id;
@@ -4420,12 +4701,21 @@ class UserMaxAggregateOutputType {
 
   final DateTime? updatedAt;
 
+  final String? password;
+
+  final _i3.LoginType? loginType;
+
+  final String? providerId;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'password': password,
+        'loginType': loginType?.name,
+        'providerId': providerId,
       };
 }
 
@@ -4436,6 +4726,9 @@ class UserGroupByOutputType {
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.$count,
     this.$avg,
     this.$sum,
@@ -4457,6 +4750,12 @@ class UserGroupByOutputType {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        password: json['password'],
+        loginType: json['loginType'] != null
+            ? _i3.LoginType.values
+                .firstWhere((e) => e.name == json['loginType'])
+            : null,
+        providerId: json['providerId'],
         $count: json['_count'] is Map
             ? _i2.UserCountAggregateOutputType.fromJson(json['_count'])
             : null,
@@ -4484,6 +4783,12 @@ class UserGroupByOutputType {
 
   final DateTime? updatedAt;
 
+  final String? password;
+
+  final _i3.LoginType? loginType;
+
+  final String? providerId;
+
   final _i2.UserCountAggregateOutputType? $count;
 
   final _i2.UserAvgAggregateOutputType? $avg;
@@ -4500,6 +4805,9 @@ class UserGroupByOutputType {
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'password': password,
+        'loginType': loginType?.name,
+        'providerId': providerId,
         '_count': $count?.toJson(),
         '_avg': $avg?.toJson(),
         '_sum': $sum?.toJson(),
@@ -4516,6 +4824,9 @@ class UserCountOrderByAggregateInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i2.SortOrder? id;
@@ -4528,6 +4839,12 @@ class UserCountOrderByAggregateInput
 
   final _i2.SortOrder? updatedAt;
 
+  final _i2.SortOrder? password;
+
+  final _i2.SortOrder? loginType;
+
+  final _i2.SortOrder? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -4535,6 +4852,9 @@ class UserCountOrderByAggregateInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -4556,6 +4876,9 @@ class UserMaxOrderByAggregateInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i2.SortOrder? id;
@@ -4568,6 +4891,12 @@ class UserMaxOrderByAggregateInput
 
   final _i2.SortOrder? updatedAt;
 
+  final _i2.SortOrder? password;
+
+  final _i2.SortOrder? loginType;
+
+  final _i2.SortOrder? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -4575,6 +4904,9 @@ class UserMaxOrderByAggregateInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -4586,6 +4918,9 @@ class UserMinOrderByAggregateInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i2.SortOrder? id;
@@ -4598,6 +4933,12 @@ class UserMinOrderByAggregateInput
 
   final _i2.SortOrder? updatedAt;
 
+  final _i2.SortOrder? password;
+
+  final _i2.SortOrder? loginType;
+
+  final _i2.SortOrder? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -4605,6 +4946,9 @@ class UserMinOrderByAggregateInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -4626,6 +4970,9 @@ class UserOrderByWithAggregationInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.$count,
     this.$avg,
     this.$max,
@@ -4642,6 +4989,12 @@ class UserOrderByWithAggregationInput
   final _i2.SortOrder? createdAt;
 
   final _i2.SortOrder? updatedAt;
+
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? password;
+
+  final _i2.SortOrder? loginType;
+
+  final _i2.SortOrder? providerId;
 
   final _i2.UserCountOrderByAggregateInput? $count;
 
@@ -4660,6 +5013,9 @@ class UserOrderByWithAggregationInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         '_count': $count,
         '_avg': $avg,
         '_max': $max,
@@ -5279,6 +5635,90 @@ class DateTimeWithAggregatesFilter
       };
 }
 
+class NestedEnumLoginTypeWithAggregatesFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const NestedEnumLoginTypeWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  final _i1.PrismaUnion<_i3.LoginType, _i1.Reference<_i3.LoginType>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? notIn;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.NestedEnumLoginTypeWithAggregatesFilter>?
+      not;
+
+  final _i2.NestedIntFilter? $count;
+
+  final _i2.NestedEnumLoginTypeFilter? $min;
+
+  final _i2.NestedEnumLoginTypeFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+        '_count': $count,
+        '_min': $min,
+        '_max': $max,
+      };
+}
+
+class EnumLoginTypeWithAggregatesFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const EnumLoginTypeWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  final _i1.PrismaUnion<_i3.LoginType, _i1.Reference<_i3.LoginType>>? equals;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? $in;
+
+  final _i1.PrismaUnion<Iterable<_i3.LoginType>,
+      _i1.Reference<Iterable<_i3.LoginType>>>? notIn;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.NestedEnumLoginTypeWithAggregatesFilter>?
+      not;
+
+  final _i2.NestedIntFilter? $count;
+
+  final _i2.NestedEnumLoginTypeFilter? $min;
+
+  final _i2.NestedEnumLoginTypeFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'equals': equals,
+        'in': $in,
+        'notIn': notIn,
+        'not': not,
+        '_count': $count,
+        '_min': $min,
+        '_max': $max,
+      };
+}
+
 class UserScalarWhereWithAggregatesInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserScalarWhereWithAggregatesInput({
@@ -5290,6 +5730,9 @@ class UserScalarWhereWithAggregatesInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<_i2.UserScalarWhereWithAggregatesInput,
@@ -5311,6 +5754,14 @@ class UserScalarWhereWithAggregatesInput
 
   final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>? updatedAt;
 
+  final _i1.PrismaUnion<_i2.StringNullableWithAggregatesFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? password;
+
+  final _i1.PrismaUnion<_i2.EnumLoginTypeWithAggregatesFilter, _i3.LoginType>?
+      loginType;
+
+  final _i1.PrismaUnion<_i2.StringWithAggregatesFilter, String>? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'AND': AND,
@@ -5321,6 +5772,9 @@ class UserScalarWhereWithAggregatesInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -5332,6 +5786,9 @@ class UserCountAggregateOutputTypeSelect
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.$all,
   });
 
@@ -5345,6 +5802,12 @@ class UserCountAggregateOutputTypeSelect
 
   final bool? updatedAt;
 
+  final bool? password;
+
+  final bool? loginType;
+
+  final bool? providerId;
+
   final bool? $all;
 
   @override
@@ -5354,6 +5817,9 @@ class UserCountAggregateOutputTypeSelect
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         '_all': $all,
       };
 }
@@ -5416,6 +5882,9 @@ class UserMinAggregateOutputTypeSelect
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final bool? id;
@@ -5428,6 +5897,12 @@ class UserMinAggregateOutputTypeSelect
 
   final bool? updatedAt;
 
+  final bool? password;
+
+  final bool? loginType;
+
+  final bool? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -5435,6 +5910,9 @@ class UserMinAggregateOutputTypeSelect
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -5456,6 +5934,9 @@ class UserMaxAggregateOutputTypeSelect
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final bool? id;
@@ -5468,6 +5949,12 @@ class UserMaxAggregateOutputTypeSelect
 
   final bool? updatedAt;
 
+  final bool? password;
+
+  final bool? loginType;
+
+  final bool? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -5475,6 +5962,9 @@ class UserMaxAggregateOutputTypeSelect
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -5496,6 +5986,9 @@ class UserGroupByOutputTypeSelect
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
     this.$count,
     this.$avg,
     this.$sum,
@@ -5512,6 +6005,12 @@ class UserGroupByOutputTypeSelect
   final bool? createdAt;
 
   final bool? updatedAt;
+
+  final bool? password;
+
+  final bool? loginType;
+
+  final bool? providerId;
 
   final _i1.PrismaUnion<bool, _i2.UserGroupByOutputTypeCountArgs>? $count;
 
@@ -5530,6 +6029,9 @@ class UserGroupByOutputTypeSelect
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
         '_count': $count,
         '_avg': $avg,
         '_sum': $sum,
@@ -5670,6 +6172,9 @@ class UserCreateWithoutTripsInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    required this.providerId,
   });
 
   final String email;
@@ -5680,12 +6185,21 @@ class UserCreateWithoutTripsInput
 
   final DateTime? updatedAt;
 
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? password;
+
+  final _i3.LoginType? loginType;
+
+  final String providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'email': email,
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -5697,6 +6211,9 @@ class UserUncheckedCreateWithoutTripsInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    required this.providerId,
   });
 
   final int? id;
@@ -5709,6 +6226,12 @@ class UserUncheckedCreateWithoutTripsInput
 
   final DateTime? updatedAt;
 
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? password;
+
+  final _i3.LoginType? loginType;
+
+  final String providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -5716,6 +6239,9 @@ class UserUncheckedCreateWithoutTripsInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -5965,6 +6491,9 @@ class UserUpdateWithoutTripsInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
@@ -5980,12 +6509,27 @@ class UserUpdateWithoutTripsInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'email': email,
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -5997,6 +6541,9 @@ class UserUncheckedUpdateWithoutTripsInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -6014,6 +6561,18 @@ class UserUncheckedUpdateWithoutTripsInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -6021,6 +6580,9 @@ class UserUncheckedUpdateWithoutTripsInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -6078,6 +6640,9 @@ class UserScalarWhereInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<_i2.UserScalarWhereInput,
@@ -6099,6 +6664,13 @@ class UserScalarWhereInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? password;
+
+  final _i1.PrismaUnion<_i2.EnumLoginTypeFilter, _i3.LoginType>? loginType;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'AND': AND,
@@ -6109,6 +6681,9 @@ class UserScalarWhereInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
@@ -6120,6 +6695,9 @@ class UserUncheckedUpdateManyWithoutTripsInput
     this.username,
     this.createdAt,
     this.updatedAt,
+    this.password,
+    this.loginType,
+    this.providerId,
   });
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? id;
@@ -6137,6 +6715,18 @@ class UserUncheckedUpdateManyWithoutTripsInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? password;
+
+  final _i1
+      .PrismaUnion<_i3.LoginType, _i2.EnumLoginTypeFieldUpdateOperationsInput>?
+      loginType;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      providerId;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -6144,6 +6734,9 @@ class UserUncheckedUpdateManyWithoutTripsInput
         'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
+        'password': password,
+        'loginType': loginType,
+        'providerId': providerId,
       };
 }
 
