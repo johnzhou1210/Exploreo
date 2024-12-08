@@ -15,8 +15,8 @@ model User {
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
   password   String?
-  loginType  LoginType @default(EMAIL)
-  providerId String    @unique
+  loginType  LoginType @default(EMAIL) @map("login_type")
+  providerId String    @unique @map("provider_id")
   trips      Trip[]
 
   @@map("users")
