@@ -3,19 +3,19 @@ import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
 import 'dart:convert';
 
-class UserRoute {
+class PlaceRoute {
   final prisma = PrismaSingleton.client;
 
   Router get router {
     final router = Router();
 
-    Future<Response> getAllUsers(Request request) async {
+    Future<Response> getAllPlaces(Request request) async {
       try {
-        var users = await prisma.user.findMany();
-        var userList = users.map((user) => user.toJson()).toList();
+        var places = await prisma.place.findMany();
+        var placeList = places.map((place) => place.toJson()).toList();
 
         return Response.ok(
-          json.encode(userList),
+          json.encode(placeList),
           headers: {'Content-Type': 'application/json'},
         );
       } catch (e) {
@@ -24,12 +24,7 @@ class UserRoute {
       }
     }
 
-    router.get('/', getAllUsers);
-    // router.get('/<id>', _getUserById);
-    // router.post('/', _createUser);
-    // router.put('/<id>', _updateUser);
-    // router.delete('/<id>', _deleteUser);
-
+    router.get('/', getAllPlaces);
     return router;
   }
 }
