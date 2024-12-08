@@ -1,3 +1,4 @@
+import 'package:exploreo/screens/PlanTripScreen.dart';
 import 'package:exploreo/screens/TripsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: HomeScreen(),
-      home: TripsScreen(),
+      home: PlanTripScreen(),
     );
   }
 }
