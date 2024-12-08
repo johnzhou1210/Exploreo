@@ -3,7 +3,7 @@ import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
 import 'dart:convert';
 
-class UserApi {
+class UserRoute {
   Router get router {
     final router = Router();
     final prisma = PrismaSingleton.client;
