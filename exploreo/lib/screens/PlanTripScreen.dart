@@ -185,7 +185,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        /*TODO*/
+                        /*TODO: Add new trip to the user's database and the trip will show up in the user's trips page*/
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
