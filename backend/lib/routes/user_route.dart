@@ -62,11 +62,31 @@ class UserRoute {
       }
     }
 
+    Future<Response> getUserById(Request request, String userId) async {
+      try {
+        final parsedId = int.tryParse(userId);
+        final user = await prisma.user.findUnique(where: UserWhereUniqueInput(id: parsedId));
+
+        if (user == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(user.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
+    }
+
+
     router.get('/', getAllUsers);
-    // router.get('/<id>', _getUserById);
+    router.get('/<userId>', getUserById);
     router.post('/', createUser);
-    // router.put('/<id>', _updateUser);
-    // router.delete('/<id>', _deleteUser);
+    // router.put('/<id>', updateUser);
+    // router.delete('/<id>', deleteUser);
 
     return router;
   }
