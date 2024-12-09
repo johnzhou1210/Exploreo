@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
             onSurface: Color.fromARGB(255, 0, 0, 0)),
         useMaterial3: true,
       ),
-      // home: HomeScreen(),
-      home: PlanTripScreen(),
+      home: HomeScreen(),
+      // home: PlanTripScreen(),
     );
   }
 }

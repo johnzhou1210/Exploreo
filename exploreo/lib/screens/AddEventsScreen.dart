@@ -4,22 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:intl/intl.dart';
-
+import '../data/TestTripData.dart';
 import '../widgets/TripListTile.dart';
+import 'TripsScreen.dart';
 
 class AddEventsScreen extends StatefulWidget {
   final String tripName;
   final DateTimeRange? tripDateRange;
   final String tripNotes;
   final String? imageUrl;
+  final List<TripEvent> events;
 
   const AddEventsScreen({
-    Key? key,
+    super.key,
     required this.tripName,
     this.tripDateRange,
     required this.tripNotes,
     this.imageUrl,
-  }) : super(key: key);
+    required this.events,
+  });
 
   @override
   State<AddEventsScreen> createState() => _AddEventsScreenState();
@@ -30,6 +33,8 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     start: DateTime.now(),
     end: DateTime.now(),
   );
+  final TextEditingController eventNameController = TextEditingController();
+  final TextEditingController eventNotesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,32 +75,35 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 children: [
                   // Header and back button
                   const SizedBox(height: 40),
-                  Row(
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(width: 15),
-                      Material(
-                        color: Colors.transparent,
-                        child: Ink(
+                      // Back button (commented out because I don't want to deal with the logic
+                      // const SizedBox(width: 15),
+                      // Material(
+                      //   color: Colors.transparent,
+                      //   child: Ink(
+                      //
+                      //     decoration: const ShapeDecoration(
+                      //       shape: CircleBorder(),
+                      //       color: Color.fromARGB(50, 200, 200, 200),
+                      //     ),
+                      //     child: ClipOval(
+                      //       child: IconButton(
+                      //         onPressed: () {
+                      //           Navigator.of(context).push(MaterialPageRoute(
+                      //               builder: (context) =>
+                      //                   const HomeScreen())); // Whatever page it will go back to
+                      //         },
+                      //         iconSize: 16,
+                      //         icon: const Icon(CupertinoIcons.back),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 100),
 
-                          decoration: const ShapeDecoration(
-                            shape: CircleBorder(),
-                            color: Color.fromARGB(50, 200, 200, 200),
-                          ),
-                          child: ClipOval(
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HomeScreen())); // Whatever page it will go back to
-                              },
-                              iconSize: 16,
-                              icon: const Icon(CupertinoIcons.back),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 100),
-                      const Text(
+                      Text(
                         'Add events',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -106,7 +114,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     ],
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Flexible(
+                    const Flexible(
                       flex: 2,
                       child: SizedBox(),
                     ),
@@ -115,29 +123,30 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: Text(
                           "Add events to your trip to ${widget.tripName}",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black54,
                           ),
                         )),
-                    Flexible(
+                    const Flexible(
                       flex: 2,
                       child: SizedBox(),
                     ),
                   ]),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
 
                   // Input fields
                   Column(
                     children: [
                       // Where to field
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Flexible(flex: 1, child: SizedBox()),
+                          const Flexible(flex: 1, child: SizedBox()),
                           Flexible(
                               flex: 10,
                               child: TextField(
-                                decoration: InputDecoration(
+                                controller: eventNameController,
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.location_on_outlined),
                                   border: OutlineInputBorder(),
                                   hintText:
@@ -147,7 +156,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                   ),
                                 ),
                               )),
-                          Flexible(flex: 1, child: SizedBox()),
+                          const Flexible(flex: 1, child: SizedBox()),
                         ],
                       ),
 
@@ -200,9 +209,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                             height: 150,
                             width: double.infinity,
                             child: TextField(
+                              controller: eventNotesController,
                               minLines: 5,
                               maxLines: null,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.description_outlined),
                                 border: OutlineInputBorder(),
                                 hintText: 'Add some notes or a description',
@@ -218,7 +228,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
 
                   // Add another event button
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Flexible(flex: 1, child: SizedBox()),
+                    const Flexible(flex: 1, child: SizedBox()),
                     SizedBox(
                         width: 180,
                         height: 50,
@@ -235,20 +245,41 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                             style: TextStyle(fontSize: 20),
                           ),
                         )),
-                    Flexible(flex: 1, child: SizedBox()),
+                    const Flexible(flex: 1, child: SizedBox()),
                   ]),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Confirm button
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Flexible(flex: 1, child: SizedBox()),
+                    const Flexible(flex: 1, child: SizedBox()),
                     SizedBox(
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            /*TODO: Create a Trip object and add it to the user's database*/
+                            /* TODO: Create a Trip object and add it to the user's database and also add the array of events to this new Trip object */
+                            List<TripEvent> updatedEvents =
+                                List.from(widget.events);
+                            TripEvent newEvent = TripEvent(
+                                title: eventNameController.text,
+                                date: FormatDateRange(selectedDates),
+                                description: eventNotesController.text);
+                            updatedEvents.add(newEvent);
+                            Trip newTrip = Trip(
+                                title: widget.tripName,
+                                date: FormatDateRange(widget.tripDateRange),
+                                imageUrl: widget.imageUrl ??
+                                    'https://example.com/default-image.jpg',
+                                events: updatedEvents,
+                                description: widget.tripNotes);
+                            // Add to trips list
+                            trips.add(newTrip);
+
+                            // Send user to trips page
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const HomeScreen(entryIndex:  1))); // Whatever page it will go back to
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -259,7 +290,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                             style: TextStyle(fontSize: 20),
                           ),
                         )),
-                    Flexible(flex: 1, child: SizedBox()),
+                    const Flexible(flex: 1, child: SizedBox()),
                   ]),
                 ],
               ),
@@ -270,9 +301,9 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     );
   }
 
-  String FormatDateRange(DateTimeRange range) {
+  String FormatDateRange(DateTimeRange? range) {
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    String start = formatter.format(range.start);
+    String start = formatter.format(range!.start);
     String end = formatter.format(range.end);
     return '$start - $end';
   }

@@ -9,7 +9,6 @@ class TripListTile extends StatefulWidget {
 
   @override
   _TripListTileState createState() => _TripListTileState();
-
 }
 
 class _TripListTileState extends State<TripListTile> {
@@ -19,33 +18,21 @@ class _TripListTileState extends State<TripListTile> {
       height: 130,
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
         child: Card(
           elevation: 2,
-
           child: Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  widget.trip.imagePath,
-                  height:  140,
-                  width: 100,
-                  fit: BoxFit.fitHeight
-                ),
-              ),
-
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(widget.trip.imageUrl,
+                      fit: BoxFit.fitHeight)),
               SizedBox(width: 15),
-
               ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: 100, maxWidth: 200
-                ),
+                constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     SizedBox(height: 10),
                     Text(
@@ -74,19 +61,13 @@ class _TripListTileState extends State<TripListTile> {
                         ),
                       ],
                     ),
-
                   ],
                 ),
               )
-
             ],
           ),
-
-
         ),
       ),
     );
   }
 }
-
-

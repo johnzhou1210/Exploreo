@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../widgets/TripListTile.dart';
+import 'TripsScreen.dart';
 
 class PlanTripScreen extends StatefulWidget {
   const PlanTripScreen({super.key});
@@ -24,6 +25,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   );
   final TextEditingController tripNameController = TextEditingController();
   final TextEditingController tripNotesController = TextEditingController();
+  List<TripEvent> events = [];
   String? _imageUrl;
 
   Future<void> _searchImage(String query) async {
@@ -220,7 +222,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddEventsScreen(tripName: tripNameController.text, tripDateRange: selectedDates, tripNotes: tripNotesController.text, imageUrl: _imageUrl )),
+                                builder: (context) => AddEventsScreen(tripName: tripNameController.text, tripDateRange: selectedDates, tripNotes: tripNotesController.text, imageUrl: _imageUrl, events: events )),
                           );
                         });
 

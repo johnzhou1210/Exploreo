@@ -1,34 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Navbar extends StatefulWidget {
-  @override
-  _NavbarState createState() => _NavbarState();
-}
+class Navbar extends StatelessWidget {
+  final int currentIndex;
+  final Function(int) onTap;
 
-class _NavbarState extends State<Navbar> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  const Navbar({
+    Key? key,
+    required this.currentIndex,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +27,10 @@ class _NavbarState extends State<Navbar> {
           label: 'Profile',
         ),
       ],
-      currentIndex: _selectedIndex,
+      currentIndex: currentIndex,
       selectedItemColor: Colors.blue[300],
-      onTap: _onItemTapped,
+      onTap: onTap,
     );
   }
 }
+
