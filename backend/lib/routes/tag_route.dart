@@ -1,3 +1,6 @@
+import 'package:backend/prisma/generated_dart_client/prisma.dart';
+import 'package:backend/prisma/generated_dart_client/model.dart';
+import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
@@ -24,7 +27,28 @@ class TagRoute {
       }
     }
 
+    Future<Response> getTagById(Request request, String tagId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> createTag(Request request) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> updateTag(Request request, String tagId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> deleteTag(Request request, String tagId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
     router.get('/', getAllTags);
+    router.get('/<tagId>', getTagById);
+    router.post('/', createTag);
+    router.put('/<tagId>', updateTag);
+    router.delete('/<tagId>', deleteTag);
+
     return router;
   }
 }

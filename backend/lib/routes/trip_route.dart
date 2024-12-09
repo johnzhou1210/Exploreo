@@ -1,3 +1,6 @@
+import 'package:backend/prisma/generated_dart_client/prisma.dart';
+import 'package:backend/prisma/generated_dart_client/model.dart';
+import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
@@ -24,7 +27,27 @@ class TripRoute {
       }
     }
 
+    Future<Response> getTripById(Request request, String tripId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> createTrip(Request request) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> updateTrip(Request request, String tripId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> deleteTrip(Request request, String tripId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
     router.get('/', getAllTrips);
+    router.get('/<tripId>', getTripById);
+    router.post('/', createTrip);
+    router.put('<tripId>', updateTrip);
+    router.delete('<tripId>', deleteTrip);
     return router;
   }
 }

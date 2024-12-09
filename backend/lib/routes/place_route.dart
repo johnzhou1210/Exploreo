@@ -1,3 +1,6 @@
+import 'package:backend/prisma/generated_dart_client/prisma.dart';
+import 'package:backend/prisma/generated_dart_client/model.dart';
+import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
@@ -24,7 +27,28 @@ class PlaceRoute {
       }
     }
 
+    Future<Response> getPlaceById(Request request, String placeId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> createPlace(Request request) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> updatePlace(Request request, String placeId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
+    Future<Response> deletePlace(Request request, String placeId) async {
+      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+    }
+
     router.get('/', getAllPlaces);
+    router.get('/<placeId>', getPlaceById);
+    router.post('/', createPlace);
+    router.put('/<placeId>', updatePlace);
+    router.delete('/<placeId>', deletePlace);
+
     return router;
   }
 }
