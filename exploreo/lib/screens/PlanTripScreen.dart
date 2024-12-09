@@ -1,9 +1,12 @@
+import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../widgets/TripListTile.dart';
 
@@ -19,6 +22,28 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     start: DateTime.now(),
     end: DateTime.now(),
   );
+  final TextEditingController tripNameController = TextEditingController();
+  final TextEditingController tripNotesController = TextEditingController();
+  String? _imageUrl;
+
+  Future<void> _searchImage(String query) async {
+    setState(() {
+      _imageUrl = null;
+    });
+
+    try {
+      final imageUrl = await FetchImage(query);
+      setState(() {
+        _imageUrl = imageUrl;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +53,6 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
           FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
-
           child: Center(
               child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -93,14 +117,15 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
               Column(
                 children: [
                   // Where to field
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Flexible(flex: 1, child: SizedBox()),
+                      const Flexible(flex: 1, child: SizedBox()),
                       Flexible(
                           flex: 10,
                           child: TextField(
-                            decoration: InputDecoration(
+                            controller: tripNameController,
+                            decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.location_on_outlined),
                               border: OutlineInputBorder(),
                               hintText: 'e.g. Paris, Hawaii, Tokyo',
@@ -109,7 +134,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                               ),
                             ),
                           )),
-                      Flexible(flex: 1, child: SizedBox()),
+                      const Flexible(flex: 1, child: SizedBox()),
                     ],
                   ),
 
@@ -161,9 +186,10 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                         height: 150,
                         width: double.infinity,
                         child: TextField(
+                          controller: tripNotesController,
                           minLines: 5,
                           maxLines: null,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             prefixIcon: Icon(Icons.description_outlined),
                             border: OutlineInputBorder(),
                             hintText: 'Add some notes or a description',
@@ -175,28 +201,40 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                 ],
               ),
 
-              SizedBox(height: 250),
+              const SizedBox(height: 250),
 
               // Plan trip button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Flexible(flex: 1, child: SizedBox()),
+                const Flexible(flex: 1, child: SizedBox()),
                 SizedBox(
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        /*TODO: Add new trip to the user's database and the trip will show up in the user's trips page*/
+                        /*TODO: Proceed to add events page*/
+                        // Get an image of the destination name from Unsplash API and get the first result
+                        _searchImage(tripNameController.text);
+
+
+                        Future.delayed(Duration(seconds: 1), () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddEventsScreen(tripName: tripNameController.text, tripDateRange: selectedDates, tripNotes: tripNotesController.text, imageUrl: _imageUrl )),
+                          );
+                        });
+
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
                         foregroundColor: Colors.white,
                       ),
                       child: const Text(
-                        "Plan trip",
+                        "Continue",
                         style: TextStyle(fontSize: 20),
                       ),
                     )),
-                Flexible(flex: 1, child: SizedBox()),
+                const Flexible(flex: 1, child: SizedBox()),
               ]),
             ],
           )),
@@ -211,4 +249,32 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     String end = formatter.format(range.end);
     return '$start - $end';
   }
+
+  Future<String?> FetchImage(String query) async {
+
+
+    final String accessKey = 'vsin1BRLPtFEJ28ElzLxGx7CWsMXjhyejF2jD8I1mGox8doZP9V8cwJm';
+    final String url = 'https://api.pexels.com/v1/search?query=$query&per_page=1';
+    final response = await http.get(
+      Uri.parse(url),
+          headers: {'Authorization': accessKey},
+    );
+
+    if (response.statusCode == 200) {
+      print("in here");
+      final data = json.decode(response.body);
+      final List photos = data['photos'];
+      if (photos.isNotEmpty) {
+        return photos[0]['src']['portrait'];
+      } else {
+        return null;
+      }
+
+    } else {
+      throw Exception('Failed to fetch image: ${response.statusCode}');
+    }
+
+
+  }
+
 }

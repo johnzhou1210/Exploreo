@@ -1,3 +1,4 @@
+import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:exploreo/screens/PlanTripScreen.dart';
 import 'package:exploreo/screens/TripsScreen.dart';
