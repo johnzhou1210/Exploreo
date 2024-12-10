@@ -804,9 +804,9 @@ class UserRelationFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class UsesrOnTripsWhereInput
+class UsersOnTripsWhereInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsWhereInput({
+  const UsersOnTripsWhereInput({
     this.AND,
     this.OR,
     this.NOT,
@@ -820,13 +820,13 @@ class UsesrOnTripsWhereInput
     this.trip,
   });
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereInput,
-      Iterable<_i2.UsesrOnTripsWhereInput>>? AND;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereInput,
+      Iterable<_i2.UsersOnTripsWhereInput>>? AND;
 
-  final Iterable<_i2.UsesrOnTripsWhereInput>? OR;
+  final Iterable<_i2.UsersOnTripsWhereInput>? OR;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereInput,
-      Iterable<_i2.UsesrOnTripsWhereInput>>? NOT;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereInput,
+      Iterable<_i2.UsersOnTripsWhereInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidFilter, String>? id;
 
@@ -860,19 +860,19 @@ class UsesrOnTripsWhereInput
       };
 }
 
-class UsesrOnTripsListRelationFilter
+class UsersOnTripsListRelationFilter
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsListRelationFilter({
+  const UsersOnTripsListRelationFilter({
     this.every,
     this.some,
     this.none,
   });
 
-  final _i2.UsesrOnTripsWhereInput? every;
+  final _i2.UsersOnTripsWhereInput? every;
 
-  final _i2.UsesrOnTripsWhereInput? some;
+  final _i2.UsersOnTripsWhereInput? some;
 
-  final _i2.UsesrOnTripsWhereInput? none;
+  final _i2.UsersOnTripsWhereInput? none;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -924,7 +924,7 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.UserListRelationFilter? users;
 
-  final _i2.UsesrOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1020,7 +1020,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.TripListRelationFilter? trips;
 
-  final _i2.UsesrOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1098,7 +1098,7 @@ class UserWhereUniqueInput
 
   final _i2.TripListRelationFilter? trips;
 
-  final _i2.UsesrOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1195,9 +1195,9 @@ class UserOrderByRelationAggregateInput
   Map<String, dynamic> toJson() => {'_count': $count};
 }
 
-class UsesrOnTripsOrderByRelationAggregateInput
+class UsersOnTripsOrderByRelationAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsOrderByRelationAggregateInput({this.$count});
+  const UsersOnTripsOrderByRelationAggregateInput({this.$count});
 
   final _i2.SortOrder? $count;
 
@@ -1238,7 +1238,7 @@ class TripOrderByWithRelationInput
 
   final _i2.UserOrderByRelationAggregateInput? users;
 
-  final _i2.UsesrOnTripsOrderByRelationAggregateInput? usesrOnTrips;
+  final _i2.UsersOnTripsOrderByRelationAggregateInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1761,7 +1761,7 @@ class TripWhereUniqueInput
 
   final _i2.UserListRelationFilter? users;
 
-  final _i2.UsesrOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1844,9 +1844,9 @@ class UserTripsArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class UsesrOnTripsUserArgs
+class UsersOnTripsUserArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUserArgs({
+  const UsersOnTripsUserArgs({
     this.select,
     this.include,
   });
@@ -1862,9 +1862,9 @@ class UsesrOnTripsUserArgs
       };
 }
 
-class UsesrOnTripsTripArgs
+class UsersOnTripsTripArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsTripArgs({
+  const UsersOnTripsTripArgs({
     this.select,
     this.include,
   });
@@ -1880,8 +1880,8 @@ class UsesrOnTripsTripArgs
       };
 }
 
-class UsesrOnTripsSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsSelect({
+class UsersOnTripsSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UsersOnTripsSelect({
     this.id,
     this.userId,
     this.tripId,
@@ -1904,9 +1904,9 @@ class UsesrOnTripsSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final bool? updatedAt;
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsUserArgs>? user;
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsUserArgs>? user;
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsTripArgs>? trip;
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsTripArgs>? trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1921,15 +1921,15 @@ class UsesrOnTripsSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class UsesrOnTripsInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsInclude({
+class UsersOnTripsInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UsersOnTripsInclude({
     this.user,
     this.trip,
   });
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsUserArgs>? user;
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsUserArgs>? user;
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsTripArgs>? trip;
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsTripArgs>? trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1990,7 +1990,7 @@ class UserOrderByWithRelationInput
 
   final _i2.TripOrderByRelationAggregateInput? trips;
 
-  final _i2.UsesrOnTripsOrderByRelationAggregateInput? usesrOnTrips;
+  final _i2.UsersOnTripsOrderByRelationAggregateInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2010,9 +2010,9 @@ class UserOrderByWithRelationInput
       };
 }
 
-class UsesrOnTripsOrderByWithRelationInput
+class UsersOnTripsOrderByWithRelationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsOrderByWithRelationInput({
+  const UsersOnTripsOrderByWithRelationInput({
     this.id,
     this.userId,
     this.tripId,
@@ -2052,9 +2052,9 @@ class UsesrOnTripsOrderByWithRelationInput
       };
 }
 
-class UsesrOnTripsWhereUniqueInput
+class UsersOnTripsWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsWhereUniqueInput({
+  const UsersOnTripsWhereUniqueInput({
     this.id,
     this.AND,
     this.OR,
@@ -2070,13 +2070,13 @@ class UsesrOnTripsWhereUniqueInput
 
   final String? id;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereInput,
-      Iterable<_i2.UsesrOnTripsWhereInput>>? AND;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereInput,
+      Iterable<_i2.UsersOnTripsWhereInput>>? AND;
 
-  final Iterable<_i2.UsesrOnTripsWhereInput>? OR;
+  final Iterable<_i2.UsersOnTripsWhereInput>? OR;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereInput,
-      Iterable<_i2.UsesrOnTripsWhereInput>>? NOT;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereInput,
+      Iterable<_i2.UsersOnTripsWhereInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidFilter, String>? userId;
 
@@ -2108,15 +2108,15 @@ class UsesrOnTripsWhereUniqueInput
       };
 }
 
-enum UsesrOnTripsScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
-  id<String>('id', 'UsesrOnTrips'),
-  userId<String>('userId', 'UsesrOnTrips'),
-  tripId<String>('tripId', 'UsesrOnTrips'),
-  role<_i3.Role>('role', 'UsesrOnTrips'),
-  createdAt<DateTime>('createdAt', 'UsesrOnTrips'),
-  updatedAt<DateTime>('updatedAt', 'UsesrOnTrips');
+enum UsersOnTripsScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
+  id<String>('id', 'UsersOnTrips'),
+  userId<String>('userId', 'UsersOnTrips'),
+  tripId<String>('tripId', 'UsersOnTrips'),
+  role<_i3.Role>('role', 'UsersOnTrips'),
+  createdAt<DateTime>('createdAt', 'UsersOnTrips'),
+  updatedAt<DateTime>('updatedAt', 'UsersOnTrips');
 
-  const UsesrOnTripsScalar(
+  const UsersOnTripsScalar(
     this.name,
     this.model,
   );
@@ -2141,24 +2141,24 @@ class UserUsesrOnTripsArgs
     this.include,
   });
 
-  final _i2.UsesrOnTripsWhereInput? where;
+  final _i2.UsersOnTripsWhereInput? where;
 
-  final _i1.PrismaUnion<Iterable<_i2.UsesrOnTripsOrderByWithRelationInput>,
-      _i2.UsesrOnTripsOrderByWithRelationInput>? orderBy;
+  final _i1.PrismaUnion<Iterable<_i2.UsersOnTripsOrderByWithRelationInput>,
+      _i2.UsersOnTripsOrderByWithRelationInput>? orderBy;
 
-  final _i2.UsesrOnTripsWhereUniqueInput? cursor;
+  final _i2.UsersOnTripsWhereUniqueInput? cursor;
 
   final int? take;
 
   final int? skip;
 
   final _i1
-      .PrismaUnion<_i2.UsesrOnTripsScalar, Iterable<_i2.UsesrOnTripsScalar>>?
+      .PrismaUnion<_i2.UsersOnTripsScalar, Iterable<_i2.UsersOnTripsScalar>>?
       distinct;
 
-  final _i2.UsesrOnTripsSelect? select;
+  final _i2.UsersOnTripsSelect? select;
 
-  final _i2.UsesrOnTripsInclude? include;
+  final _i2.UsersOnTripsInclude? include;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2301,24 +2301,24 @@ class TripUsesrOnTripsArgs
     this.include,
   });
 
-  final _i2.UsesrOnTripsWhereInput? where;
+  final _i2.UsersOnTripsWhereInput? where;
 
-  final _i1.PrismaUnion<Iterable<_i2.UsesrOnTripsOrderByWithRelationInput>,
-      _i2.UsesrOnTripsOrderByWithRelationInput>? orderBy;
+  final _i1.PrismaUnion<Iterable<_i2.UsersOnTripsOrderByWithRelationInput>,
+      _i2.UsersOnTripsOrderByWithRelationInput>? orderBy;
 
-  final _i2.UsesrOnTripsWhereUniqueInput? cursor;
+  final _i2.UsersOnTripsWhereUniqueInput? cursor;
 
   final int? take;
 
   final int? skip;
 
   final _i1
-      .PrismaUnion<_i2.UsesrOnTripsScalar, Iterable<_i2.UsesrOnTripsScalar>>?
+      .PrismaUnion<_i2.UsersOnTripsScalar, Iterable<_i2.UsersOnTripsScalar>>?
       distinct;
 
-  final _i2.UsesrOnTripsSelect? select;
+  final _i2.UsersOnTripsSelect? select;
 
-  final _i2.UsesrOnTripsInclude? include;
+  final _i2.UsersOnTripsInclude? include;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2959,9 +2959,9 @@ class PlaceUncheckedCreateNestedManyWithoutTripInput
       };
 }
 
-class UsesrOnTripsUncheckedCreateWithoutTripInput
+class UsersOnTripsUncheckedCreateWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedCreateWithoutTripInput({
+  const UsersOnTripsUncheckedCreateWithoutTripInput({
     this.id,
     required this.userId,
     this.role,
@@ -2989,17 +2989,17 @@ class UsesrOnTripsUncheckedCreateWithoutTripInput
       };
 }
 
-class UsesrOnTripsCreateOrConnectWithoutTripInput
+class UsersOnTripsCreateOrConnectWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateOrConnectWithoutTripInput({
+  const UsersOnTripsCreateOrConnectWithoutTripInput({
     required this.where,
     required this.create,
   });
 
-  final _i2.UsesrOnTripsWhereUniqueInput where;
+  final _i2.UsersOnTripsWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateWithoutTripInput,
-      _i2.UsesrOnTripsUncheckedCreateWithoutTripInput> create;
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateWithoutTripInput,
+      _i2.UsersOnTripsUncheckedCreateWithoutTripInput> create;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3008,9 +3008,9 @@ class UsesrOnTripsCreateOrConnectWithoutTripInput
       };
 }
 
-class UsesrOnTripsCreateManyTripInput
+class UsersOnTripsCreateManyTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateManyTripInput({
+  const UsersOnTripsCreateManyTripInput({
     this.id,
     required this.userId,
     this.role,
@@ -3038,15 +3038,15 @@ class UsesrOnTripsCreateManyTripInput
       };
 }
 
-class UsesrOnTripsCreateManyTripInputEnvelope
+class UsersOnTripsCreateManyTripInputEnvelope
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateManyTripInputEnvelope({
+  const UsersOnTripsCreateManyTripInputEnvelope({
     required this.data,
     this.skipDuplicates,
   });
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateManyTripInput,
-      Iterable<_i2.UsesrOnTripsCreateManyTripInput>> data;
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateManyTripInput,
+      Iterable<_i2.UsersOnTripsCreateManyTripInput>> data;
 
   final bool? skipDuplicates;
 
@@ -3057,9 +3057,9 @@ class UsesrOnTripsCreateManyTripInputEnvelope
       };
 }
 
-class UsesrOnTripsUncheckedCreateNestedManyWithoutTripInput
+class UsersOnTripsUncheckedCreateNestedManyWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedCreateNestedManyWithoutTripInput({
+  const UsersOnTripsUncheckedCreateNestedManyWithoutTripInput({
     this.create,
     this.connectOrCreate,
     this.createMany,
@@ -3067,21 +3067,21 @@ class UsesrOnTripsUncheckedCreateNestedManyWithoutTripInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutTripInput,
+          _i2.UsersOnTripsCreateWithoutTripInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutTripInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutTripInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutTripInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutTripInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutTripInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutTripInput>>?
       connectOrCreate;
 
-  final _i2.UsesrOnTripsCreateManyTripInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyTripInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3122,7 +3122,7 @@ class TripUncheckedCreateWithoutUsersInput
 
   final _i2.PlaceUncheckedCreateNestedManyWithoutTripInput? places;
 
-  final _i2.UsesrOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3286,9 +3286,9 @@ class UserCreateNestedOneWithoutUsesrOnTripsInput
       };
 }
 
-class UsesrOnTripsCreateWithoutTripInput
+class UsersOnTripsCreateWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateWithoutTripInput({
+  const UsersOnTripsCreateWithoutTripInput({
     this.id,
     this.role,
     this.createdAt,
@@ -3316,9 +3316,9 @@ class UsesrOnTripsCreateWithoutTripInput
       };
 }
 
-class UsesrOnTripsCreateNestedManyWithoutTripInput
+class UsersOnTripsCreateNestedManyWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateNestedManyWithoutTripInput({
+  const UsersOnTripsCreateNestedManyWithoutTripInput({
     this.create,
     this.connectOrCreate,
     this.createMany,
@@ -3326,21 +3326,21 @@ class UsesrOnTripsCreateNestedManyWithoutTripInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutTripInput,
+          _i2.UsersOnTripsCreateWithoutTripInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutTripInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutTripInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutTripInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutTripInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutTripInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutTripInput>>?
       connectOrCreate;
 
-  final _i2.UsesrOnTripsCreateManyTripInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyTripInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3381,7 +3381,7 @@ class TripCreateWithoutUsersInput
 
   final _i2.PlaceCreateNestedManyWithoutTripInput? places;
 
-  final _i2.UsesrOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3465,7 +3465,7 @@ class UserCreateWithoutTripsInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? bio;
 
-  final _i2.UsesrOnTripsCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutUserInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3484,9 +3484,9 @@ class UserCreateWithoutTripsInput
       };
 }
 
-class UsesrOnTripsUncheckedCreateWithoutUserInput
+class UsersOnTripsUncheckedCreateWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedCreateWithoutUserInput({
+  const UsersOnTripsUncheckedCreateWithoutUserInput({
     this.id,
     required this.tripId,
     this.role,
@@ -3514,17 +3514,17 @@ class UsesrOnTripsUncheckedCreateWithoutUserInput
       };
 }
 
-class UsesrOnTripsCreateOrConnectWithoutUserInput
+class UsersOnTripsCreateOrConnectWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateOrConnectWithoutUserInput({
+  const UsersOnTripsCreateOrConnectWithoutUserInput({
     required this.where,
     required this.create,
   });
 
-  final _i2.UsesrOnTripsWhereUniqueInput where;
+  final _i2.UsersOnTripsWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateWithoutUserInput,
-      _i2.UsesrOnTripsUncheckedCreateWithoutUserInput> create;
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateWithoutUserInput,
+      _i2.UsersOnTripsUncheckedCreateWithoutUserInput> create;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3533,9 +3533,9 @@ class UsesrOnTripsCreateOrConnectWithoutUserInput
       };
 }
 
-class UsesrOnTripsCreateManyUserInput
+class UsersOnTripsCreateManyUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateManyUserInput({
+  const UsersOnTripsCreateManyUserInput({
     this.id,
     required this.tripId,
     this.role,
@@ -3563,15 +3563,15 @@ class UsesrOnTripsCreateManyUserInput
       };
 }
 
-class UsesrOnTripsCreateManyUserInputEnvelope
+class UsersOnTripsCreateManyUserInputEnvelope
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateManyUserInputEnvelope({
+  const UsersOnTripsCreateManyUserInputEnvelope({
     required this.data,
     this.skipDuplicates,
   });
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateManyUserInput,
-      Iterable<_i2.UsesrOnTripsCreateManyUserInput>> data;
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateManyUserInput,
+      Iterable<_i2.UsersOnTripsCreateManyUserInput>> data;
 
   final bool? skipDuplicates;
 
@@ -3582,9 +3582,9 @@ class UsesrOnTripsCreateManyUserInputEnvelope
       };
 }
 
-class UsesrOnTripsUncheckedCreateNestedManyWithoutUserInput
+class UsersOnTripsUncheckedCreateNestedManyWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedCreateNestedManyWithoutUserInput({
+  const UsersOnTripsUncheckedCreateNestedManyWithoutUserInput({
     this.create,
     this.connectOrCreate,
     this.createMany,
@@ -3592,21 +3592,21 @@ class UsesrOnTripsUncheckedCreateNestedManyWithoutUserInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutUserInput,
+          _i2.UsersOnTripsCreateWithoutUserInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutUserInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutUserInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutUserInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutUserInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutUserInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutUserInput>>?
       connectOrCreate;
 
-  final _i2.UsesrOnTripsCreateManyUserInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyUserInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3656,7 +3656,7 @@ class UserUncheckedCreateWithoutTripsInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? bio;
 
-  final _i2.UsesrOnTripsUncheckedCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutUserInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3886,9 +3886,9 @@ class TripCreateNestedOneWithoutUsesrOnTripsInput
       };
 }
 
-class UsesrOnTripsCreateWithoutUserInput
+class UsersOnTripsCreateWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateWithoutUserInput({
+  const UsersOnTripsCreateWithoutUserInput({
     this.id,
     this.role,
     this.createdAt,
@@ -3916,9 +3916,9 @@ class UsesrOnTripsCreateWithoutUserInput
       };
 }
 
-class UsesrOnTripsCreateNestedManyWithoutUserInput
+class UsersOnTripsCreateNestedManyWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateNestedManyWithoutUserInput({
+  const UsersOnTripsCreateNestedManyWithoutUserInput({
     this.create,
     this.connectOrCreate,
     this.createMany,
@@ -3926,21 +3926,21 @@ class UsesrOnTripsCreateNestedManyWithoutUserInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutUserInput,
+          _i2.UsersOnTripsCreateWithoutUserInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutUserInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutUserInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutUserInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutUserInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutUserInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutUserInput>>?
       connectOrCreate;
 
-  final _i2.UsesrOnTripsCreateManyUserInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyUserInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3992,7 +3992,7 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.TripCreateNestedManyWithoutUsersInput? trips;
 
-  final _i2.UsesrOnTripsCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutUserInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4054,7 +4054,7 @@ class UserUncheckedCreateInput
 
   final _i2.TripUncheckedCreateNestedManyWithoutUsersInput? trips;
 
-  final _i2.UsesrOnTripsUncheckedCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutUserInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5103,9 +5103,9 @@ class PlaceUncheckedUpdateManyWithoutTripNestedInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateWithoutTripInput
+class UsersOnTripsUncheckedUpdateWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateWithoutTripInput({
+  const UsersOnTripsUncheckedUpdateWithoutTripInput({
     this.id,
     this.userId,
     this.role,
@@ -5135,17 +5135,17 @@ class UsesrOnTripsUncheckedUpdateWithoutTripInput
       };
 }
 
-class UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput
+class UsersOnTripsUpdateWithWhereUniqueWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput({
+  const UsersOnTripsUpdateWithWhereUniqueWithoutTripInput({
     required this.where,
     required this.data,
   });
 
-  final _i2.UsesrOnTripsWhereUniqueInput where;
+  final _i2.UsersOnTripsWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithoutTripInput,
-      _i2.UsesrOnTripsUncheckedUpdateWithoutTripInput> data;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithoutTripInput,
+      _i2.UsersOnTripsUncheckedUpdateWithoutTripInput> data;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5154,9 +5154,9 @@ class UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput
       };
 }
 
-class UsesrOnTripsScalarWhereInput
+class UsersOnTripsScalarWhereInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsScalarWhereInput({
+  const UsersOnTripsScalarWhereInput({
     this.AND,
     this.OR,
     this.NOT,
@@ -5168,13 +5168,13 @@ class UsesrOnTripsScalarWhereInput
     this.updatedAt,
   });
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereInput>>? AND;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereInput,
+      Iterable<_i2.UsersOnTripsScalarWhereInput>>? AND;
 
-  final Iterable<_i2.UsesrOnTripsScalarWhereInput>? OR;
+  final Iterable<_i2.UsersOnTripsScalarWhereInput>? OR;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereInput>>? NOT;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereInput,
+      Iterable<_i2.UsersOnTripsScalarWhereInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidFilter, String>? id;
 
@@ -5202,9 +5202,9 @@ class UsesrOnTripsScalarWhereInput
       };
 }
 
-class UsesrOnTripsUpdateManyMutationInput
+class UsersOnTripsUpdateManyMutationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateManyMutationInput({
+  const UsersOnTripsUpdateManyMutationInput({
     this.id,
     this.role,
     this.createdAt,
@@ -5230,9 +5230,9 @@ class UsesrOnTripsUpdateManyMutationInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateManyWithoutTripInput
+class UsersOnTripsUncheckedUpdateManyWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateManyWithoutTripInput({
+  const UsersOnTripsUncheckedUpdateManyWithoutTripInput({
     this.id,
     this.userId,
     this.role,
@@ -5262,17 +5262,17 @@ class UsesrOnTripsUncheckedUpdateManyWithoutTripInput
       };
 }
 
-class UsesrOnTripsUpdateManyWithWhereWithoutTripInput
+class UsersOnTripsUpdateManyWithWhereWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateManyWithWhereWithoutTripInput({
+  const UsersOnTripsUpdateManyWithWhereWithoutTripInput({
     required this.where,
     required this.data,
   });
 
-  final _i2.UsesrOnTripsScalarWhereInput where;
+  final _i2.UsersOnTripsScalarWhereInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateManyMutationInput,
-      _i2.UsesrOnTripsUncheckedUpdateManyWithoutTripInput> data;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateManyMutationInput,
+      _i2.UsersOnTripsUncheckedUpdateManyWithoutTripInput> data;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5281,9 +5281,9 @@ class UsesrOnTripsUpdateManyWithWhereWithoutTripInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateManyWithoutTripNestedInput
+class UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateManyWithoutTripNestedInput({
+  const UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
@@ -5298,43 +5298,43 @@ class UsesrOnTripsUncheckedUpdateManyWithoutTripNestedInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutTripInput,
+          _i2.UsersOnTripsCreateWithoutTripInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutTripInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutTripInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutTripInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutTripInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutTripInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutTripInput>>?
       connectOrCreate;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput,
-      Iterable<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput>>? upsert;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutTripInput,
+      Iterable<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutTripInput>>? upsert;
 
-  final _i2.UsesrOnTripsCreateManyTripInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyTripInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? set;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? set;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? disconnect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? disconnect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? delete;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? delete;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput,
-      Iterable<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput>>? update;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutTripInput,
+      Iterable<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutTripInput>>? update;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateManyWithWhereWithoutTripInput,
-          Iterable<_i2.UsesrOnTripsUpdateManyWithWhereWithoutTripInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateManyWithWhereWithoutTripInput,
+          Iterable<_i2.UsersOnTripsUpdateManyWithWhereWithoutTripInput>>?
       updateMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereInput>>? deleteMany;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereInput,
+      Iterable<_i2.UsersOnTripsScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5389,7 +5389,7 @@ class TripUncheckedUpdateWithoutUsersInput
 
   final _i2.PlaceUncheckedUpdateManyWithoutTripNestedInput? places;
 
-  final _i2.UsesrOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5803,9 +5803,9 @@ class UserUpdateOneRequiredWithoutUsesrOnTripsNestedInput
       };
 }
 
-class UsesrOnTripsUpdateWithoutTripInput
+class UsersOnTripsUpdateWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateWithoutTripInput({
+  const UsersOnTripsUpdateWithoutTripInput({
     this.id,
     this.role,
     this.createdAt,
@@ -5835,21 +5835,21 @@ class UsesrOnTripsUpdateWithoutTripInput
       };
 }
 
-class UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput
+class UsersOnTripsUpsertWithWhereUniqueWithoutTripInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput({
+  const UsersOnTripsUpsertWithWhereUniqueWithoutTripInput({
     required this.where,
     required this.update,
     required this.create,
   });
 
-  final _i2.UsesrOnTripsWhereUniqueInput where;
+  final _i2.UsersOnTripsWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithoutTripInput,
-      _i2.UsesrOnTripsUncheckedUpdateWithoutTripInput> update;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithoutTripInput,
+      _i2.UsersOnTripsUncheckedUpdateWithoutTripInput> update;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateWithoutTripInput,
-      _i2.UsesrOnTripsUncheckedCreateWithoutTripInput> create;
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateWithoutTripInput,
+      _i2.UsersOnTripsUncheckedCreateWithoutTripInput> create;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5859,9 +5859,9 @@ class UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput
       };
 }
 
-class UsesrOnTripsUpdateManyWithoutTripNestedInput
+class UsersOnTripsUpdateManyWithoutTripNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateManyWithoutTripNestedInput({
+  const UsersOnTripsUpdateManyWithoutTripNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
@@ -5876,43 +5876,43 @@ class UsesrOnTripsUpdateManyWithoutTripNestedInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutTripInput,
+          _i2.UsersOnTripsCreateWithoutTripInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutTripInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutTripInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutTripInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutTripInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutTripInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutTripInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutTripInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutTripInput>>?
       connectOrCreate;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput,
-      Iterable<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutTripInput>>? upsert;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutTripInput,
+      Iterable<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutTripInput>>? upsert;
 
-  final _i2.UsesrOnTripsCreateManyTripInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyTripInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? set;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? set;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? disconnect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? disconnect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? delete;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? delete;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput,
-      Iterable<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutTripInput>>? update;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutTripInput,
+      Iterable<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutTripInput>>? update;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateManyWithWhereWithoutTripInput,
-          Iterable<_i2.UsesrOnTripsUpdateManyWithWhereWithoutTripInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateManyWithWhereWithoutTripInput,
+          Iterable<_i2.UsersOnTripsUpdateManyWithWhereWithoutTripInput>>?
       updateMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereInput>>? deleteMany;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereInput,
+      Iterable<_i2.UsersOnTripsScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5967,7 +5967,7 @@ class TripUpdateWithoutUsersInput
 
   final _i2.PlaceUpdateManyWithoutTripNestedInput? places;
 
-  final _i2.UsesrOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6128,7 +6128,7 @@ class UserUpdateWithoutTripsInput
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
           _i1.PrismaNull>>? bio;
 
-  final _i2.UsesrOnTripsUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutUserNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6147,9 +6147,9 @@ class UserUpdateWithoutTripsInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateWithoutUserInput
+class UsersOnTripsUncheckedUpdateWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateWithoutUserInput({
+  const UsersOnTripsUncheckedUpdateWithoutUserInput({
     this.id,
     this.tripId,
     this.role,
@@ -6179,17 +6179,17 @@ class UsesrOnTripsUncheckedUpdateWithoutUserInput
       };
 }
 
-class UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput
+class UsersOnTripsUpdateWithWhereUniqueWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput({
+  const UsersOnTripsUpdateWithWhereUniqueWithoutUserInput({
     required this.where,
     required this.data,
   });
 
-  final _i2.UsesrOnTripsWhereUniqueInput where;
+  final _i2.UsersOnTripsWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithoutUserInput,
-      _i2.UsesrOnTripsUncheckedUpdateWithoutUserInput> data;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithoutUserInput,
+      _i2.UsersOnTripsUncheckedUpdateWithoutUserInput> data;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6198,9 +6198,9 @@ class UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateManyWithoutUserInput
+class UsersOnTripsUncheckedUpdateManyWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateManyWithoutUserInput({
+  const UsersOnTripsUncheckedUpdateManyWithoutUserInput({
     this.id,
     this.tripId,
     this.role,
@@ -6230,17 +6230,17 @@ class UsesrOnTripsUncheckedUpdateManyWithoutUserInput
       };
 }
 
-class UsesrOnTripsUpdateManyWithWhereWithoutUserInput
+class UsersOnTripsUpdateManyWithWhereWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateManyWithWhereWithoutUserInput({
+  const UsersOnTripsUpdateManyWithWhereWithoutUserInput({
     required this.where,
     required this.data,
   });
 
-  final _i2.UsesrOnTripsScalarWhereInput where;
+  final _i2.UsersOnTripsScalarWhereInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateManyMutationInput,
-      _i2.UsesrOnTripsUncheckedUpdateManyWithoutUserInput> data;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateManyMutationInput,
+      _i2.UsersOnTripsUncheckedUpdateManyWithoutUserInput> data;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6249,9 +6249,9 @@ class UsesrOnTripsUpdateManyWithWhereWithoutUserInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateManyWithoutUserNestedInput
+class UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateManyWithoutUserNestedInput({
+  const UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
@@ -6266,43 +6266,43 @@ class UsesrOnTripsUncheckedUpdateManyWithoutUserNestedInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutUserInput,
+          _i2.UsersOnTripsCreateWithoutUserInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutUserInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutUserInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutUserInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutUserInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutUserInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutUserInput>>?
       connectOrCreate;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput,
-      Iterable<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput>>? upsert;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutUserInput>>? upsert;
 
-  final _i2.UsesrOnTripsCreateManyUserInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyUserInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? set;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? set;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? disconnect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? disconnect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? delete;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? delete;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput,
-      Iterable<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput>>? update;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutUserInput>>? update;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateManyWithWhereWithoutUserInput,
-          Iterable<_i2.UsesrOnTripsUpdateManyWithWhereWithoutUserInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateManyWithWhereWithoutUserInput,
+          Iterable<_i2.UsersOnTripsUpdateManyWithWhereWithoutUserInput>>?
       updateMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereInput>>? deleteMany;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereInput,
+      Iterable<_i2.UsersOnTripsScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6377,7 +6377,7 @@ class UserUncheckedUpdateWithoutTripsInput
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
           _i1.PrismaNull>>? bio;
 
-  final _i2.UsesrOnTripsUncheckedUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6985,9 +6985,9 @@ class TripUpdateOneRequiredWithoutUsesrOnTripsNestedInput
       };
 }
 
-class UsesrOnTripsUpdateWithoutUserInput
+class UsersOnTripsUpdateWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateWithoutUserInput({
+  const UsersOnTripsUpdateWithoutUserInput({
     this.id,
     this.role,
     this.createdAt,
@@ -7017,21 +7017,21 @@ class UsesrOnTripsUpdateWithoutUserInput
       };
 }
 
-class UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput
+class UsersOnTripsUpsertWithWhereUniqueWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput({
+  const UsersOnTripsUpsertWithWhereUniqueWithoutUserInput({
     required this.where,
     required this.update,
     required this.create,
   });
 
-  final _i2.UsesrOnTripsWhereUniqueInput where;
+  final _i2.UsersOnTripsWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithoutUserInput,
-      _i2.UsesrOnTripsUncheckedUpdateWithoutUserInput> update;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithoutUserInput,
+      _i2.UsersOnTripsUncheckedUpdateWithoutUserInput> update;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateWithoutUserInput,
-      _i2.UsesrOnTripsUncheckedCreateWithoutUserInput> create;
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateWithoutUserInput,
+      _i2.UsersOnTripsUncheckedCreateWithoutUserInput> create;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7041,9 +7041,9 @@ class UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput
       };
 }
 
-class UsesrOnTripsUpdateManyWithoutUserNestedInput
+class UsersOnTripsUpdateManyWithoutUserNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateManyWithoutUserNestedInput({
+  const UsersOnTripsUpdateManyWithoutUserNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
@@ -7058,43 +7058,43 @@ class UsesrOnTripsUpdateManyWithoutUserNestedInput
   });
 
   final _i1.PrismaUnion<
-          _i2.UsesrOnTripsCreateWithoutUserInput,
+          _i2.UsersOnTripsCreateWithoutUserInput,
           _i1.PrismaUnion<
-              Iterable<_i2.UsesrOnTripsCreateWithoutUserInput>,
-              _i1.PrismaUnion<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput,
-                  Iterable<_i2.UsesrOnTripsUncheckedCreateWithoutUserInput>>>>?
+              Iterable<_i2.UsersOnTripsCreateWithoutUserInput>,
+              _i1.PrismaUnion<_i2.UsersOnTripsUncheckedCreateWithoutUserInput,
+                  Iterable<_i2.UsersOnTripsUncheckedCreateWithoutUserInput>>>>?
       create;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput,
-          Iterable<_i2.UsesrOnTripsCreateOrConnectWithoutUserInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsCreateOrConnectWithoutUserInput,
+          Iterable<_i2.UsersOnTripsCreateOrConnectWithoutUserInput>>?
       connectOrCreate;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput,
-      Iterable<_i2.UsesrOnTripsUpsertWithWhereUniqueWithoutUserInput>>? upsert;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.UsersOnTripsUpsertWithWhereUniqueWithoutUserInput>>? upsert;
 
-  final _i2.UsesrOnTripsCreateManyUserInputEnvelope? createMany;
+  final _i2.UsersOnTripsCreateManyUserInputEnvelope? createMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? set;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? set;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? disconnect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? disconnect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? delete;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? delete;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsWhereUniqueInput,
-      Iterable<_i2.UsesrOnTripsWhereUniqueInput>>? connect;
+  final _i1.PrismaUnion<_i2.UsersOnTripsWhereUniqueInput,
+      Iterable<_i2.UsersOnTripsWhereUniqueInput>>? connect;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput,
-      Iterable<_i2.UsesrOnTripsUpdateWithWhereUniqueWithoutUserInput>>? update;
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.UsersOnTripsUpdateWithWhereUniqueWithoutUserInput>>? update;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsUpdateManyWithWhereWithoutUserInput,
-          Iterable<_i2.UsesrOnTripsUpdateManyWithWhereWithoutUserInput>>?
+  final _i1.PrismaUnion<_i2.UsersOnTripsUpdateManyWithWhereWithoutUserInput,
+          Iterable<_i2.UsersOnTripsUpdateManyWithWhereWithoutUserInput>>?
       updateMany;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereInput>>? deleteMany;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereInput,
+      Iterable<_i2.UsersOnTripsScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7171,7 +7171,7 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.TripUpdateManyWithoutUsersNestedInput? trips;
 
-  final _i2.UsesrOnTripsUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutUserNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7251,7 +7251,7 @@ class UserUncheckedUpdateInput
 
   final _i2.TripUncheckedUpdateManyWithoutUsersNestedInput? trips;
 
-  final _i2.UsesrOnTripsUncheckedUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9031,7 +9031,7 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.UserCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsesrOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9081,7 +9081,7 @@ class TripUncheckedCreateInput
 
   final _i2.UserUncheckedCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsesrOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9212,7 +9212,7 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.UserUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsesrOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9269,7 +9269,7 @@ class TripUncheckedUpdateInput
 
   final _i2.UserUncheckedUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsesrOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -10090,9 +10090,9 @@ class AggregateTripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class UsesrOnTripsCreateInput
+class UsersOnTripsCreateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateInput({
+  const UsersOnTripsCreateInput({
     this.id,
     this.role,
     this.createdAt,
@@ -10124,9 +10124,9 @@ class UsesrOnTripsCreateInput
       };
 }
 
-class UsesrOnTripsUncheckedCreateInput
+class UsersOnTripsUncheckedCreateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedCreateInput({
+  const UsersOnTripsUncheckedCreateInput({
     this.id,
     required this.userId,
     required this.tripId,
@@ -10158,9 +10158,9 @@ class UsesrOnTripsUncheckedCreateInput
       };
 }
 
-class UsesrOnTripsCreateManyInput
+class UsersOnTripsCreateManyInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCreateManyInput({
+  const UsersOnTripsCreateManyInput({
     this.id,
     required this.userId,
     required this.tripId,
@@ -10192,9 +10192,9 @@ class UsesrOnTripsCreateManyInput
       };
 }
 
-class CreateManyUsesrOnTripsAndReturnOutputTypeUserArgs
+class CreateManyUsersOnTripsAndReturnOutputTypeUserArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const CreateManyUsesrOnTripsAndReturnOutputTypeUserArgs({
+  const CreateManyUsersOnTripsAndReturnOutputTypeUserArgs({
     this.select,
     this.include,
   });
@@ -10210,9 +10210,9 @@ class CreateManyUsesrOnTripsAndReturnOutputTypeUserArgs
       };
 }
 
-class CreateManyUsesrOnTripsAndReturnOutputTypeTripArgs
+class CreateManyUsersOnTripsAndReturnOutputTypeTripArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const CreateManyUsesrOnTripsAndReturnOutputTypeTripArgs({
+  const CreateManyUsersOnTripsAndReturnOutputTypeTripArgs({
     this.select,
     this.include,
   });
@@ -10228,9 +10228,9 @@ class CreateManyUsesrOnTripsAndReturnOutputTypeTripArgs
       };
 }
 
-class CreateManyUsesrOnTripsAndReturnOutputTypeSelect
+class CreateManyUsersOnTripsAndReturnOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const CreateManyUsesrOnTripsAndReturnOutputTypeSelect({
+  const CreateManyUsersOnTripsAndReturnOutputTypeSelect({
     this.id,
     this.userId,
     this.tripId,
@@ -10254,11 +10254,11 @@ class CreateManyUsesrOnTripsAndReturnOutputTypeSelect
   final bool? updatedAt;
 
   final _i1
-      .PrismaUnion<bool, _i2.CreateManyUsesrOnTripsAndReturnOutputTypeUserArgs>?
+      .PrismaUnion<bool, _i2.CreateManyUsersOnTripsAndReturnOutputTypeUserArgs>?
       user;
 
   final _i1
-      .PrismaUnion<bool, _i2.CreateManyUsesrOnTripsAndReturnOutputTypeTripArgs>?
+      .PrismaUnion<bool, _i2.CreateManyUsersOnTripsAndReturnOutputTypeTripArgs>?
       trip;
 
   @override
@@ -10274,19 +10274,19 @@ class CreateManyUsesrOnTripsAndReturnOutputTypeSelect
       };
 }
 
-class CreateManyUsesrOnTripsAndReturnOutputTypeInclude
+class CreateManyUsersOnTripsAndReturnOutputTypeInclude
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const CreateManyUsesrOnTripsAndReturnOutputTypeInclude({
+  const CreateManyUsersOnTripsAndReturnOutputTypeInclude({
     this.user,
     this.trip,
   });
 
   final _i1
-      .PrismaUnion<bool, _i2.CreateManyUsesrOnTripsAndReturnOutputTypeUserArgs>?
+      .PrismaUnion<bool, _i2.CreateManyUsersOnTripsAndReturnOutputTypeUserArgs>?
       user;
 
   final _i1
-      .PrismaUnion<bool, _i2.CreateManyUsesrOnTripsAndReturnOutputTypeTripArgs>?
+      .PrismaUnion<bool, _i2.CreateManyUsersOnTripsAndReturnOutputTypeTripArgs>?
       trip;
 
   @override
@@ -10296,9 +10296,9 @@ class CreateManyUsesrOnTripsAndReturnOutputTypeInclude
       };
 }
 
-class UsesrOnTripsUpdateInput
+class UsersOnTripsUpdateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUpdateInput({
+  const UsersOnTripsUpdateInput({
     this.id,
     this.role,
     this.createdAt,
@@ -10332,9 +10332,9 @@ class UsesrOnTripsUpdateInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateInput
+class UsersOnTripsUncheckedUpdateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateInput({
+  const UsersOnTripsUncheckedUpdateInput({
     this.id,
     this.userId,
     this.tripId,
@@ -10368,9 +10368,9 @@ class UsesrOnTripsUncheckedUpdateInput
       };
 }
 
-class UsesrOnTripsUncheckedUpdateManyInput
+class UsersOnTripsUncheckedUpdateManyInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsUncheckedUpdateManyInput({
+  const UsersOnTripsUncheckedUpdateManyInput({
     this.id,
     this.userId,
     this.tripId,
@@ -10404,8 +10404,8 @@ class UsesrOnTripsUncheckedUpdateManyInput
       };
 }
 
-class UsesrOnTripsCountAggregateOutputType {
-  const UsesrOnTripsCountAggregateOutputType({
+class UsersOnTripsCountAggregateOutputType {
+  const UsersOnTripsCountAggregateOutputType({
     this.id,
     this.userId,
     this.tripId,
@@ -10415,8 +10415,8 @@ class UsesrOnTripsCountAggregateOutputType {
     this.$all,
   });
 
-  factory UsesrOnTripsCountAggregateOutputType.fromJson(Map json) =>
-      UsesrOnTripsCountAggregateOutputType(
+  factory UsersOnTripsCountAggregateOutputType.fromJson(Map json) =>
+      UsersOnTripsCountAggregateOutputType(
         id: json['id'],
         userId: json['userId'],
         tripId: json['tripId'],
@@ -10451,8 +10451,8 @@ class UsesrOnTripsCountAggregateOutputType {
       };
 }
 
-class UsesrOnTripsMinAggregateOutputType {
-  const UsesrOnTripsMinAggregateOutputType({
+class UsersOnTripsMinAggregateOutputType {
+  const UsersOnTripsMinAggregateOutputType({
     this.id,
     this.userId,
     this.tripId,
@@ -10461,8 +10461,8 @@ class UsesrOnTripsMinAggregateOutputType {
     this.updatedAt,
   });
 
-  factory UsesrOnTripsMinAggregateOutputType.fromJson(Map json) =>
-      UsesrOnTripsMinAggregateOutputType(
+  factory UsersOnTripsMinAggregateOutputType.fromJson(Map json) =>
+      UsersOnTripsMinAggregateOutputType(
         id: json['id'],
         userId: json['userId'],
         tripId: json['tripId'],
@@ -10503,8 +10503,8 @@ class UsesrOnTripsMinAggregateOutputType {
       };
 }
 
-class UsesrOnTripsMaxAggregateOutputType {
-  const UsesrOnTripsMaxAggregateOutputType({
+class UsersOnTripsMaxAggregateOutputType {
+  const UsersOnTripsMaxAggregateOutputType({
     this.id,
     this.userId,
     this.tripId,
@@ -10513,8 +10513,8 @@ class UsesrOnTripsMaxAggregateOutputType {
     this.updatedAt,
   });
 
-  factory UsesrOnTripsMaxAggregateOutputType.fromJson(Map json) =>
-      UsesrOnTripsMaxAggregateOutputType(
+  factory UsersOnTripsMaxAggregateOutputType.fromJson(Map json) =>
+      UsersOnTripsMaxAggregateOutputType(
         id: json['id'],
         userId: json['userId'],
         tripId: json['tripId'],
@@ -10555,8 +10555,8 @@ class UsesrOnTripsMaxAggregateOutputType {
       };
 }
 
-class UsesrOnTripsGroupByOutputType {
-  const UsesrOnTripsGroupByOutputType({
+class UsersOnTripsGroupByOutputType {
+  const UsersOnTripsGroupByOutputType({
     this.id,
     this.userId,
     this.tripId,
@@ -10568,8 +10568,8 @@ class UsesrOnTripsGroupByOutputType {
     this.$max,
   });
 
-  factory UsesrOnTripsGroupByOutputType.fromJson(Map json) =>
-      UsesrOnTripsGroupByOutputType(
+  factory UsersOnTripsGroupByOutputType.fromJson(Map json) =>
+      UsersOnTripsGroupByOutputType(
         id: json['id'],
         userId: json['userId'],
         tripId: json['tripId'],
@@ -10587,13 +10587,13 @@ class UsesrOnTripsGroupByOutputType {
           _ => json['updatedAt']
         },
         $count: json['_count'] is Map
-            ? _i2.UsesrOnTripsCountAggregateOutputType.fromJson(json['_count'])
+            ? _i2.UsersOnTripsCountAggregateOutputType.fromJson(json['_count'])
             : null,
         $min: json['_min'] is Map
-            ? _i2.UsesrOnTripsMinAggregateOutputType.fromJson(json['_min'])
+            ? _i2.UsersOnTripsMinAggregateOutputType.fromJson(json['_min'])
             : null,
         $max: json['_max'] is Map
-            ? _i2.UsesrOnTripsMaxAggregateOutputType.fromJson(json['_max'])
+            ? _i2.UsersOnTripsMaxAggregateOutputType.fromJson(json['_max'])
             : null,
       );
 
@@ -10609,11 +10609,11 @@ class UsesrOnTripsGroupByOutputType {
 
   final DateTime? updatedAt;
 
-  final _i2.UsesrOnTripsCountAggregateOutputType? $count;
+  final _i2.UsersOnTripsCountAggregateOutputType? $count;
 
-  final _i2.UsesrOnTripsMinAggregateOutputType? $min;
+  final _i2.UsersOnTripsMinAggregateOutputType? $min;
 
-  final _i2.UsesrOnTripsMaxAggregateOutputType? $max;
+  final _i2.UsersOnTripsMaxAggregateOutputType? $max;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -10628,9 +10628,9 @@ class UsesrOnTripsGroupByOutputType {
       };
 }
 
-class UsesrOnTripsCountOrderByAggregateInput
+class UsersOnTripsCountOrderByAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCountOrderByAggregateInput({
+  const UsersOnTripsCountOrderByAggregateInput({
     this.id,
     this.userId,
     this.tripId,
@@ -10662,9 +10662,9 @@ class UsesrOnTripsCountOrderByAggregateInput
       };
 }
 
-class UsesrOnTripsMaxOrderByAggregateInput
+class UsersOnTripsMaxOrderByAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsMaxOrderByAggregateInput({
+  const UsersOnTripsMaxOrderByAggregateInput({
     this.id,
     this.userId,
     this.tripId,
@@ -10696,9 +10696,9 @@ class UsesrOnTripsMaxOrderByAggregateInput
       };
 }
 
-class UsesrOnTripsMinOrderByAggregateInput
+class UsersOnTripsMinOrderByAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsMinOrderByAggregateInput({
+  const UsersOnTripsMinOrderByAggregateInput({
     this.id,
     this.userId,
     this.tripId,
@@ -10730,9 +10730,9 @@ class UsesrOnTripsMinOrderByAggregateInput
       };
 }
 
-class UsesrOnTripsOrderByWithAggregationInput
+class UsersOnTripsOrderByWithAggregationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsOrderByWithAggregationInput({
+  const UsersOnTripsOrderByWithAggregationInput({
     this.id,
     this.userId,
     this.tripId,
@@ -10756,11 +10756,11 @@ class UsesrOnTripsOrderByWithAggregationInput
 
   final _i2.SortOrder? updatedAt;
 
-  final _i2.UsesrOnTripsCountOrderByAggregateInput? $count;
+  final _i2.UsersOnTripsCountOrderByAggregateInput? $count;
 
-  final _i2.UsesrOnTripsMaxOrderByAggregateInput? $max;
+  final _i2.UsersOnTripsMaxOrderByAggregateInput? $max;
 
-  final _i2.UsesrOnTripsMinOrderByAggregateInput? $min;
+  final _i2.UsersOnTripsMinOrderByAggregateInput? $min;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -10856,9 +10856,9 @@ class EnumRoleWithAggregatesFilter
       };
 }
 
-class UsesrOnTripsScalarWhereWithAggregatesInput
+class UsersOnTripsScalarWhereWithAggregatesInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsScalarWhereWithAggregatesInput({
+  const UsersOnTripsScalarWhereWithAggregatesInput({
     this.AND,
     this.OR,
     this.NOT,
@@ -10870,13 +10870,13 @@ class UsesrOnTripsScalarWhereWithAggregatesInput
     this.updatedAt,
   });
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereWithAggregatesInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereWithAggregatesInput>>? AND;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereWithAggregatesInput,
+      Iterable<_i2.UsersOnTripsScalarWhereWithAggregatesInput>>? AND;
 
-  final Iterable<_i2.UsesrOnTripsScalarWhereWithAggregatesInput>? OR;
+  final Iterable<_i2.UsersOnTripsScalarWhereWithAggregatesInput>? OR;
 
-  final _i1.PrismaUnion<_i2.UsesrOnTripsScalarWhereWithAggregatesInput,
-      Iterable<_i2.UsesrOnTripsScalarWhereWithAggregatesInput>>? NOT;
+  final _i1.PrismaUnion<_i2.UsersOnTripsScalarWhereWithAggregatesInput,
+      Iterable<_i2.UsersOnTripsScalarWhereWithAggregatesInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidWithAggregatesFilter, String>? id;
 
@@ -10904,9 +10904,9 @@ class UsesrOnTripsScalarWhereWithAggregatesInput
       };
 }
 
-class UsesrOnTripsCountAggregateOutputTypeSelect
+class UsersOnTripsCountAggregateOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsCountAggregateOutputTypeSelect({
+  const UsersOnTripsCountAggregateOutputTypeSelect({
     this.id,
     this.userId,
     this.tripId,
@@ -10942,19 +10942,19 @@ class UsesrOnTripsCountAggregateOutputTypeSelect
       };
 }
 
-class UsesrOnTripsGroupByOutputTypeCountArgs
+class UsersOnTripsGroupByOutputTypeCountArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsGroupByOutputTypeCountArgs({this.select});
+  const UsersOnTripsGroupByOutputTypeCountArgs({this.select});
 
-  final _i2.UsesrOnTripsCountAggregateOutputTypeSelect? select;
+  final _i2.UsersOnTripsCountAggregateOutputTypeSelect? select;
 
   @override
   Map<String, dynamic> toJson() => {'select': select};
 }
 
-class UsesrOnTripsMinAggregateOutputTypeSelect
+class UsersOnTripsMinAggregateOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsMinAggregateOutputTypeSelect({
+  const UsersOnTripsMinAggregateOutputTypeSelect({
     this.id,
     this.userId,
     this.tripId,
@@ -10986,19 +10986,19 @@ class UsesrOnTripsMinAggregateOutputTypeSelect
       };
 }
 
-class UsesrOnTripsGroupByOutputTypeMinArgs
+class UsersOnTripsGroupByOutputTypeMinArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsGroupByOutputTypeMinArgs({this.select});
+  const UsersOnTripsGroupByOutputTypeMinArgs({this.select});
 
-  final _i2.UsesrOnTripsMinAggregateOutputTypeSelect? select;
+  final _i2.UsersOnTripsMinAggregateOutputTypeSelect? select;
 
   @override
   Map<String, dynamic> toJson() => {'select': select};
 }
 
-class UsesrOnTripsMaxAggregateOutputTypeSelect
+class UsersOnTripsMaxAggregateOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsMaxAggregateOutputTypeSelect({
+  const UsersOnTripsMaxAggregateOutputTypeSelect({
     this.id,
     this.userId,
     this.tripId,
@@ -11030,19 +11030,19 @@ class UsesrOnTripsMaxAggregateOutputTypeSelect
       };
 }
 
-class UsesrOnTripsGroupByOutputTypeMaxArgs
+class UsersOnTripsGroupByOutputTypeMaxArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsGroupByOutputTypeMaxArgs({this.select});
+  const UsersOnTripsGroupByOutputTypeMaxArgs({this.select});
 
-  final _i2.UsesrOnTripsMaxAggregateOutputTypeSelect? select;
+  final _i2.UsersOnTripsMaxAggregateOutputTypeSelect? select;
 
   @override
   Map<String, dynamic> toJson() => {'select': select};
 }
 
-class UsesrOnTripsGroupByOutputTypeSelect
+class UsersOnTripsGroupByOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UsesrOnTripsGroupByOutputTypeSelect({
+  const UsersOnTripsGroupByOutputTypeSelect({
     this.id,
     this.userId,
     this.tripId,
@@ -11066,12 +11066,12 @@ class UsesrOnTripsGroupByOutputTypeSelect
 
   final bool? updatedAt;
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsGroupByOutputTypeCountArgs>?
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsGroupByOutputTypeCountArgs>?
       $count;
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsGroupByOutputTypeMinArgs>? $min;
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsGroupByOutputTypeMinArgs>? $min;
 
-  final _i1.PrismaUnion<bool, _i2.UsesrOnTripsGroupByOutputTypeMaxArgs>? $max;
+  final _i1.PrismaUnion<bool, _i2.UsersOnTripsGroupByOutputTypeMaxArgs>? $max;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11087,30 +11087,30 @@ class UsesrOnTripsGroupByOutputTypeSelect
       };
 }
 
-class AggregateUsesrOnTrips {
-  const AggregateUsesrOnTrips({
+class AggregateUsersOnTrips {
+  const AggregateUsersOnTrips({
     this.$count,
     this.$min,
     this.$max,
   });
 
-  factory AggregateUsesrOnTrips.fromJson(Map json) => AggregateUsesrOnTrips(
+  factory AggregateUsersOnTrips.fromJson(Map json) => AggregateUsersOnTrips(
         $count: json['_count'] is Map
-            ? _i2.UsesrOnTripsCountAggregateOutputType.fromJson(json['_count'])
+            ? _i2.UsersOnTripsCountAggregateOutputType.fromJson(json['_count'])
             : null,
         $min: json['_min'] is Map
-            ? _i2.UsesrOnTripsMinAggregateOutputType.fromJson(json['_min'])
+            ? _i2.UsersOnTripsMinAggregateOutputType.fromJson(json['_min'])
             : null,
         $max: json['_max'] is Map
-            ? _i2.UsesrOnTripsMaxAggregateOutputType.fromJson(json['_max'])
+            ? _i2.UsersOnTripsMaxAggregateOutputType.fromJson(json['_max'])
             : null,
       );
 
-  final _i2.UsesrOnTripsCountAggregateOutputType? $count;
+  final _i2.UsersOnTripsCountAggregateOutputType? $count;
 
-  final _i2.UsesrOnTripsMinAggregateOutputType? $min;
+  final _i2.UsersOnTripsMinAggregateOutputType? $min;
 
-  final _i2.UsesrOnTripsMaxAggregateOutputType? $max;
+  final _i2.UsersOnTripsMaxAggregateOutputType? $max;
 
   Map<String, dynamic> toJson() => {
         '_count': $count?.toJson(),
@@ -11119,49 +11119,49 @@ class AggregateUsesrOnTrips {
       };
 }
 
-class AggregateUsesrOnTripsCountArgs
+class AggregateUsersOnTripsCountArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AggregateUsesrOnTripsCountArgs({this.select});
+  const AggregateUsersOnTripsCountArgs({this.select});
 
-  final _i2.UsesrOnTripsCountAggregateOutputTypeSelect? select;
+  final _i2.UsersOnTripsCountAggregateOutputTypeSelect? select;
 
   @override
   Map<String, dynamic> toJson() => {'select': select};
 }
 
-class AggregateUsesrOnTripsMinArgs
+class AggregateUsersOnTripsMinArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AggregateUsesrOnTripsMinArgs({this.select});
+  const AggregateUsersOnTripsMinArgs({this.select});
 
-  final _i2.UsesrOnTripsMinAggregateOutputTypeSelect? select;
+  final _i2.UsersOnTripsMinAggregateOutputTypeSelect? select;
 
   @override
   Map<String, dynamic> toJson() => {'select': select};
 }
 
-class AggregateUsesrOnTripsMaxArgs
+class AggregateUsersOnTripsMaxArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AggregateUsesrOnTripsMaxArgs({this.select});
+  const AggregateUsersOnTripsMaxArgs({this.select});
 
-  final _i2.UsesrOnTripsMaxAggregateOutputTypeSelect? select;
+  final _i2.UsersOnTripsMaxAggregateOutputTypeSelect? select;
 
   @override
   Map<String, dynamic> toJson() => {'select': select};
 }
 
-class AggregateUsesrOnTripsSelect
+class AggregateUsersOnTripsSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AggregateUsesrOnTripsSelect({
+  const AggregateUsersOnTripsSelect({
     this.$count,
     this.$min,
     this.$max,
   });
 
-  final _i1.PrismaUnion<bool, _i2.AggregateUsesrOnTripsCountArgs>? $count;
+  final _i1.PrismaUnion<bool, _i2.AggregateUsersOnTripsCountArgs>? $count;
 
-  final _i1.PrismaUnion<bool, _i2.AggregateUsesrOnTripsMinArgs>? $min;
+  final _i1.PrismaUnion<bool, _i2.AggregateUsersOnTripsMinArgs>? $min;
 
-  final _i1.PrismaUnion<bool, _i2.AggregateUsesrOnTripsMaxArgs>? $max;
+  final _i1.PrismaUnion<bool, _i2.AggregateUsersOnTripsMaxArgs>? $max;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11201,7 +11201,7 @@ class TripCreateWithoutPlacesInput
 
   final _i2.UserCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsesrOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11247,7 +11247,7 @@ class TripUncheckedCreateWithoutPlacesInput
 
   final _i2.UserUncheckedCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsesrOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11535,7 +11535,7 @@ class TripUpdateWithoutPlacesInput
 
   final _i2.UserUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsesrOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11588,7 +11588,7 @@ class TripUncheckedUpdateWithoutPlacesInput
 
   final _i2.UserUncheckedUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsesrOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {

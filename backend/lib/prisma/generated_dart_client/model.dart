@@ -150,8 +150,8 @@ enum Role implements _i1.PrismaEnum {
   final String name;
 }
 
-class UsesrOnTrips {
-  const UsesrOnTrips({
+class UsersOnTrips {
+  const UsersOnTrips({
     this.id,
     this.userId,
     this.tripId,
@@ -162,7 +162,7 @@ class UsesrOnTrips {
     this.trip,
   });
 
-  factory UsesrOnTrips.fromJson(Map json) => UsesrOnTrips(
+  factory UsersOnTrips.fromJson(Map json) => UsersOnTrips(
         id: json['id'],
         userId: json['userId'],
         tripId: json['tripId'],
@@ -255,7 +255,7 @@ class Trip {
         users: (json['users'] as Iterable?)
             ?.map((json) => _i2.User.fromJson(json)),
         usesrOnTrips: (json['UsesrOnTrips'] as Iterable?)
-            ?.map((json) => _i2.UsesrOnTrips.fromJson(json)),
+            ?.map((json) => _i2.UsersOnTrips.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.TripCountOutputType.fromJson(json['_count'])
             : null,
@@ -279,7 +279,7 @@ class Trip {
 
   final Iterable<_i2.User>? users;
 
-  final Iterable<_i2.UsesrOnTrips>? usesrOnTrips;
+  final Iterable<_i2.UsersOnTrips>? usesrOnTrips;
 
   final _i3.TripCountOutputType? $count;
 
@@ -342,7 +342,7 @@ class User {
         trips: (json['trips'] as Iterable?)
             ?.map((json) => _i2.Trip.fromJson(json)),
         usesrOnTrips: (json['UsesrOnTrips'] as Iterable?)
-            ?.map((json) => _i2.UsesrOnTrips.fromJson(json)),
+            ?.map((json) => _i2.UsersOnTrips.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.UserCountOutputType.fromJson(json['_count'])
             : null,
@@ -372,7 +372,7 @@ class User {
 
   final Iterable<_i2.Trip>? trips;
 
-  final Iterable<_i2.UsesrOnTrips>? usesrOnTrips;
+  final Iterable<_i2.UsersOnTrips>? usesrOnTrips;
 
   final _i3.UserCountOutputType? $count;
 
@@ -535,8 +535,8 @@ class CreateManyTripAndReturnOutputType {
       };
 }
 
-class CreateManyUsesrOnTripsAndReturnOutputType {
-  const CreateManyUsesrOnTripsAndReturnOutputType({
+class CreateManyUsersOnTripsAndReturnOutputType {
+  const CreateManyUsersOnTripsAndReturnOutputType({
     this.id,
     this.userId,
     this.tripId,
@@ -547,8 +547,8 @@ class CreateManyUsesrOnTripsAndReturnOutputType {
     this.trip,
   });
 
-  factory CreateManyUsesrOnTripsAndReturnOutputType.fromJson(Map json) =>
-      CreateManyUsesrOnTripsAndReturnOutputType(
+  factory CreateManyUsersOnTripsAndReturnOutputType.fromJson(Map json) =>
+      CreateManyUsersOnTripsAndReturnOutputType(
         id: json['id'],
         userId: json['userId'],
         tripId: json['tripId'],

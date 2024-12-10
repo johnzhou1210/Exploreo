@@ -984,15 +984,15 @@ class TripDelegate {
   }
 }
 
-class UsesrOnTripsDelegate {
-  const UsesrOnTripsDelegate._(this._client);
+class UsersOnTripsDelegate {
+  const UsersOnTripsDelegate._(this._client);
 
   final PrismaClient _client;
 
-  _i1.ActionClient<_i2.UsesrOnTrips?> findUnique({
-    required _i3.UsesrOnTripsWhereUniqueInput where,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+  _i1.ActionClient<_i2.UsersOnTrips?> findUnique({
+    required _i3.UsersOnTripsWhereUniqueInput where,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1001,7 +1001,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.findUnique,
       datamodel: PrismaClient.datamodel,
     );
@@ -1010,17 +1010,17 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips?>(
-      action: 'findUniqueUsesrOnTrips',
+    return _i1.ActionClient<_i2.UsersOnTrips?>(
+      action: 'findUniqueUsersOnTrips',
       result: result,
-      factory: (e) => e != null ? _i2.UsesrOnTrips.fromJson(e) : null,
+      factory: (e) => e != null ? _i2.UsersOnTrips.fromJson(e) : null,
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips> findUniqueOrThrow({
-    required _i3.UsesrOnTripsWhereUniqueInput where,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+  _i1.ActionClient<_i2.UsersOnTrips> findUniqueOrThrow({
+    required _i3.UsersOnTripsWhereUniqueInput where,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1029,7 +1029,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.findUniqueOrThrow,
       datamodel: PrismaClient.datamodel,
     );
@@ -1038,25 +1038,25 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips>(
-      action: 'findUniqueUsesrOnTripsOrThrow',
+    return _i1.ActionClient<_i2.UsersOnTrips>(
+      action: 'findUniqueUsersOnTripsOrThrow',
       result: result,
-      factory: (e) => _i2.UsesrOnTrips.fromJson(e),
+      factory: (e) => _i2.UsersOnTrips.fromJson(e),
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips?> findFirst({
-    _i3.UsesrOnTripsWhereInput? where,
-    _i1.PrismaUnion<Iterable<_i3.UsesrOnTripsOrderByWithRelationInput>,
-            _i3.UsesrOnTripsOrderByWithRelationInput>?
+  _i1.ActionClient<_i2.UsersOnTrips?> findFirst({
+    _i3.UsersOnTripsWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.UsersOnTripsOrderByWithRelationInput>,
+            _i3.UsersOnTripsOrderByWithRelationInput>?
         orderBy,
-    _i3.UsesrOnTripsWhereUniqueInput? cursor,
+    _i3.UsersOnTripsWhereUniqueInput? cursor,
     int? take,
     int? skip,
-    _i1.PrismaUnion<_i3.UsesrOnTripsScalar, Iterable<_i3.UsesrOnTripsScalar>>?
+    _i1.PrismaUnion<_i3.UsersOnTripsScalar, Iterable<_i3.UsersOnTripsScalar>>?
         distinct,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1070,7 +1070,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.findFirst,
       datamodel: PrismaClient.datamodel,
     );
@@ -1079,25 +1079,25 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips?>(
-      action: 'findFirstUsesrOnTrips',
+    return _i1.ActionClient<_i2.UsersOnTrips?>(
+      action: 'findFirstUsersOnTrips',
       result: result,
-      factory: (e) => e != null ? _i2.UsesrOnTrips.fromJson(e) : null,
+      factory: (e) => e != null ? _i2.UsersOnTrips.fromJson(e) : null,
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips> findFirstOrThrow({
-    _i3.UsesrOnTripsWhereInput? where,
-    _i1.PrismaUnion<Iterable<_i3.UsesrOnTripsOrderByWithRelationInput>,
-            _i3.UsesrOnTripsOrderByWithRelationInput>?
+  _i1.ActionClient<_i2.UsersOnTrips> findFirstOrThrow({
+    _i3.UsersOnTripsWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.UsersOnTripsOrderByWithRelationInput>,
+            _i3.UsersOnTripsOrderByWithRelationInput>?
         orderBy,
-    _i3.UsesrOnTripsWhereUniqueInput? cursor,
+    _i3.UsersOnTripsWhereUniqueInput? cursor,
     int? take,
     int? skip,
-    _i1.PrismaUnion<_i3.UsesrOnTripsScalar, Iterable<_i3.UsesrOnTripsScalar>>?
+    _i1.PrismaUnion<_i3.UsersOnTripsScalar, Iterable<_i3.UsersOnTripsScalar>>?
         distinct,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1111,7 +1111,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.findFirstOrThrow,
       datamodel: PrismaClient.datamodel,
     );
@@ -1120,25 +1120,25 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips>(
-      action: 'findFirstUsesrOnTripsOrThrow',
+    return _i1.ActionClient<_i2.UsersOnTrips>(
+      action: 'findFirstUsersOnTripsOrThrow',
       result: result,
-      factory: (e) => _i2.UsesrOnTrips.fromJson(e),
+      factory: (e) => _i2.UsersOnTrips.fromJson(e),
     );
   }
 
-  _i1.ActionClient<Iterable<_i2.UsesrOnTrips>> findMany({
-    _i3.UsesrOnTripsWhereInput? where,
-    _i1.PrismaUnion<Iterable<_i3.UsesrOnTripsOrderByWithRelationInput>,
-            _i3.UsesrOnTripsOrderByWithRelationInput>?
+  _i1.ActionClient<Iterable<_i2.UsersOnTrips>> findMany({
+    _i3.UsersOnTripsWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.UsersOnTripsOrderByWithRelationInput>,
+            _i3.UsersOnTripsOrderByWithRelationInput>?
         orderBy,
-    _i3.UsesrOnTripsWhereUniqueInput? cursor,
+    _i3.UsersOnTripsWhereUniqueInput? cursor,
     int? take,
     int? skip,
-    _i1.PrismaUnion<_i3.UsesrOnTripsScalar, Iterable<_i3.UsesrOnTripsScalar>>?
+    _i1.PrismaUnion<_i3.UsersOnTripsScalar, Iterable<_i3.UsersOnTripsScalar>>?
         distinct,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1152,7 +1152,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.findMany,
       datamodel: PrismaClient.datamodel,
     );
@@ -1161,20 +1161,20 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<Iterable<_i2.UsesrOnTrips>>(
-      action: 'findManyUsesrOnTrips',
+    return _i1.ActionClient<Iterable<_i2.UsersOnTrips>>(
+      action: 'findManyUsersOnTrips',
       result: result,
       factory: (values) =>
-          (values as Iterable).map((e) => _i2.UsesrOnTrips.fromJson(e)),
+          (values as Iterable).map((e) => _i2.UsersOnTrips.fromJson(e)),
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips> create({
-    required _i1.PrismaUnion<_i3.UsesrOnTripsCreateInput,
-            _i3.UsesrOnTripsUncheckedCreateInput>
+  _i1.ActionClient<_i2.UsersOnTrips> create({
+    required _i1.PrismaUnion<_i3.UsersOnTripsCreateInput,
+            _i3.UsersOnTripsUncheckedCreateInput>
         data,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'data': data,
@@ -1183,7 +1183,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.createOne,
       datamodel: PrismaClient.datamodel,
     );
@@ -1192,16 +1192,16 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips>(
-      action: 'createOneUsesrOnTrips',
+    return _i1.ActionClient<_i2.UsersOnTrips>(
+      action: 'createOneUsersOnTrips',
       result: result,
-      factory: (e) => _i2.UsesrOnTrips.fromJson(e),
+      factory: (e) => _i2.UsersOnTrips.fromJson(e),
     );
   }
 
   _i1.ActionClient<_i3.AffectedRowsOutput> createMany({
-    required _i1.PrismaUnion<_i3.UsesrOnTripsCreateManyInput,
-            Iterable<_i3.UsesrOnTripsCreateManyInput>>
+    required _i1.PrismaUnion<_i3.UsersOnTripsCreateManyInput,
+            Iterable<_i3.UsersOnTripsCreateManyInput>>
         data,
     bool? skipDuplicates,
   }) {
@@ -1211,7 +1211,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.createMany,
       datamodel: PrismaClient.datamodel,
     );
@@ -1221,20 +1221,20 @@ class UsesrOnTripsDelegate {
       transaction: _client.$transaction.transaction,
     );
     return _i1.ActionClient<_i3.AffectedRowsOutput>(
-      action: 'createManyUsesrOnTrips',
+      action: 'createManyUsersOnTrips',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
     );
   }
 
-  _i1.ActionClient<Iterable<_i2.CreateManyUsesrOnTripsAndReturnOutputType>>
+  _i1.ActionClient<Iterable<_i2.CreateManyUsersOnTripsAndReturnOutputType>>
       createManyAndReturn({
-    required _i1.PrismaUnion<_i3.UsesrOnTripsCreateManyInput,
-            Iterable<_i3.UsesrOnTripsCreateManyInput>>
+    required _i1.PrismaUnion<_i3.UsersOnTripsCreateManyInput,
+            Iterable<_i3.UsersOnTripsCreateManyInput>>
         data,
     bool? skipDuplicates,
-    _i3.CreateManyUsesrOnTripsAndReturnOutputTypeSelect? select,
-    _i3.CreateManyUsesrOnTripsAndReturnOutputTypeInclude? include,
+    _i3.CreateManyUsersOnTripsAndReturnOutputTypeSelect? select,
+    _i3.CreateManyUsersOnTripsAndReturnOutputTypeInclude? include,
   }) {
     final args = {
       'data': data,
@@ -1244,7 +1244,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.createManyAndReturn,
       datamodel: PrismaClient.datamodel,
     );
@@ -1254,21 +1254,21 @@ class UsesrOnTripsDelegate {
       transaction: _client.$transaction.transaction,
     );
     return _i1.ActionClient<
-        Iterable<_i2.CreateManyUsesrOnTripsAndReturnOutputType>>(
-      action: 'createManyUsesrOnTripsAndReturn',
+        Iterable<_i2.CreateManyUsersOnTripsAndReturnOutputType>>(
+      action: 'createManyUsersOnTripsAndReturn',
       result: result,
       factory: (values) => (values as Iterable).map(
-          (e) => _i2.CreateManyUsesrOnTripsAndReturnOutputType.fromJson(e)),
+          (e) => _i2.CreateManyUsersOnTripsAndReturnOutputType.fromJson(e)),
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips?> update({
-    required _i1.PrismaUnion<_i3.UsesrOnTripsUpdateInput,
-            _i3.UsesrOnTripsUncheckedUpdateInput>
+  _i1.ActionClient<_i2.UsersOnTrips?> update({
+    required _i1.PrismaUnion<_i3.UsersOnTripsUpdateInput,
+            _i3.UsersOnTripsUncheckedUpdateInput>
         data,
-    required _i3.UsesrOnTripsWhereUniqueInput where,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+    required _i3.UsersOnTripsWhereUniqueInput where,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'data': data,
@@ -1278,7 +1278,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.updateOne,
       datamodel: PrismaClient.datamodel,
     );
@@ -1287,18 +1287,18 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips?>(
-      action: 'updateOneUsesrOnTrips',
+    return _i1.ActionClient<_i2.UsersOnTrips?>(
+      action: 'updateOneUsersOnTrips',
       result: result,
-      factory: (e) => e != null ? _i2.UsesrOnTrips.fromJson(e) : null,
+      factory: (e) => e != null ? _i2.UsersOnTrips.fromJson(e) : null,
     );
   }
 
   _i1.ActionClient<_i3.AffectedRowsOutput> updateMany({
-    required _i1.PrismaUnion<_i3.UsesrOnTripsUpdateManyMutationInput,
-            _i3.UsesrOnTripsUncheckedUpdateManyInput>
+    required _i1.PrismaUnion<_i3.UsersOnTripsUpdateManyMutationInput,
+            _i3.UsersOnTripsUncheckedUpdateManyInput>
         data,
-    _i3.UsesrOnTripsWhereInput? where,
+    _i3.UsersOnTripsWhereInput? where,
   }) {
     final args = {
       'data': data,
@@ -1306,7 +1306,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.updateMany,
       datamodel: PrismaClient.datamodel,
     );
@@ -1316,22 +1316,22 @@ class UsesrOnTripsDelegate {
       transaction: _client.$transaction.transaction,
     );
     return _i1.ActionClient<_i3.AffectedRowsOutput>(
-      action: 'updateManyUsesrOnTrips',
+      action: 'updateManyUsersOnTrips',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips> upsert({
-    required _i3.UsesrOnTripsWhereUniqueInput where,
-    required _i1.PrismaUnion<_i3.UsesrOnTripsCreateInput,
-            _i3.UsesrOnTripsUncheckedCreateInput>
+  _i1.ActionClient<_i2.UsersOnTrips> upsert({
+    required _i3.UsersOnTripsWhereUniqueInput where,
+    required _i1.PrismaUnion<_i3.UsersOnTripsCreateInput,
+            _i3.UsersOnTripsUncheckedCreateInput>
         create,
-    required _i1.PrismaUnion<_i3.UsesrOnTripsUpdateInput,
-            _i3.UsesrOnTripsUncheckedUpdateInput>
+    required _i1.PrismaUnion<_i3.UsersOnTripsUpdateInput,
+            _i3.UsersOnTripsUncheckedUpdateInput>
         update,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1342,7 +1342,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.upsertOne,
       datamodel: PrismaClient.datamodel,
     );
@@ -1351,17 +1351,17 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips>(
-      action: 'upsertOneUsesrOnTrips',
+    return _i1.ActionClient<_i2.UsersOnTrips>(
+      action: 'upsertOneUsersOnTrips',
       result: result,
-      factory: (e) => _i2.UsesrOnTrips.fromJson(e),
+      factory: (e) => _i2.UsersOnTrips.fromJson(e),
     );
   }
 
-  _i1.ActionClient<_i2.UsesrOnTrips?> delete({
-    required _i3.UsesrOnTripsWhereUniqueInput where,
-    _i3.UsesrOnTripsSelect? select,
-    _i3.UsesrOnTripsInclude? include,
+  _i1.ActionClient<_i2.UsersOnTrips?> delete({
+    required _i3.UsersOnTripsWhereUniqueInput where,
+    _i3.UsersOnTripsSelect? select,
+    _i3.UsersOnTripsInclude? include,
   }) {
     final args = {
       'where': where,
@@ -1370,7 +1370,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.deleteOne,
       datamodel: PrismaClient.datamodel,
     );
@@ -1379,19 +1379,19 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i2.UsesrOnTrips?>(
-      action: 'deleteOneUsesrOnTrips',
+    return _i1.ActionClient<_i2.UsersOnTrips?>(
+      action: 'deleteOneUsersOnTrips',
       result: result,
-      factory: (e) => e != null ? _i2.UsesrOnTrips.fromJson(e) : null,
+      factory: (e) => e != null ? _i2.UsersOnTrips.fromJson(e) : null,
     );
   }
 
   _i1.ActionClient<_i3.AffectedRowsOutput> deleteMany(
-      {_i3.UsesrOnTripsWhereInput? where}) {
+      {_i3.UsersOnTripsWhereInput? where}) {
     final args = {'where': where};
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.deleteMany,
       datamodel: PrismaClient.datamodel,
     );
@@ -1401,24 +1401,24 @@ class UsesrOnTripsDelegate {
       transaction: _client.$transaction.transaction,
     );
     return _i1.ActionClient<_i3.AffectedRowsOutput>(
-      action: 'deleteManyUsesrOnTrips',
+      action: 'deleteManyUsersOnTrips',
       result: result,
       factory: (e) => _i3.AffectedRowsOutput.fromJson(e),
     );
   }
 
-  _i1.ActionClient<Iterable<_i3.UsesrOnTripsGroupByOutputType>> groupBy({
-    _i3.UsesrOnTripsWhereInput? where,
-    _i1.PrismaUnion<Iterable<_i3.UsesrOnTripsOrderByWithAggregationInput>,
-            _i3.UsesrOnTripsOrderByWithAggregationInput>?
+  _i1.ActionClient<Iterable<_i3.UsersOnTripsGroupByOutputType>> groupBy({
+    _i3.UsersOnTripsWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.UsersOnTripsOrderByWithAggregationInput>,
+            _i3.UsersOnTripsOrderByWithAggregationInput>?
         orderBy,
     required _i1
-        .PrismaUnion<Iterable<_i3.UsesrOnTripsScalar>, _i3.UsesrOnTripsScalar>
+        .PrismaUnion<Iterable<_i3.UsersOnTripsScalar>, _i3.UsersOnTripsScalar>
         by,
-    _i3.UsesrOnTripsScalarWhereWithAggregatesInput? having,
+    _i3.UsersOnTripsScalarWhereWithAggregatesInput? having,
     int? take,
     int? skip,
-    _i3.UsesrOnTripsGroupByOutputTypeSelect? select,
+    _i3.UsersOnTripsGroupByOutputTypeSelect? select,
   }) {
     final args = {
       'where': where,
@@ -1431,7 +1431,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.groupBy,
       datamodel: PrismaClient.datamodel,
     );
@@ -1440,23 +1440,23 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<Iterable<_i3.UsesrOnTripsGroupByOutputType>>(
-      action: 'groupByUsesrOnTrips',
+    return _i1.ActionClient<Iterable<_i3.UsersOnTripsGroupByOutputType>>(
+      action: 'groupByUsersOnTrips',
       result: result,
       factory: (values) => (values as Iterable)
-          .map((e) => _i3.UsesrOnTripsGroupByOutputType.fromJson(e)),
+          .map((e) => _i3.UsersOnTripsGroupByOutputType.fromJson(e)),
     );
   }
 
-  _i1.ActionClient<_i3.AggregateUsesrOnTrips> aggregate({
-    _i3.UsesrOnTripsWhereInput? where,
-    _i1.PrismaUnion<Iterable<_i3.UsesrOnTripsOrderByWithRelationInput>,
-            _i3.UsesrOnTripsOrderByWithRelationInput>?
+  _i1.ActionClient<_i3.AggregateUsersOnTrips> aggregate({
+    _i3.UsersOnTripsWhereInput? where,
+    _i1.PrismaUnion<Iterable<_i3.UsersOnTripsOrderByWithRelationInput>,
+            _i3.UsersOnTripsOrderByWithRelationInput>?
         orderBy,
-    _i3.UsesrOnTripsWhereUniqueInput? cursor,
+    _i3.UsersOnTripsWhereUniqueInput? cursor,
     int? take,
     int? skip,
-    _i3.AggregateUsesrOnTripsSelect? select,
+    _i3.AggregateUsersOnTripsSelect? select,
   }) {
     final args = {
       'where': where,
@@ -1468,7 +1468,7 @@ class UsesrOnTripsDelegate {
     };
     final query = _i1.serializeJsonQuery(
       args: args,
-      modelName: 'UsesrOnTrips',
+      modelName: 'UsersOnTrips',
       action: _i1.JsonQueryAction.aggregate,
       datamodel: PrismaClient.datamodel,
     );
@@ -1477,10 +1477,10 @@ class UsesrOnTripsDelegate {
       headers: _client.$transaction.headers,
       transaction: _client.$transaction.transaction,
     );
-    return _i1.ActionClient<_i3.AggregateUsesrOnTrips>(
-      action: 'aggregateUsesrOnTrips',
+    return _i1.ActionClient<_i3.AggregateUsersOnTrips>(
+      action: 'aggregateUsersOnTrips',
       result: result,
-      factory: (e) => _i3.AggregateUsesrOnTrips.fromJson(e),
+      factory: (e) => _i3.AggregateUsersOnTrips.fromJson(e),
     );
   }
 }
@@ -2704,8 +2704,8 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'isId': false,
             'isReadOnly': false,
             'hasDefaultValue': false,
-            'type': 'UsesrOnTrips',
-            'relationName': 'UserToUsesrOnTrips',
+            'type': 'UsersOnTrips',
+            'relationName': 'UserToUsersOnTrips',
             'relationFromFields': [],
             'relationToFields': [],
             'isGenerated': false,
@@ -2867,8 +2867,8 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'isId': false,
             'isReadOnly': false,
             'hasDefaultValue': false,
-            'type': 'UsesrOnTrips',
-            'relationName': 'TripToUsesrOnTrips',
+            'type': 'UsersOnTrips',
+            'relationName': 'TripToUsersOnTrips',
             'relationFromFields': [],
             'relationToFields': [],
             'isGenerated': false,
@@ -2881,7 +2881,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
         'isGenerated': false,
       },
       {
-        'name': 'UsesrOnTrips',
+        'name': 'UsersOnTrips',
         'dbName': 'users_on_trips',
         'fields': [
           {
@@ -2925,7 +2925,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'isReadOnly': false,
             'hasDefaultValue': false,
             'type': 'User',
-            'relationName': 'UserToUsesrOnTrips',
+            'relationName': 'UserToUsersOnTrips',
             'relationFromFields': ['userId'],
             'relationToFields': ['id'],
             'isGenerated': false,
@@ -2955,7 +2955,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
             'isReadOnly': false,
             'hasDefaultValue': false,
             'type': 'Trip',
-            'relationName': 'TripToUsesrOnTrips',
+            'relationName': 'TripToUsersOnTrips',
             'relationFromFields': ['tripId'],
             'relationToFields': ['id'],
             'isGenerated': false,
@@ -3291,7 +3291,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
         ],
       },
       {
-        'model': 'UsesrOnTrips',
+        'model': 'UsersOnTrips',
         'type': 'id',
         'isDefinedOnField': true,
         'fields': [
@@ -3352,7 +3352,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
   @override
   get $engine => _engine ??= _i5.BinaryEngine(
         schema:
-            'generator client {\n  provider = "dart run orm"\n  output   = "generated_dart_client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel User {\n  id                String         @id @default(uuid()) @db.Uuid\n  firebaseUid       String         @unique @map("firebase_uid")\n  email             String         @unique\n  username          String?\n  createdAt         DateTime       @default(now()) @map("created_at")\n  updatedAt         DateTime       @updatedAt @map("updated_at")\n  password          String?\n  loginType         LoginType      @default(EMAIL) @map("login_type")\n  providerId        String         @unique @map("provider_id")\n  profilePictureUrl String?        @map("profile_picture_url")\n  bio               String?\n  trips             Trip[]\n  UsesrOnTrips      UsesrOnTrips[]\n\n  @@map("users")\n}\n\nenum LoginType {\n  EMAIL\n  GOOGLE\n  FACEBOOK\n}\n\nmodel Trip {\n  id           String         @id @default(uuid()) @db.Uuid\n  tripName     String         @map("trip_name")\n  description  String?        @map("description")\n  startDate    DateTime       @map("start_date")\n  endDate      DateTime       @map("end_date")\n  places       Place[]\n  users        User[]\n  createdAt    DateTime       @default(now()) @map("created_at")\n  updatedAt    DateTime       @updatedAt @map("updated_at")\n  UsesrOnTrips UsesrOnTrips[]\n\n  @@map("trips")\n}\n\nmodel UsesrOnTrips {\n  id        String   @id @default(uuid()) @db.Uuid\n  userId    String   @map("user_id") @db.Uuid\n  user      User     @relation(fields: [userId], references: [id])\n  tripId    String   @map("trip_id") @db.Uuid\n  trip      Trip     @relation(fields: [tripId], references: [id])\n  role      Role     @default(VIEWER)\n  createdAt DateTime @default(now()) @map("created_at")\n  updatedAt DateTime @updatedAt @map("updated_at")\n\n  @@map("users_on_trips")\n}\n\nenum Role {\n  OWNER\n  COLLABORATOR\n  VIEWER\n}\n\nmodel Place {\n  id          String   @id @default(uuid()) @db.Uuid\n  placeName   String   @map("place_name")\n  description String?\n  note        String?\n  trip        Trip     @relation(fields: [tripId], references: [id])\n  tripId      String   @map("trip_id") @db.Uuid\n  tags        Tag[]\n  createdAt   DateTime @default(now()) @map("created_at")\n  updatedAt   DateTime @updatedAt @map("updated_at")\n\n  @@map("places")\n}\n\nmodel Tag {\n  id        String   @id @default(uuid()) @db.Uuid\n  tagName   String   @unique @map("tag_name")\n  places    Place[]\n  createdAt DateTime @default(now()) @map("created_at")\n  updatedAt DateTime @updatedAt @map("updated_at")\n\n  @@map("tags")\n}\n',
+            'generator client {\n  provider = "dart run orm"\n  output   = "generated_dart_client"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\nmodel User {\n  id                String         @id @default(uuid()) @db.Uuid\n  firebaseUid       String         @unique @map("firebase_uid")\n  email             String         @unique\n  username          String?\n  createdAt         DateTime       @default(now()) @map("created_at")\n  updatedAt         DateTime       @updatedAt @map("updated_at")\n  password          String?\n  loginType         LoginType      @default(EMAIL) @map("login_type")\n  providerId        String         @unique @map("provider_id")\n  profilePictureUrl String?        @map("profile_picture_url")\n  bio               String?\n  trips             Trip[]\n  UsesrOnTrips      UsersOnTrips[]\n\n  @@map("users")\n}\n\nenum LoginType {\n  EMAIL\n  GOOGLE\n  FACEBOOK\n}\n\nmodel Trip {\n  id           String         @id @default(uuid()) @db.Uuid\n  tripName     String         @map("trip_name")\n  description  String?        @map("description")\n  startDate    DateTime       @map("start_date")\n  endDate      DateTime       @map("end_date")\n  places       Place[]\n  users        User[]\n  createdAt    DateTime       @default(now()) @map("created_at")\n  updatedAt    DateTime       @updatedAt @map("updated_at")\n  UsesrOnTrips UsersOnTrips[]\n\n  @@map("trips")\n}\n\nmodel UsersOnTrips {\n  id        String   @id @default(uuid()) @db.Uuid\n  userId    String   @map("user_id") @db.Uuid\n  user      User     @relation(fields: [userId], references: [id])\n  tripId    String   @map("trip_id") @db.Uuid\n  trip      Trip     @relation(fields: [tripId], references: [id])\n  role      Role     @default(VIEWER)\n  createdAt DateTime @default(now()) @map("created_at")\n  updatedAt DateTime @updatedAt @map("updated_at")\n\n  @@map("users_on_trips")\n}\n\nenum Role {\n  OWNER\n  COLLABORATOR\n  VIEWER\n}\n\nmodel Place {\n  id          String   @id @default(uuid()) @db.Uuid\n  placeName   String   @map("place_name")\n  description String?\n  note        String?\n  trip        Trip     @relation(fields: [tripId], references: [id])\n  tripId      String   @map("trip_id") @db.Uuid\n  tags        Tag[]\n  createdAt   DateTime @default(now()) @map("created_at")\n  updatedAt   DateTime @updatedAt @map("updated_at")\n\n  @@map("places")\n}\n\nmodel Tag {\n  id        String   @id @default(uuid()) @db.Uuid\n  tagName   String   @unique @map("tag_name")\n  places    Place[]\n  createdAt DateTime @default(now()) @map("created_at")\n  updatedAt DateTime @updatedAt @map("updated_at")\n\n  @@map("tags")\n}\n',
         datasources: const {
           'db': _i1.Datasource(
             _i1.DatasourceType.environment,
@@ -3369,7 +3369,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
 
   TripDelegate get trip => TripDelegate._(this);
 
-  UsesrOnTripsDelegate get usesrOnTrips => UsesrOnTripsDelegate._(this);
+  UsersOnTripsDelegate get usersOnTrips => UsersOnTripsDelegate._(this);
 
   PlaceDelegate get place => PlaceDelegate._(this);
 

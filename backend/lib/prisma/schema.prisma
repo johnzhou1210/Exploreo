@@ -21,7 +21,7 @@ model User {
   profilePictureUrl String?        @map("profile_picture_url")
   bio               String?
   trips             Trip[]
-  UsesrOnTrips      UsesrOnTrips[]
+  UsesrOnTrips      UsersOnTrips[]
 
   @@map("users")
 }
@@ -42,12 +42,12 @@ model Trip {
   users        User[]
   createdAt    DateTime       @default(now()) @map("created_at")
   updatedAt    DateTime       @updatedAt @map("updated_at")
-  UsesrOnTrips UsesrOnTrips[]
+  UsesrOnTrips UsersOnTrips[]
 
   @@map("trips")
 }
 
-model UsesrOnTrips {
+model UsersOnTrips {
   id        String   @id @default(uuid()) @db.Uuid
   userId    String   @map("user_id") @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
