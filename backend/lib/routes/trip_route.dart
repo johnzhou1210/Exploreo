@@ -58,8 +58,8 @@ class TripRoute {
     Future<Response> deleteTrip(Request request, String tripId) async {
       try {
         final parsedId = int.tryParse(tripId);
-        final trip = await prisma.trip
-            .delete(where: TripWhereUniqueInput(id: parsedId));
+        final trip =
+            await prisma.trip.delete(where: TripWhereUniqueInput(id: parsedId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
@@ -78,8 +78,8 @@ class TripRoute {
     router.get('/', getAllTrips);
     router.get('/<tripId>', getTripById);
     router.post('/', createTrip);
-    router.put('<tripId>', updateTrip);
-    router.delete('<tripId>', deleteTrip);
+    router.put('/<tripId>', updateTrip);
+    router.delete('/<tripId>', deleteTrip);
     return router;
   }
 }

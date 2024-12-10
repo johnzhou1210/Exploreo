@@ -38,6 +38,9 @@ dependencies:
   firebase_auth: ^5.3.3
   firebase_dart_admin_auth_sdk: ^0.0.1-pre+10
 
+  calendar_date_picker2: ^1.1.7
+  http: ^1.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
