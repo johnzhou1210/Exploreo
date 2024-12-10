@@ -31,15 +31,20 @@ class PlaceRoute {
 
     Future<Response> getPlaceById(Request request, String placeId) async {
       try {
-        final trip = await prisma.place
-            .findUnique(where: PlaceWhereUniqueInput(id: placeId));
+        final place = await prisma.place.findUnique(
+          where: PlaceWhereUniqueInput(id: placeId),
+          include: PlaceInclude(tags: PrismaUnion.$1(true)),
+        );
 
-        if (trip == null) {
+        if (place == null) {
           return Response(404, body: 'NOT_FOUND');
         }
 
+        final placeJson = place.toJson();
+        placeJson['tags'] =
+            place.tags?.map((tag) => tag.toJson()).toList() ?? [];
         return Response.ok(
-          json.encode(trip.toJson()),
+          json.encode(placeJson),
           headers: {'Content-Type': 'application/json'},
         );
       } catch (e) {
@@ -167,11 +172,58 @@ class PlaceRoute {
       }
     }
 
+    Future<Response> addTagToPlace(Request request, String placeId) async {
+      try {
+        final payload = jsonDecode(await request.readAsString());
+
+        const updatableFields = [
+          'tagName',
+        ];
+
+        final fieldsToUpdate = extractUpdatableFields(payload, updatableFields);
+
+        if (fieldsToUpdate.isEmpty) {
+          return Response(400, body: 'NO_VALID_FIELDS_TO_UPDATE');
+        }
+
+        final updatedPlace = await prisma.place.update(
+          where: PlaceWhereUniqueInput(id: placeId),
+          data: PrismaUnion.$1(PlaceUpdateInput(
+              tags: TagUpdateManyWithoutPlacesNestedInput(
+            connectOrCreate: PrismaUnion.$1(
+                TagCreateOrConnectWithoutPlacesInput(
+                    where: TagWhereUniqueInput(tagName: payload["tagName"]),
+                    create: PrismaUnion.$1(TagCreateWithoutPlacesInput(
+                        tagName: payload["tagName"])))),
+          ))),
+          include: PlaceInclude(tags: PrismaUnion.$1(true)),
+        );
+
+        if (updatedPlace == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        final placeJson = updatedPlace.toJson();
+        placeJson['tags'] =
+            updatedPlace.tags?.map((tag) => tag.toJson()).toList() ?? [];
+
+        return Response.ok(
+          json.encode(placeJson),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
+    }
+
     router.get('/', getAllPlaces);
     router.get('/<placeId>', getPlaceById);
     router.post('/', createPlace);
     router.put('/<placeId>', updatePlace);
     router.delete('/<placeId>', deletePlace);
+
+    router.post('/<placeId>/tags', addTagToPlace);
 
     return router;
   }
