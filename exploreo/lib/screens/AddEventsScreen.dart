@@ -6,6 +6,7 @@ import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:intl/intl.dart';
 import '../data/TestTripData.dart';
+import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
@@ -77,31 +78,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Back button (commented out because I don't want to deal with the logic
-                      // const SizedBox(width: 15),
-                      // Material(
-                      //   color: Colors.transparent,
-                      //   child: Ink(
-                      //
-                      //     decoration: const ShapeDecoration(
-                      //       shape: CircleBorder(),
-                      //       color: Color.fromARGB(50, 200, 200, 200),
-                      //     ),
-                      //     child: ClipOval(
-                      //       child: IconButton(
-                      //         onPressed: () {
-                      //           Navigator.of(context).push(MaterialPageRoute(
-                      //               builder: (context) =>
-                      //                   const HomeScreen())); // Whatever page it will go back to
-                      //         },
-                      //         iconSize: 16,
-                      //         icon: const Icon(CupertinoIcons.back),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // const SizedBox(width: 100),
-
                       Text(
                         'Add events',
                         textAlign: TextAlign.center,
@@ -234,7 +210,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             /*TODO: Redirect user to this same page but with the fields empty for input again to add another event*/
-                            widget.trip.events.add(TripEvent(title: eventNameController.text, date: FormatDateRange(selectedDates), description: eventNotesController.text));
+                            widget.trip.events.add(TripEvent(title: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, date: FormatDateRange(selectedDates!), description: eventNotesController.text));
                             print(widget.trip.events.length);
                             Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => AddEventsScreen(trip: widget.trip))
@@ -265,8 +241,8 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                             /* TODO: Create a Trip object and add it to the user's database and also add the array of events to this new Trip object */
 
                             TripEvent newEvent = TripEvent(
-                                title: eventNameController.text,
-                                date: FormatDateRange(selectedDates),
+                                title: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text,
+                                date: FormatDateRange(selectedDates!),
                                 description: eventNotesController.text);
                             widget.trip.events.add(newEvent);
                             Trip newTrip = Trip(
@@ -301,31 +277,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
         ),
       ),
     );
-  }
-
-  String FormatDateRange(DateTimeRange? range) {
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    String start = formatter.format(range!.start);
-    String end = formatter.format(range.end);
-    return '$start - $end';
-  }
-
-  // Undoes format date range function
-  DateTimeRange ParseDateRange(String dateRangeStr) {
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    // Split the string on " - " to get start and end dates
-    final parts = dateRangeStr.split(' - ');
-
-    if (parts.length != 2) {
-      throw const FormatException('Invalid date range format');
-    }
-
-    // Parse the start and end dates back into DateTime objects
-    DateTime start = formatter.parse(parts[0]);
-    DateTime end = formatter.parse(parts[1]);
-
-    // Return a DateTimeRange object
-    return DateTimeRange(start: start, end: end);
   }
 
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../data/ImageFetcher.dart';
+import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
@@ -27,10 +31,11 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   final TextEditingController tripNotesController = TextEditingController();
   List<TripEvent> events = [];
   String? _imageUrl;
+  bool _isLoading = false;
 
   Future<void> _searchImage(String query) async {
     setState(() {
-      _imageUrl = null;
+      _isLoading = true; // Loading indicator visible
     });
 
     try {
@@ -42,10 +47,32 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-
   }
 
+  void _onContinuePressed() async {
+    String tripName =
+        tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
+    await _searchImage(tripName);
+
+    // Proceed to next screen after fetching image
+    Trip newTrip = Trip(
+      title: tripName,
+      date: FormatDateRange(selectedDates!),
+      imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg',
+      description: tripNotesController.text,
+      events: [],
+    );
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => AddEventsScreen(trip: newTrip)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,30 +239,23 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        /*TODO: Proceed to add events page*/
-                        // Get an image of the destination name from Unsplash API and get the first result
-                        _searchImage(tripNameController.text);
-
-                        Future.delayed(Duration(seconds: 1), () {
-                          // Construct trip object
-                          Trip newTrip = Trip(title: tripNameController.text, date: FormatDateRange(selectedDates!), imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg', description: tripNotesController.text, events: []);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddEventsScreen(trip: newTrip),
-                          ));
-                        });
-
-                      },
+                      onPressed: _isLoading
+                          ? null
+                          : () {
+                              _onContinuePressed();
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
                         foregroundColor: Colors.white,
                       ),
-                      child: const Text(
-                        "Continue",
-                        style: TextStyle(fontSize: 20),
-                      ),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              "Continue",
+                              style: TextStyle(fontSize: 20),
+                            ),
                     )),
                 const Flexible(flex: 1, child: SizedBox()),
               ]),
@@ -246,38 +266,5 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     );
   }
 
-  String FormatDateRange(DateTimeRange range) {
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    String start = formatter.format(range.start);
-    String end = formatter.format(range.end);
-    return '$start - $end';
-  }
-
-
-  Future<String?> FetchImage(String query) async {
-
-    final String accessKey = 'vsin1BRLPtFEJ28ElzLxGx7CWsMXjhyejF2jD8I1mGox8doZP9V8cwJm';
-    final String url = 'https://api.pexels.com/v1/search?query=$query&per_page=1';
-    final response = await http.get(
-      Uri.parse(url),
-          headers: {'Authorization': accessKey},
-    );
-
-    if (response.statusCode == 200) {
-      print("in here");
-      final data = json.decode(response.body);
-      final List photos = data['photos'];
-      if (photos.isNotEmpty) {
-        return photos[0]['src']['portrait'];
-      } else {
-        return null;
-      }
-
-    } else {
-      throw Exception('Failed to fetch image: ${response.statusCode}');
-    }
-
-
-  }
 
 }

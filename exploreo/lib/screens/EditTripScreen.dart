@@ -12,6 +12,8 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../data/ImageFetcher.dart';
+import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
@@ -36,6 +38,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
   final TextEditingController tripNotesController = TextEditingController();
   List<TripEvent> events = [];
   String? _imageUrl;
+  bool _isLoading = false;
 
 
   @override
@@ -51,7 +54,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
   Future<void> _searchImage(String query) async {
     setState(() {
-      _imageUrl = null;
+      _isLoading = true;
     });
 
     try {
@@ -63,8 +66,35 @@ class _EditTripScreenState extends State<EditTripScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
 
+  }
+
+  void _onContinuePressed() async {
+    {
+      String tripName = tripNameController.text.isEmpty
+          ? 'Untitled'
+          : tripNameController.text;
+      await _searchImage(tripNameController.text);
+
+
+      // UPDATE TRIP
+      Trip foundTrip = trips.firstWhere((item) => item.id == widget.trip.id);
+      foundTrip.title =
+      tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
+      foundTrip.date = FormatDateRange(selectedDates!);
+      foundTrip.imageUrl = _imageUrl ?? 'https://example.com/default-image.jpg';
+      foundTrip.description = tripNotesController.text;
+
+      Navigator.pushReplacement(context,
+        MaterialPageRoute(
+            builder: (context) => TripInfoScreen(trip: foundTrip)),
+      );
+    }
   }
 
 
@@ -224,33 +254,14 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
               const SizedBox(height: 250),
 
-              // Plan trip button
+              // Confirm changes button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const Flexible(flex: 1, child: SizedBox()),
                 SizedBox(
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        /*TODO: Proceed to add events page*/
-                        // Get an image of the destination name from Unsplash API and get the first result
-                        _searchImage(tripNameController.text);
-
-                        Future.delayed(Duration(seconds: 1), () {
-                          // UPDATE TRIP
-                          Trip foundTrip = trips.firstWhere((item) => item.id == widget.trip.id);
-
-                          foundTrip.title = tripNameController.text;
-                         foundTrip.date = FormatDateRange(selectedDates!);
-                          foundTrip.imageUrl = _imageUrl ?? 'https://example.com/default-image.jpg';
-                          foundTrip.description = tripNotesController.text;
-
-                          Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => TripInfoScreen(trip: foundTrip)),
-                          );
-                        });
-
-                      },
+                      onPressed: _isLoading ? null : () {_onContinuePressed();},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
                         foregroundColor: Colors.white,
@@ -269,54 +280,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
     );
   }
 
-  String FormatDateRange(DateTimeRange range) {
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    String start = formatter.format(range.start);
-    String end = formatter.format(range.end);
-    return '$start - $end';
-  }
 
-  // Undoes format date range function
-  DateTimeRange ParseDateRange(String dateRangeStr) {
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    // Split the string on " - " to get start and end dates
-    final parts = dateRangeStr.split(' - ');
-
-    if (parts.length != 2) {
-      throw const FormatException('Invalid date range format');
-    }
-
-    // Parse the start and end dates back into DateTime objects
-    DateTime start = formatter.parse(parts[0]);
-    DateTime end = formatter.parse(parts[1]);
-
-    // Return a DateTimeRange object
-    return DateTimeRange(start: start, end: end);
-  }
-
-  Future<String?> FetchImage(String query) async {
-    final String accessKey = 'vsin1BRLPtFEJ28ElzLxGx7CWsMXjhyejF2jD8I1mGox8doZP9V8cwJm';
-    final String url = 'https://api.pexels.com/v1/search?query=$query&per_page=1';
-    final response = await http.get(
-      Uri.parse(url),
-          headers: {'Authorization': accessKey},
-    );
-
-    if (response.statusCode == 200) {
-      print("in here");
-      final data = json.decode(response.body);
-      final List photos = data['photos'];
-      if (photos.isNotEmpty) {
-        return photos[0]['src']['portrait'];
-      } else {
-        return null;
-      }
-
-    } else {
-      throw Exception('Failed to fetch image: ${response.statusCode}');
-    }
-
-
-  }
 
 }
