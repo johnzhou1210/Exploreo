@@ -56,7 +56,23 @@ class TripRoute {
     }
 
     Future<Response> deleteTrip(Request request, String tripId) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final parsedId = int.tryParse(tripId);
+        final trip = await prisma.trip
+            .delete(where: TripWhereUniqueInput(id: parsedId));
+
+        if (trip == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(trip.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     router.get('/', getAllTrips);

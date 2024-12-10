@@ -56,7 +56,24 @@ class PlaceRoute {
     }
 
     Future<Response> deletePlace(Request request, String placeId) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final parsedId = int.tryParse(placeId);
+        final deletedPlace = await prisma.place
+            .delete(where: PlaceWhereUniqueInput(id: parsedId));
+        
+        if (deletedPlace == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(deletedPlace.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+          
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     router.get('/', getAllPlaces);
