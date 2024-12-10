@@ -301,6 +301,7 @@ class Trip {
 class User {
   const User({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -317,6 +318,7 @@ class User {
 
   factory User.fromJson(Map json) => User(
         id: json['id'],
+        firebaseUid: json['firebaseUid'],
         email: json['email'],
         username: json['username'],
         createdAt: switch (json['createdAt']) {
@@ -348,6 +350,8 @@ class User {
 
   final String? id;
 
+  final String? firebaseUid;
+
   final String? email;
 
   final String? username;
@@ -374,6 +378,7 @@ class User {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
@@ -392,6 +397,7 @@ class User {
 class CreateManyUserAndReturnOutputType {
   const CreateManyUserAndReturnOutputType({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -406,6 +412,7 @@ class CreateManyUserAndReturnOutputType {
   factory CreateManyUserAndReturnOutputType.fromJson(Map json) =>
       CreateManyUserAndReturnOutputType(
         id: json['id'],
+        firebaseUid: json['firebaseUid'],
         email: json['email'],
         username: json['username'],
         createdAt: switch (json['createdAt']) {
@@ -430,6 +437,8 @@ class CreateManyUserAndReturnOutputType {
 
   final String? id;
 
+  final String? firebaseUid;
+
   final String? email;
 
   final String? username;
@@ -450,6 +459,7 @@ class CreateManyUserAndReturnOutputType {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),

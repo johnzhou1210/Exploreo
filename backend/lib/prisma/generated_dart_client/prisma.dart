@@ -972,6 +972,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.OR,
     this.NOT,
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -992,6 +993,8 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidFilter, String>? id;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? firebaseUid;
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? email;
 
@@ -1025,6 +1028,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'OR': OR,
         'NOT': NOT,
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -1043,6 +1047,7 @@ class UserWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserWhereUniqueInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.providerId,
     this.AND,
@@ -1060,6 +1065,8 @@ class UserWhereUniqueInput
   });
 
   final String? id;
+
+  final String? firebaseUid;
 
   final String? email;
 
@@ -1096,6 +1103,7 @@ class UserWhereUniqueInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'providerId': providerId,
         'AND': AND,
@@ -1944,6 +1952,7 @@ class UserOrderByWithRelationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserOrderByWithRelationInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -1958,6 +1967,8 @@ class UserOrderByWithRelationInput
   });
 
   final _i2.SortOrder? id;
+
+  final _i2.SortOrder? firebaseUid;
 
   final _i2.SortOrder? email;
 
@@ -1984,6 +1995,7 @@ class UserOrderByWithRelationInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -2211,6 +2223,7 @@ class UserInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
 
 enum UserScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   id<String>('id', 'User'),
+  firebaseUid<String>('firebaseUid', 'User'),
   email<String>('email', 'User'),
   username<String>('username', 'User'),
   createdAt<DateTime>('createdAt', 'User'),
@@ -2481,6 +2494,7 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserSelect({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -2496,6 +2510,8 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
   });
 
   final bool? id;
+
+  final bool? firebaseUid;
 
   final bool? email;
 
@@ -2524,6 +2540,7 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -2855,6 +2872,7 @@ class UserCreateWithoutUsesrOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCreateWithoutUsesrOnTripsInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -2868,6 +2886,8 @@ class UserCreateWithoutUsesrOnTripsInput
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -2892,6 +2912,7 @@ class UserCreateWithoutUsesrOnTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -3169,6 +3190,7 @@ class UserUncheckedCreateWithoutUsesrOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedCreateWithoutUsesrOnTripsInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -3182,6 +3204,8 @@ class UserUncheckedCreateWithoutUsesrOnTripsInput
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -3206,6 +3230,7 @@ class UserUncheckedCreateWithoutUsesrOnTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -3405,6 +3430,7 @@ class UserCreateWithoutTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCreateWithoutTripsInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -3418,6 +3444,8 @@ class UserCreateWithoutTripsInput
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -3442,6 +3470,7 @@ class UserCreateWithoutTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -3592,6 +3621,7 @@ class UserUncheckedCreateWithoutTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedCreateWithoutTripsInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -3605,6 +3635,8 @@ class UserUncheckedCreateWithoutTripsInput
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -3629,6 +3661,7 @@ class UserUncheckedCreateWithoutTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -3921,6 +3954,7 @@ class UsesrOnTripsCreateNestedManyWithoutUserInput
 class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCreateInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -3935,6 +3969,8 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -3961,6 +3997,7 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -3979,6 +4016,7 @@ class UserUncheckedCreateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedCreateInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -3993,6 +4031,8 @@ class UserUncheckedCreateInput
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -4019,6 +4059,7 @@ class UserUncheckedCreateInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -4047,6 +4088,7 @@ class AffectedRowsOutput {
 class UserCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCreateManyInput({
     this.id,
+    required this.firebaseUid,
     required this.email,
     this.username,
     this.createdAt,
@@ -4059,6 +4101,8 @@ class UserCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   });
 
   final String? id;
+
+  final String firebaseUid;
 
   final String email;
 
@@ -4081,6 +4125,7 @@ class UserCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -4097,6 +4142,7 @@ class CreateManyUserAndReturnOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const CreateManyUserAndReturnOutputTypeSelect({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -4109,6 +4155,8 @@ class CreateManyUserAndReturnOutputTypeSelect
   });
 
   final bool? id;
+
+  final bool? firebaseUid;
 
   final bool? email;
 
@@ -4131,6 +4179,7 @@ class CreateManyUserAndReturnOutputTypeSelect
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -4914,6 +4963,7 @@ class UserUpdateWithoutUsesrOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUpdateWithoutUsesrOnTripsInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -4927,6 +4977,9 @@ class UserUpdateWithoutUsesrOnTripsInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -4968,6 +5021,7 @@ class UserUpdateWithoutUsesrOnTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -5600,6 +5654,7 @@ class UserUncheckedUpdateWithoutUsesrOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedUpdateWithoutUsesrOnTripsInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -5613,6 +5668,9 @@ class UserUncheckedUpdateWithoutUsesrOnTripsInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -5654,6 +5712,7 @@ class UserUncheckedUpdateWithoutUsesrOnTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -6016,6 +6075,7 @@ class UserUpdateWithoutTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUpdateWithoutTripsInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -6029,6 +6089,9 @@ class UserUpdateWithoutTripsInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -6070,6 +6133,7 @@ class UserUpdateWithoutTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -6260,6 +6324,7 @@ class UserUncheckedUpdateWithoutTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedUpdateWithoutTripsInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -6273,6 +6338,9 @@ class UserUncheckedUpdateWithoutTripsInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -6314,6 +6382,7 @@ class UserUncheckedUpdateWithoutTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -6377,6 +6446,7 @@ class UserScalarWhereInput
     this.OR,
     this.NOT,
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -6397,6 +6467,8 @@ class UserScalarWhereInput
       Iterable<_i2.UserScalarWhereInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidFilter, String>? id;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? firebaseUid;
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? email;
 
@@ -6426,6 +6498,7 @@ class UserScalarWhereInput
         'OR': OR,
         'NOT': NOT,
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -6442,6 +6515,7 @@ class UserUpdateManyMutationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUpdateManyMutationInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -6454,6 +6528,9 @@ class UserUpdateManyMutationInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -6493,6 +6570,7 @@ class UserUpdateManyMutationInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -6509,6 +6587,7 @@ class UserUncheckedUpdateManyWithoutTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedUpdateManyWithoutTripsInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -6521,6 +6600,9 @@ class UserUncheckedUpdateManyWithoutTripsInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -6560,6 +6642,7 @@ class UserUncheckedUpdateManyWithoutTripsInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7032,6 +7115,7 @@ class UsesrOnTripsUpdateManyWithoutUserNestedInput
 class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUpdateInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7046,6 +7130,9 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -7089,6 +7176,7 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7107,6 +7195,7 @@ class UserUncheckedUpdateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedUpdateInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7121,6 +7210,9 @@ class UserUncheckedUpdateInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -7164,6 +7256,7 @@ class UserUncheckedUpdateInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7182,6 +7275,7 @@ class UserUncheckedUpdateManyInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserUncheckedUpdateManyInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7194,6 +7288,9 @@ class UserUncheckedUpdateManyInput
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
+      firebaseUid;
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? email;
 
@@ -7233,6 +7330,7 @@ class UserUncheckedUpdateManyInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7248,6 +7346,7 @@ class UserUncheckedUpdateManyInput
 class UserCountAggregateOutputType {
   const UserCountAggregateOutputType({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7263,6 +7362,7 @@ class UserCountAggregateOutputType {
   factory UserCountAggregateOutputType.fromJson(Map json) =>
       UserCountAggregateOutputType(
         id: json['id'],
+        firebaseUid: json['firebaseUid'],
         email: json['email'],
         username: json['username'],
         createdAt: json['createdAt'],
@@ -7276,6 +7376,8 @@ class UserCountAggregateOutputType {
       );
 
   final int? id;
+
+  final int? firebaseUid;
 
   final int? email;
 
@@ -7299,6 +7401,7 @@ class UserCountAggregateOutputType {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7315,6 +7418,7 @@ class UserCountAggregateOutputType {
 class UserMinAggregateOutputType {
   const UserMinAggregateOutputType({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7329,6 +7433,7 @@ class UserMinAggregateOutputType {
   factory UserMinAggregateOutputType.fromJson(Map json) =>
       UserMinAggregateOutputType(
         id: json['id'],
+        firebaseUid: json['firebaseUid'],
         email: json['email'],
         username: json['username'],
         createdAt: switch (json['createdAt']) {
@@ -7353,6 +7458,8 @@ class UserMinAggregateOutputType {
 
   final String? id;
 
+  final String? firebaseUid;
+
   final String? email;
 
   final String? username;
@@ -7373,6 +7480,7 @@ class UserMinAggregateOutputType {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
@@ -7388,6 +7496,7 @@ class UserMinAggregateOutputType {
 class UserMaxAggregateOutputType {
   const UserMaxAggregateOutputType({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7402,6 +7511,7 @@ class UserMaxAggregateOutputType {
   factory UserMaxAggregateOutputType.fromJson(Map json) =>
       UserMaxAggregateOutputType(
         id: json['id'],
+        firebaseUid: json['firebaseUid'],
         email: json['email'],
         username: json['username'],
         createdAt: switch (json['createdAt']) {
@@ -7426,6 +7536,8 @@ class UserMaxAggregateOutputType {
 
   final String? id;
 
+  final String? firebaseUid;
+
   final String? email;
 
   final String? username;
@@ -7446,6 +7558,7 @@ class UserMaxAggregateOutputType {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
@@ -7461,6 +7574,7 @@ class UserMaxAggregateOutputType {
 class UserGroupByOutputType {
   const UserGroupByOutputType({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7477,6 +7591,7 @@ class UserGroupByOutputType {
 
   factory UserGroupByOutputType.fromJson(Map json) => UserGroupByOutputType(
         id: json['id'],
+        firebaseUid: json['firebaseUid'],
         email: json['email'],
         username: json['username'],
         createdAt: switch (json['createdAt']) {
@@ -7510,6 +7625,8 @@ class UserGroupByOutputType {
 
   final String? id;
 
+  final String? firebaseUid;
+
   final String? email;
 
   final String? username;
@@ -7536,6 +7653,7 @@ class UserGroupByOutputType {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt?.toIso8601String(),
@@ -7555,6 +7673,7 @@ class UserCountOrderByAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCountOrderByAggregateInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7567,6 +7686,8 @@ class UserCountOrderByAggregateInput
   });
 
   final _i2.SortOrder? id;
+
+  final _i2.SortOrder? firebaseUid;
 
   final _i2.SortOrder? email;
 
@@ -7589,6 +7710,7 @@ class UserCountOrderByAggregateInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7605,6 +7727,7 @@ class UserMaxOrderByAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserMaxOrderByAggregateInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7617,6 +7740,8 @@ class UserMaxOrderByAggregateInput
   });
 
   final _i2.SortOrder? id;
+
+  final _i2.SortOrder? firebaseUid;
 
   final _i2.SortOrder? email;
 
@@ -7639,6 +7764,7 @@ class UserMaxOrderByAggregateInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7655,6 +7781,7 @@ class UserMinOrderByAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserMinOrderByAggregateInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7667,6 +7794,8 @@ class UserMinOrderByAggregateInput
   });
 
   final _i2.SortOrder? id;
+
+  final _i2.SortOrder? firebaseUid;
 
   final _i2.SortOrder? email;
 
@@ -7689,6 +7818,7 @@ class UserMinOrderByAggregateInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -7705,6 +7835,7 @@ class UserOrderByWithAggregationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserOrderByWithAggregationInput({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -7720,6 +7851,8 @@ class UserOrderByWithAggregationInput
   });
 
   final _i2.SortOrder? id;
+
+  final _i2.SortOrder? firebaseUid;
 
   final _i2.SortOrder? email;
 
@@ -7748,6 +7881,7 @@ class UserOrderByWithAggregationInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -8454,6 +8588,7 @@ class UserScalarWhereWithAggregatesInput
     this.OR,
     this.NOT,
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -8474,6 +8609,8 @@ class UserScalarWhereWithAggregatesInput
       Iterable<_i2.UserScalarWhereWithAggregatesInput>>? NOT;
 
   final _i1.PrismaUnion<_i2.UuidWithAggregatesFilter, String>? id;
+
+  final _i1.PrismaUnion<_i2.StringWithAggregatesFilter, String>? firebaseUid;
 
   final _i1.PrismaUnion<_i2.StringWithAggregatesFilter, String>? email;
 
@@ -8504,6 +8641,7 @@ class UserScalarWhereWithAggregatesInput
         'OR': OR,
         'NOT': NOT,
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -8520,6 +8658,7 @@ class UserCountAggregateOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCountAggregateOutputTypeSelect({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -8533,6 +8672,8 @@ class UserCountAggregateOutputTypeSelect
   });
 
   final bool? id;
+
+  final bool? firebaseUid;
 
   final bool? email;
 
@@ -8557,6 +8698,7 @@ class UserCountAggregateOutputTypeSelect
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -8584,6 +8726,7 @@ class UserMinAggregateOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserMinAggregateOutputTypeSelect({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -8596,6 +8739,8 @@ class UserMinAggregateOutputTypeSelect
   });
 
   final bool? id;
+
+  final bool? firebaseUid;
 
   final bool? email;
 
@@ -8618,6 +8763,7 @@ class UserMinAggregateOutputTypeSelect
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -8644,6 +8790,7 @@ class UserMaxAggregateOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserMaxAggregateOutputTypeSelect({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -8656,6 +8803,8 @@ class UserMaxAggregateOutputTypeSelect
   });
 
   final bool? id;
+
+  final bool? firebaseUid;
 
   final bool? email;
 
@@ -8678,6 +8827,7 @@ class UserMaxAggregateOutputTypeSelect
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
@@ -8704,6 +8854,7 @@ class UserGroupByOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserGroupByOutputTypeSelect({
     this.id,
+    this.firebaseUid,
     this.email,
     this.username,
     this.createdAt,
@@ -8719,6 +8870,8 @@ class UserGroupByOutputTypeSelect
   });
 
   final bool? id;
+
+  final bool? firebaseUid;
 
   final bool? email;
 
@@ -8747,6 +8900,7 @@ class UserGroupByOutputTypeSelect
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
         'createdAt': createdAt,
