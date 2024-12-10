@@ -9,15 +9,18 @@ datasource db {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique
-  username   String?
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime  @updatedAt @map("updated_at")
-  password   String?
-  loginType  LoginType @default(EMAIL) @map("login_type")
-  providerId String    @unique @map("provider_id")
-  trips      Trip[]
+  id                String         @id @default(uuid()) @db.Uuid
+  email             String         @unique
+  username          String?
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+  password          String?
+  loginType         LoginType      @default(EMAIL) @map("login_type")
+  providerId        String         @unique @map("provider_id")
+  profilePictureUrl String?        @map("profile_picture_url")
+  bio               String?
+  trips             Trip[]
+  UsesrOnTrips      UsesrOnTrips[]
 
   @@map("users")
 }
@@ -29,49 +32,59 @@ enum LoginType {
 }
 
 model Trip {
-  id          Int      @id @default(autoincrement())
-  tripName    String   @map("trip_name")
-  description String?  @map("description")
-  startDate   DateTime @map("start_date")
-  endDate     DateTime @map("end_date")
-  places      Place[]
-  users       User[]
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id           String         @id @default(uuid()) @db.Uuid
+  tripName     String         @map("trip_name")
+  description  String?        @map("description")
+  startDate    DateTime       @map("start_date")
+  endDate      DateTime       @map("end_date")
+  places       Place[]
+  users        User[]
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  UsesrOnTrips UsesrOnTrips[]
 
   @@map("trips")
 }
 
+model UsesrOnTrips {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  tripId    String   @db.Uuid @map("trip_id")
+  trip      Trip     @relation(fields: [tripId], references: [id])
+  role      Role     @default(VIEWER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users_on_trips")
+}
+
+enum Role {
+  OWNER
+  COLLABORATOR
+  VIEWER
+}
+
 model Place {
-  id          Int            @id @default(autoincrement())
-  placeName   String         @map("place_name")
+  id          String   @id @default(uuid()) @db.Uuid
+  placeName   String   @map("place_name")
   description String?
   note        String?
-  trip        Trip           @relation(fields: [tripId], references: [id])
-  tripId      Int            @map("trip_id")
-  tags        TagsOnPlaces[]
-  createdAt   DateTime       @default(now()) @map("created_at")
-  updatedAt   DateTime       @updatedAt @map("updated_at")
+  trip        Trip     @relation(fields: [tripId], references: [id])
+  tripId      String   @db.Uuid @map("trip_id")
+  tags        Tag[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("places")
 }
 
 model Tag {
-  id        Int            @id @default(autoincrement()) @map("id")
-  tagName   String         @unique @map("tag_name")
-  places    TagsOnPlaces[]
-  createdAt DateTime       @default(now()) @map("created_at")
-  updatedAt DateTime       @updatedAt @map("updated_at")
+  id        String   @id @default(uuid()) @db.Uuid
+  tagName   String   @unique @map("tag_name")
+  places    Place[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("tags")
-}
-
-model TagsOnPlaces {
-  placeId Int   @map("place_id")
-  tagId   Int   @map("tag_id")
-  place   Place @relation(fields: [placeId], references: [id])
-  tag     Tag   @relation(fields: [tagId], references: [id])
-
-  @@id([placeId, tagId])
-  @@map("places_tags")
 }

@@ -39,13 +39,13 @@ class Tag {
           _ => json['updatedAt']
         },
         places: (json['places'] as Iterable?)
-            ?.map((json) => _i2.TagsOnPlaces.fromJson(json)),
+            ?.map((json) => _i2.Place.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.TagCountOutputType.fromJson(json['_count'])
             : null,
       );
 
-  final int? id;
+  final String? id;
 
   final String? tagName;
 
@@ -53,7 +53,7 @@ class Tag {
 
   final DateTime? updatedAt;
 
-  final Iterable<_i2.TagsOnPlaces>? places;
+  final Iterable<_i2.Place>? places;
 
   final _i3.TagCountOutputType? $count;
 
@@ -64,37 +64,6 @@ class Tag {
         'updatedAt': updatedAt?.toIso8601String(),
         'places': places?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
-      };
-}
-
-class TagsOnPlaces {
-  const TagsOnPlaces({
-    this.placeId,
-    this.tagId,
-    this.place,
-    this.tag,
-  });
-
-  factory TagsOnPlaces.fromJson(Map json) => TagsOnPlaces(
-        placeId: json['placeId'],
-        tagId: json['tagId'],
-        place: json['place'] is Map ? _i2.Place.fromJson(json['place']) : null,
-        tag: json['tag'] is Map ? _i2.Tag.fromJson(json['tag']) : null,
-      );
-
-  final int? placeId;
-
-  final int? tagId;
-
-  final _i2.Place? place;
-
-  final _i2.Tag? tag;
-
-  Map<String, dynamic> toJson() => {
-        'placeId': placeId,
-        'tagId': tagId,
-        'place': place?.toJson(),
-        'tag': tag?.toJson(),
       };
 }
 
@@ -129,14 +98,14 @@ class Place {
           _ => json['updatedAt']
         },
         trip: json['trip'] is Map ? _i2.Trip.fromJson(json['trip']) : null,
-        tags: (json['tags'] as Iterable?)
-            ?.map((json) => _i2.TagsOnPlaces.fromJson(json)),
+        tags:
+            (json['tags'] as Iterable?)?.map((json) => _i2.Tag.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.PlaceCountOutputType.fromJson(json['_count'])
             : null,
       );
 
-  final int? id;
+  final String? id;
 
   final String? placeName;
 
@@ -144,7 +113,7 @@ class Place {
 
   final String? note;
 
-  final int? tripId;
+  final String? tripId;
 
   final DateTime? createdAt;
 
@@ -152,7 +121,7 @@ class Place {
 
   final _i2.Trip? trip;
 
-  final Iterable<_i2.TagsOnPlaces>? tags;
+  final Iterable<_i2.Tag>? tags;
 
   final _i3.PlaceCountOutputType? $count;
 
@@ -170,6 +139,78 @@ class Place {
       };
 }
 
+enum Role implements _i1.PrismaEnum {
+  owner._('OWNER'),
+  collaborator._('COLLABORATOR'),
+  viewer._('VIEWER');
+
+  const Role._(this.name);
+
+  @override
+  final String name;
+}
+
+class UsesrOnTrips {
+  const UsesrOnTrips({
+    this.id,
+    this.userId,
+    this.tripId,
+    this.role,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+    this.trip,
+  });
+
+  factory UsesrOnTrips.fromJson(Map json) => UsesrOnTrips(
+        id: json['id'],
+        userId: json['userId'],
+        tripId: json['tripId'],
+        role: json['role'] != null
+            ? _i2.Role.values.firstWhere((e) => e.name == json['role'])
+            : null,
+        createdAt: switch (json['createdAt']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['createdAt']
+        },
+        updatedAt: switch (json['updatedAt']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['updatedAt']
+        },
+        user: json['user'] is Map ? _i2.User.fromJson(json['user']) : null,
+        trip: json['trip'] is Map ? _i2.Trip.fromJson(json['trip']) : null,
+      );
+
+  final String? id;
+
+  final String? userId;
+
+  final String? tripId;
+
+  final _i2.Role? role;
+
+  final DateTime? createdAt;
+
+  final DateTime? updatedAt;
+
+  final _i2.User? user;
+
+  final _i2.Trip? trip;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'userId': userId,
+        'tripId': tripId,
+        'role': role?.name,
+        'createdAt': createdAt?.toIso8601String(),
+        'updatedAt': updatedAt?.toIso8601String(),
+        'user': user?.toJson(),
+        'trip': trip?.toJson(),
+      };
+}
+
 class Trip {
   const Trip({
     this.id,
@@ -181,6 +222,7 @@ class Trip {
     this.updatedAt,
     this.places,
     this.users,
+    this.usesrOnTrips,
     this.$count,
   });
 
@@ -212,12 +254,14 @@ class Trip {
             ?.map((json) => _i2.Place.fromJson(json)),
         users: (json['users'] as Iterable?)
             ?.map((json) => _i2.User.fromJson(json)),
+        usesrOnTrips: (json['UsesrOnTrips'] as Iterable?)
+            ?.map((json) => _i2.UsesrOnTrips.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.TripCountOutputType.fromJson(json['_count'])
             : null,
       );
 
-  final int? id;
+  final String? id;
 
   final String? tripName;
 
@@ -235,6 +279,8 @@ class Trip {
 
   final Iterable<_i2.User>? users;
 
+  final Iterable<_i2.UsesrOnTrips>? usesrOnTrips;
+
   final _i3.TripCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
@@ -247,6 +293,7 @@ class Trip {
         'updatedAt': updatedAt?.toIso8601String(),
         'places': places?.map((e) => e.toJson()),
         'users': users?.map((e) => e.toJson()),
+        'UsesrOnTrips': usesrOnTrips?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
       };
 }
@@ -261,7 +308,10 @@ class User {
     this.password,
     this.loginType,
     this.providerId,
+    this.profilePictureUrl,
+    this.bio,
     this.trips,
+    this.usesrOnTrips,
     this.$count,
   });
 
@@ -285,14 +335,18 @@ class User {
                 .firstWhere((e) => e.name == json['loginType'])
             : null,
         providerId: json['providerId'],
+        profilePictureUrl: json['profilePictureUrl'],
+        bio: json['bio'],
         trips: (json['trips'] as Iterable?)
             ?.map((json) => _i2.Trip.fromJson(json)),
+        usesrOnTrips: (json['UsesrOnTrips'] as Iterable?)
+            ?.map((json) => _i2.UsesrOnTrips.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.UserCountOutputType.fromJson(json['_count'])
             : null,
       );
 
-  final int? id;
+  final String? id;
 
   final String? email;
 
@@ -308,7 +362,13 @@ class User {
 
   final String? providerId;
 
+  final String? profilePictureUrl;
+
+  final String? bio;
+
   final Iterable<_i2.Trip>? trips;
+
+  final Iterable<_i2.UsesrOnTrips>? usesrOnTrips;
 
   final _i3.UserCountOutputType? $count;
 
@@ -321,7 +381,10 @@ class User {
         'password': password,
         'loginType': loginType?.name,
         'providerId': providerId,
+        'profilePictureUrl': profilePictureUrl,
+        'bio': bio,
         'trips': trips?.map((e) => e.toJson()),
+        'UsesrOnTrips': usesrOnTrips?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
       };
 }
@@ -336,6 +399,8 @@ class CreateManyUserAndReturnOutputType {
     this.password,
     this.loginType,
     this.providerId,
+    this.profilePictureUrl,
+    this.bio,
   });
 
   factory CreateManyUserAndReturnOutputType.fromJson(Map json) =>
@@ -359,9 +424,11 @@ class CreateManyUserAndReturnOutputType {
                 .firstWhere((e) => e.name == json['loginType'])
             : null,
         providerId: json['providerId'],
+        profilePictureUrl: json['profilePictureUrl'],
+        bio: json['bio'],
       );
 
-  final int? id;
+  final String? id;
 
   final String? email;
 
@@ -377,6 +444,10 @@ class CreateManyUserAndReturnOutputType {
 
   final String? providerId;
 
+  final String? profilePictureUrl;
+
+  final String? bio;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'email': email,
@@ -386,6 +457,8 @@ class CreateManyUserAndReturnOutputType {
         'password': password,
         'loginType': loginType?.name,
         'providerId': providerId,
+        'profilePictureUrl': profilePictureUrl,
+        'bio': bio,
       };
 }
 
@@ -427,7 +500,7 @@ class CreateManyTripAndReturnOutputType {
         },
       );
 
-  final int? id;
+  final String? id;
 
   final String? tripName;
 
@@ -449,6 +522,68 @@ class CreateManyTripAndReturnOutputType {
         'endDate': endDate?.toIso8601String(),
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+      };
+}
+
+class CreateManyUsesrOnTripsAndReturnOutputType {
+  const CreateManyUsesrOnTripsAndReturnOutputType({
+    this.id,
+    this.userId,
+    this.tripId,
+    this.role,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+    this.trip,
+  });
+
+  factory CreateManyUsesrOnTripsAndReturnOutputType.fromJson(Map json) =>
+      CreateManyUsesrOnTripsAndReturnOutputType(
+        id: json['id'],
+        userId: json['userId'],
+        tripId: json['tripId'],
+        role: json['role'] != null
+            ? _i2.Role.values.firstWhere((e) => e.name == json['role'])
+            : null,
+        createdAt: switch (json['createdAt']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['createdAt']
+        },
+        updatedAt: switch (json['updatedAt']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['updatedAt']
+        },
+        user: json['user'] is Map ? _i2.User.fromJson(json['user']) : null,
+        trip: json['trip'] is Map ? _i2.Trip.fromJson(json['trip']) : null,
+      );
+
+  final String? id;
+
+  final String? userId;
+
+  final String? tripId;
+
+  final _i2.Role? role;
+
+  final DateTime? createdAt;
+
+  final DateTime? updatedAt;
+
+  final _i2.User? user;
+
+  final _i2.Trip? trip;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'userId': userId,
+        'tripId': tripId,
+        'role': role?.name,
+        'createdAt': createdAt?.toIso8601String(),
+        'updatedAt': updatedAt?.toIso8601String(),
+        'user': user?.toJson(),
+        'trip': trip?.toJson(),
       };
 }
 
@@ -484,7 +619,7 @@ class CreateManyPlaceAndReturnOutputType {
         trip: json['trip'] is Map ? _i2.Trip.fromJson(json['trip']) : null,
       );
 
-  final int? id;
+  final String? id;
 
   final String? placeName;
 
@@ -492,7 +627,7 @@ class CreateManyPlaceAndReturnOutputType {
 
   final String? note;
 
-  final int? tripId;
+  final String? tripId;
 
   final DateTime? createdAt;
 
@@ -536,7 +671,7 @@ class CreateManyTagAndReturnOutputType {
         },
       );
 
-  final int? id;
+  final String? id;
 
   final String? tagName;
 
@@ -549,37 +684,5 @@ class CreateManyTagAndReturnOutputType {
         'tagName': tagName,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
-      };
-}
-
-class CreateManyTagsOnPlacesAndReturnOutputType {
-  const CreateManyTagsOnPlacesAndReturnOutputType({
-    this.placeId,
-    this.tagId,
-    this.place,
-    this.tag,
-  });
-
-  factory CreateManyTagsOnPlacesAndReturnOutputType.fromJson(Map json) =>
-      CreateManyTagsOnPlacesAndReturnOutputType(
-        placeId: json['placeId'],
-        tagId: json['tagId'],
-        place: json['place'] is Map ? _i2.Place.fromJson(json['place']) : null,
-        tag: json['tag'] is Map ? _i2.Tag.fromJson(json['tag']) : null,
-      );
-
-  final int? placeId;
-
-  final int? tagId;
-
-  final _i2.Place? place;
-
-  final _i2.Tag? tag;
-
-  Map<String, dynamic> toJson() => {
-        'placeId': placeId,
-        'tagId': tagId,
-        'place': place?.toJson(),
-        'tag': tag?.toJson(),
       };
 }
