@@ -203,11 +203,34 @@ class UserRoute {
       }
     }
 
+    Future<Response> getAllTrips(Request request, String userId) async {
+      try {
+        var trips = await prisma.trip.findMany(
+          where: TripWhereInput(
+              usersOnTrips: UsersOnTripsListRelationFilter(
+                  some:
+                      UsersOnTripsWhereInput(userId: PrismaUnion.$2(userId)))),
+        );
+
+        var tripList = trips.map((trip) => trip.toJson()).toList();
+
+        return Response.ok(
+          json.encode(tripList),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
+    }
+
     router.get('/', getAllUsers);
     router.get('/<userId>', getUserById);
     router.post('/', createUser);
-    router.put('/<id>', updateUser);
-    router.delete('/<id>', deleteUser);
+    router.put('/<userId>', updateUser);
+    router.delete('/<userId>', deleteUser);
+
+    router.get('<userId>/trips', getAllTrips);
 
     return router;
   }
