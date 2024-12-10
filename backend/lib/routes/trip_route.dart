@@ -7,6 +7,7 @@ import 'package:backend/prisma.dart';
 import 'package:backend/utils/validate_payload.dart';
 import 'package:backend/utils/validate_datetime.dart';
 import 'package:backend/utils/extract_updatable_fields.dart';
+
 import 'dart:convert';
 
 class TripRoute {
@@ -181,11 +182,37 @@ class TripRoute {
       }
     }
 
+    Future<Response> getAllPlaces(Request request, String tripId) async {
+      try {
+        var places = await prisma.place.findMany(
+          where: PlaceWhereInput(tripId: PrismaUnion.$2(tripId)),
+          include: PlaceInclude(tags: PrismaUnion.$1(true)),
+        );
+        var placeList = places.map((place) {
+          final placeJson = place.toJson();
+          placeJson['tags'] =
+              place.tags?.map((tag) => tag.toJson()).toList() ?? [];
+          return placeJson;
+        }).toList();
+
+        return Response.ok(
+          json.encode(placeList),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
+    }
+
     router.get('/', getAllTrips);
     router.get('/<tripId>', getTripById);
     router.post('/', createTrip);
     router.put('/<tripId>', updateTrip);
     router.delete('/<tripId>', deleteTrip);
+
+    router.get('/<tripId>/places', getAllPlaces);
+
     return router;
   }
 }

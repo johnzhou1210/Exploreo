@@ -17,7 +17,12 @@ class PlaceRoute {
     Future<Response> getAllPlaces(Request request) async {
       try {
         var places = await prisma.place.findMany();
-        var placeList = places.map((place) => place.toJson()).toList();
+        var placeList = places.map((place) {
+          final placeJson = place.toJson();
+          placeJson['tags'] =
+              place.tags?.map((tag) => tag.toJson()).toList() ?? [];
+          return placeJson;
+        }).toList();
 
         return Response.ok(
           json.encode(placeList),
@@ -57,7 +62,7 @@ class PlaceRoute {
       try {
         final payload = jsonDecode(await request.readAsString());
 
-        const requiredFields = ['tripId', 'placeName', 'tripId'];
+        const requiredFields = ['placeName', 'tripId'];
 
         final validPayload = isValidPayload(payload, requiredFields, {});
         // validate payload
