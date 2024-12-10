@@ -4,6 +4,7 @@ import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
 import 'package:backend/utils/validate_payload.dart';
+import 'package:backend/utils/validate_datetime.dart';
 import 'package:backend/utils/extract_updatable_fields.dart';
 import 'dart:convert';
 
@@ -51,7 +52,7 @@ class PlaceRoute {
       try {
         final payload = jsonDecode(await request.readAsString());
 
-        const requiredFields = ['placeName', 'tripId'];
+        const requiredFields = ['tripId', 'placeName', 'tripId'];
 
         final validPayload = isValidPayload(payload, requiredFields, {});
         // validate payload
@@ -59,9 +60,24 @@ class PlaceRoute {
           return Response(400,
               body: json.encode({'error': 'Missing required fields'}));
         }
+
+        if ((payload['startDate'] != null &&
+                !isValidDateTime(payload['startDate'])) ||
+            (payload['endDate'] != null &&
+                !isValidDateTime(payload['endDate']))) {
+          return Response(400,
+              body: json.encode({'error': 'Invalid date time format'}));
+        }
+
         final place = await prisma.place.create(
             data: PrismaUnion.$1(PlaceCreateInput(
                 placeName: payload["placeName"],
+                startDate: payload['startDate'] != null
+                    ? PrismaUnion.$1(DateTime.parse(payload["startDate"]))
+                    : null,
+                endDate: payload['endDate'] != null
+                    ? PrismaUnion.$1(DateTime.parse(payload['endDate']))
+                    : null,
                 trip: TripCreateNestedOneWithoutPlacesInput(
                     connect: TripWhereUniqueInput(id: payload["tripId"])))));
 
@@ -92,6 +108,14 @@ class PlaceRoute {
           return Response(400, body: 'NO_VALID_FIELDS_TO_UPDATE');
         }
 
+        if ((payload['startDate'] != null &&
+                !isValidDateTime(payload['startDate'])) ||
+            (payload['endDate'] != null &&
+                !isValidDateTime(payload['endDate']))) {
+          return Response(400,
+              body: json.encode({'error': 'Invalid date time format'}));
+        }
+
         final updatedPlace = await prisma.place.update(
           where: PlaceWhereUniqueInput(id: placeId),
           data: PrismaUnion.$1(PlaceUpdateInput(
@@ -102,10 +126,10 @@ class PlaceRoute {
                 ? PrismaUnion.$1(fieldsToUpdate['description'])
                 : null,
             startDate: fieldsToUpdate['startDate'] != null
-                ? PrismaUnion.$1(fieldsToUpdate['startDate'])
+                ? PrismaUnion.$1(DateTime.parse(fieldsToUpdate["startDate"]))
                 : null,
             endDate: fieldsToUpdate['endDate'] != null
-                ? PrismaUnion.$1(fieldsToUpdate['endDate'])
+                ? PrismaUnion.$1(DateTime.parse(fieldsToUpdate['endDate']))
                 : null,
           )),
         );

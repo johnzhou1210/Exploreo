@@ -1,9 +1,11 @@
+import 'package:backend/prisma/generated_dart_client/model.dart';
 import 'package:backend/prisma/generated_dart_client/prisma.dart';
 import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
 import 'package:backend/utils/validate_payload.dart';
+import 'package:backend/utils/validate_datetime.dart';
 import 'package:backend/utils/extract_updatable_fields.dart';
 import 'dart:convert';
 
@@ -51,7 +53,7 @@ class TripRoute {
       try {
         final payload = jsonDecode(await request.readAsString());
 
-        const requiredFields = ['tripName', 'startDate', 'endDate'];
+        const requiredFields = ['userId', 'tripName', 'startDate', 'endDate'];
 
         final validPayload = isValidPayload(payload, requiredFields, {});
         // validate payload
@@ -60,11 +62,34 @@ class TripRoute {
               body: json.encode({'error': 'Missing required fields'}));
         }
 
+        if (!isValidDateTime(payload['startDate']) ||
+            !isValidDateTime(payload['endDate'])) {
+          return Response(400,
+              body: json.encode({'error': 'Invalid date time format'}));
+        }
+
         final trip = await prisma.trip.create(
-            data: PrismaUnion.$1(TripCreateInput(
-                tripName: payload["tripName"],
-                startDate: payload["starteDate"],
-                endDate: payload["endDate"])));
+          data: PrismaUnion.$1(TripCreateInput(
+              tripName: payload["tripName"],
+              startDate: DateTime.parse(payload["startDate"]),
+              endDate: DateTime.parse(payload["endDate"]),
+              description: payload['description'] != null
+                  ? PrismaUnion.$1(payload['description'])
+                  : null,
+              isShared: payload['isShared'] != null
+                  ? bool.parse(payload['isShared'])
+                  : null,
+              usersOnTrips: UsersOnTripsCreateNestedManyWithoutTripInput(
+                create: PrismaUnion.$1(
+                  UsersOnTripsCreateWithoutTripInput(
+                    role: Role.owner,
+                    user: UserCreateNestedOneWithoutUsersOnTripsInput(
+                      connect: UserWhereUniqueInput(id: payload['userId']),
+                    ),
+                  ),
+                ),
+              ))),
+        );
 
         return Response.ok(
           json.encode(trip.toJson()),
@@ -94,6 +119,14 @@ class TripRoute {
           return Response(400, body: 'NO_VALID_FIELDS_TO_UPDATE');
         }
 
+        if ((payload['startDate'] != null &&
+                !isValidDateTime(payload['startDate'])) ||
+            (payload['endDate'] != null &&
+                !isValidDateTime(payload['endDate']))) {
+          return Response(400,
+              body: json.encode({'error': 'Invalid date time format'}));
+        }
+
         final updatedTrip = await prisma.trip.update(
           where: TripWhereUniqueInput(id: tripId),
           data: PrismaUnion.$1(TripUpdateInput(
@@ -104,10 +137,10 @@ class TripRoute {
                 ? PrismaUnion.$1(fieldsToUpdate['description'])
                 : null,
             startDate: fieldsToUpdate['startDate'] != null
-                ? PrismaUnion.$1(fieldsToUpdate['startDate'])
+                ? PrismaUnion.$1(DateTime.parse(fieldsToUpdate["startDate"]))
                 : null,
             endDate: fieldsToUpdate['endDate'] != null
-                ? PrismaUnion.$1(fieldsToUpdate['endDate'])
+                ? PrismaUnion.$1(DateTime.parse(fieldsToUpdate['endDate']))
                 : null,
             isShared: fieldsToUpdate['isShared'] != null
                 ? PrismaUnion.$1(bool.parse(fieldsToUpdate['isShared']))
