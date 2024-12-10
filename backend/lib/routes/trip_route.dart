@@ -1,5 +1,4 @@
 import 'package:backend/prisma/generated_dart_client/prisma.dart';
-import 'package:backend/prisma/generated_dart_client/model.dart';
 import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
@@ -78,7 +77,56 @@ class TripRoute {
     }
 
     Future<Response> updateTrip(Request request, String tripId) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final payload = jsonDecode(await request.readAsString());
+
+        const updatableFields = [
+          'tripName',
+          'description',
+          'startDate',
+          'endDate',
+          'isShared'
+        ];
+
+        final fieldsToUpdate = extractUpdatableFields(payload, updatableFields);
+
+        if (fieldsToUpdate.isEmpty) {
+          return Response(400, body: 'NO_VALID_FIELDS_TO_UPDATE');
+        }
+
+        final updatedTrip = await prisma.trip.update(
+          where: TripWhereUniqueInput(id: tripId),
+          data: PrismaUnion.$1(TripUpdateInput(
+            tripName: fieldsToUpdate['tripName'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['tripName'])
+                : null,
+            description: fieldsToUpdate['description'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['description'])
+                : null,
+            startDate: fieldsToUpdate['startDate'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['startDate'])
+                : null,
+            endDate: fieldsToUpdate['endDate'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['endDate'])
+                : null,
+            isShared: fieldsToUpdate['isShared'] != null
+                ? PrismaUnion.$1(bool.parse(fieldsToUpdate['isShared']))
+                : null,
+          )),
+        );
+
+        if (updatedTrip == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(updatedTrip.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     Future<Response> deleteTrip(Request request, String tripId) async {
