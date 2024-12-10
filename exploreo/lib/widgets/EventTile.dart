@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../data/TestTripData.dart';
+import '../screens/EditEventScreen.dart';
 import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
 class EventTile extends StatefulWidget {
-  final TripEvent event;
+  TripEvent event;
+  Trip trip;
 
   EventTile({
+    required this.trip,
     required this.event,
   });
 
@@ -19,7 +23,7 @@ class _EventTileState extends State<EventTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(trip: widget.trip, eventId: widget.event.id)));
       },
       child: Container(
         height: 80,

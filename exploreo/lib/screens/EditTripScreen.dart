@@ -252,7 +252,44 @@ class _EditTripScreenState extends State<EditTripScreen> {
                 ],
               ),
 
-              const SizedBox(height: 250),
+              const SizedBox(height: 200),
+
+
+              // Delete Trip Button
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Flexible(flex: 1, child: SizedBox()),
+                SizedBox(
+                    width: 180,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Remove trip form trips
+                        int indexToRemove = trips.indexWhere((trip) => trip.id == widget.trip.id);
+                        trips.removeAt(indexToRemove);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HomeScreen(entryIndex: 1)),
+                              (Route<dynamic> route) =>
+                          false, // Keeps only the home route
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text(
+                        "Delete Trip",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )),
+                const Flexible(flex: 1, child: SizedBox()),
+              ]),
+
+              const SizedBox(height:25),
+
+
 
               // Confirm changes button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [

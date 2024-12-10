@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../data/TestTripData.dart';
 import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 

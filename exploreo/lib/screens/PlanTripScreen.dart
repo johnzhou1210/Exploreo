@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../data/ImageFetcher.dart';
+import '../data/TestTripData.dart';
 import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
