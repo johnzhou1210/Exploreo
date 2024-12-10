@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_auth: ^5.3.3
 
+  calendar_date_picker2: ^1.1.7
+  http: ^1.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

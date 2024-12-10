@@ -1,3 +1,6 @@
+import 'package:exploreo/screens/AddEventsScreen.dart';
+import 'package:exploreo/screens/LoginScreen.dart';
+import 'package:exploreo/screens/PlanTripScreen.dart';
 import 'package:exploreo/screens/TripsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
@@ -28,8 +31,8 @@ class MyApp extends StatelessWidget {
             onSurface: Color.fromARGB(255, 0, 0, 0)),
         useMaterial3: true,
       ),
-      // home: HomeScreen(),
-      home: TripsScreen(),
+      home: HomeScreen(),
+      // home: PlanTripScreen(),
     );
   }
 }
