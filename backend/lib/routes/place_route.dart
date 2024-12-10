@@ -4,6 +4,8 @@ import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
+import 'package:backend/utils/validate_payload.dart';
+import 'package:backend/utils/extract_updatable_fields.dart';
 import 'dart:convert';
 
 class PlaceRoute {
@@ -47,7 +49,31 @@ class PlaceRoute {
     }
 
     Future<Response> createPlace(Request request) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final payload = jsonDecode(await request.readAsString());
+
+        const requiredFields = ['placeName', 'tripId'];
+
+        final validPayload = isValidPayload(payload, requiredFields, {});
+        // validate payload
+        if (!validPayload) {
+          return Response(400,
+              body: json.encode({'error': 'Missing required fields'}));
+        }
+        final place = await prisma.place.create(
+            data: PrismaUnion.$1(PlaceCreateInput(
+                placeName: payload["placeName"],
+                trip: TripCreateNestedOneWithoutPlacesInput(
+                    connect: TripWhereUniqueInput(id: payload["tripId"])))));
+
+        return Response.ok(
+          json.encode(place.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     Future<Response> updatePlace(Request request, String placeId) async {
@@ -58,7 +84,7 @@ class PlaceRoute {
       try {
         final deletedPlace = await prisma.place
             .delete(where: PlaceWhereUniqueInput(id: placeId));
-        
+
         if (deletedPlace == null) {
           return Response(404, body: 'NOT_FOUND');
         }
@@ -67,7 +93,6 @@ class PlaceRoute {
           json.encode(deletedPlace.toJson()),
           headers: {'Content-Type': 'application/json'},
         );
-          
       } catch (e) {
         print(e);
         return Response(400, body: 'INTERNAL_SERVER_ERROR');

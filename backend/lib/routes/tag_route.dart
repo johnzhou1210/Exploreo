@@ -4,6 +4,8 @@ import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
+import 'package:backend/utils/validate_payload.dart';
+import 'package:backend/utils/extract_updatable_fields.dart';
 import 'dart:convert';
 
 class TagRoute {
@@ -29,8 +31,8 @@ class TagRoute {
 
     Future<Response> getTagById(Request request, String tagId) async {
       try {
-        final trip = await prisma.tag
-            .findUnique(where: TagWhereUniqueInput(id: tagId));
+        final trip =
+            await prisma.tag.findUnique(where: TagWhereUniqueInput(id: tagId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
@@ -47,7 +49,31 @@ class TagRoute {
     }
 
     Future<Response> createTag(Request request) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final payload = jsonDecode(await request.readAsString());
+
+        const requiredFields = ['tagName'];
+
+        final validPayload = isValidPayload(payload, requiredFields, {});
+        // validate payload
+        if (!validPayload) {
+          return Response(400,
+              body: json.encode({'error': 'Missing required fields'}));
+        }
+
+        final tag = await prisma.tag.create(
+            data: PrismaUnion.$1(TagCreateInput(
+          tagName: payload["tagName"],
+        )));
+
+        return Response.ok(
+          json.encode(tag.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     Future<Response> updateTag(Request request, String tagId) async {
@@ -56,8 +82,8 @@ class TagRoute {
 
     Future<Response> deleteTag(Request request, String tagId) async {
       try {
-        final trip = await prisma.tag
-            .delete(where: TagWhereUniqueInput(id: tagId));
+        final trip =
+            await prisma.tag.delete(where: TagWhereUniqueInput(id: tagId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
