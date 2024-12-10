@@ -32,46 +32,46 @@ class TripCountOutputType {
   const TripCountOutputType({
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   factory TripCountOutputType.fromJson(Map json) => TripCountOutputType(
         places: json['places'],
         users: json['users'],
-        usesrOnTrips: json['UsesrOnTrips'],
+        usersOnTrips: json['UsersOnTrips'],
       );
 
   final int? places;
 
   final int? users;
 
-  final int? usesrOnTrips;
+  final int? usersOnTrips;
 
   Map<String, dynamic> toJson() => {
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
 class UserCountOutputType {
   const UserCountOutputType({
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   factory UserCountOutputType.fromJson(Map json) => UserCountOutputType(
         trips: json['trips'],
-        usesrOnTrips: json['UsesrOnTrips'],
+        usersOnTrips: json['UsersOnTrips'],
       );
 
   final int? trips;
 
-  final int? usesrOnTrips;
+  final int? usersOnTrips;
 
   Map<String, dynamic> toJson() => {
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -1035,7 +1035,7 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<_i2.TripWhereInput, Iterable<_i2.TripWhereInput>>? AND;
@@ -1065,7 +1065,7 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.UserListRelationFilter? users;
 
-  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1082,7 +1082,7 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -1125,7 +1125,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? AND;
@@ -1162,7 +1162,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.TripListRelationFilter? trips;
 
-  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1181,7 +1181,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -1203,7 +1203,7 @@ class UserWhereUniqueInput
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -1239,7 +1239,7 @@ class UserWhereUniqueInput
 
   final _i2.TripListRelationFilter? trips;
 
-  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1258,7 +1258,7 @@ class UserWhereUniqueInput
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -1359,7 +1359,7 @@ class TripOrderByWithRelationInput
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i2.SortOrder? id;
@@ -1382,7 +1382,7 @@ class TripOrderByWithRelationInput
 
   final _i2.UserOrderByRelationAggregateInput? users;
 
-  final _i2.UsersOnTripsOrderByRelationAggregateInput? usesrOnTrips;
+  final _i2.UsersOnTripsOrderByRelationAggregateInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1396,7 +1396,7 @@ class TripOrderByWithRelationInput
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -1899,7 +1899,7 @@ class TripWhereUniqueInput
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -1929,7 +1929,7 @@ class TripWhereUniqueInput
 
   final _i2.UserListRelationFilter? users;
 
-  final _i2.UsersOnTripsListRelationFilter? usesrOnTrips;
+  final _i2.UsersOnTripsListRelationFilter? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1946,7 +1946,7 @@ class TripWhereUniqueInput
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -2133,7 +2133,7 @@ class UserOrderByWithRelationInput
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i2.SortOrder? id;
@@ -2160,7 +2160,7 @@ class UserOrderByWithRelationInput
 
   final _i2.TripOrderByRelationAggregateInput? trips;
 
-  final _i2.UsersOnTripsOrderByRelationAggregateInput? usesrOnTrips;
+  final _i2.UsersOnTripsOrderByRelationAggregateInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2176,7 +2176,7 @@ class UserOrderByWithRelationInput
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -2298,9 +2298,9 @@ enum UsersOnTripsScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   final String model;
 }
 
-class UserUsesrOnTripsArgs
+class UserUsersOnTripsArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUsesrOnTripsArgs({
+  const UserUsersOnTripsArgs({
     this.where,
     this.orderBy,
     this.cursor,
@@ -2347,17 +2347,17 @@ class UserCountOutputTypeSelect
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCountOutputTypeSelect({
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final bool? trips;
 
-  final bool? usesrOnTrips;
+  final bool? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -2373,20 +2373,20 @@ class UserCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
 class UserInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserInclude({
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
     this.$count,
   });
 
   final _i1.PrismaUnion<bool, _i2.UserTripsArgs>? trips;
 
-  final _i1.PrismaUnion<bool, _i2.UserUsesrOnTripsArgs>? usesrOnTrips;
+  final _i1.PrismaUnion<bool, _i2.UserUsersOnTripsArgs>? usersOnTrips;
 
   final _i1.PrismaUnion<bool, _i2.UserCountArgs>? $count;
 
   @override
   Map<String, dynamic> toJson() => {
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
         '_count': $count,
       };
 }
@@ -2458,9 +2458,9 @@ class TripUsersArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class TripUsesrOnTripsArgs
+class TripUsersOnTripsArgs
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUsesrOnTripsArgs({
+  const TripUsersOnTripsArgs({
     this.where,
     this.orderBy,
     this.cursor,
@@ -2508,20 +2508,20 @@ class TripCountOutputTypeSelect
   const TripCountOutputTypeSelect({
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final bool? places;
 
   final bool? users;
 
-  final bool? usesrOnTrips;
+  final bool? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -2538,7 +2538,7 @@ class TripInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
   const TripInclude({
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
     this.$count,
   });
 
@@ -2546,7 +2546,7 @@ class TripInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.TripUsersArgs>? users;
 
-  final _i1.PrismaUnion<bool, _i2.TripUsesrOnTripsArgs>? usesrOnTrips;
+  final _i1.PrismaUnion<bool, _i2.TripUsersOnTripsArgs>? usersOnTrips;
 
   final _i1.PrismaUnion<bool, _i2.TripCountArgs>? $count;
 
@@ -2554,7 +2554,7 @@ class TripInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
   Map<String, dynamic> toJson() => {
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
         '_count': $count,
       };
 }
@@ -2628,7 +2628,7 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
     this.$count,
   });
 
@@ -2652,7 +2652,7 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.TripUsersArgs>? users;
 
-  final _i1.PrismaUnion<bool, _i2.TripUsesrOnTripsArgs>? usesrOnTrips;
+  final _i1.PrismaUnion<bool, _i2.TripUsersOnTripsArgs>? usersOnTrips;
 
   final _i1.PrismaUnion<bool, _i2.TripCountArgs>? $count;
 
@@ -2668,7 +2668,7 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
         '_count': $count,
       };
 }
@@ -2687,7 +2687,7 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
     this.$count,
   });
 
@@ -2715,7 +2715,7 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.UserTripsArgs>? trips;
 
-  final _i1.PrismaUnion<bool, _i2.UserUsesrOnTripsArgs>? usesrOnTrips;
+  final _i1.PrismaUnion<bool, _i2.UserUsersOnTripsArgs>? usersOnTrips;
 
   final _i1.PrismaUnion<bool, _i2.UserCountArgs>? $count;
 
@@ -2733,7 +2733,7 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
         '_count': $count,
       };
 }
@@ -3074,9 +3074,9 @@ class PlaceCreateNestedManyWithoutTripInput
       };
 }
 
-class UserCreateWithoutUsesrOnTripsInput
+class UserCreateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserCreateWithoutUsesrOnTripsInput({
+  const UserCreateWithoutUsersOnTripsInput({
     this.id,
     required this.firebaseUid,
     required this.email,
@@ -3310,7 +3310,7 @@ class TripUncheckedCreateWithoutUsersInput
     this.updatedAt,
     this.isShared,
     this.places,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -3331,7 +3331,7 @@ class TripUncheckedCreateWithoutUsersInput
 
   final _i2.PlaceUncheckedCreateNestedManyWithoutTripInput? places;
 
-  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3344,7 +3344,7 @@ class TripUncheckedCreateWithoutUsersInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'places': places,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -3396,9 +3396,9 @@ class TripUncheckedCreateNestedManyWithoutUsersInput
       };
 }
 
-class UserUncheckedCreateWithoutUsesrOnTripsInput
+class UserUncheckedCreateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUncheckedCreateWithoutUsesrOnTripsInput({
+  const UserUncheckedCreateWithoutUsersOnTripsInput({
     this.id,
     required this.firebaseUid,
     required this.email,
@@ -3454,17 +3454,17 @@ class UserUncheckedCreateWithoutUsesrOnTripsInput
       };
 }
 
-class UserCreateOrConnectWithoutUsesrOnTripsInput
+class UserCreateOrConnectWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserCreateOrConnectWithoutUsesrOnTripsInput({
+  const UserCreateOrConnectWithoutUsersOnTripsInput({
     required this.where,
     required this.create,
   });
 
   final _i2.UserWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.UserCreateWithoutUsesrOnTripsInput,
-      _i2.UserUncheckedCreateWithoutUsesrOnTripsInput> create;
+  final _i1.PrismaUnion<_i2.UserCreateWithoutUsersOnTripsInput,
+      _i2.UserUncheckedCreateWithoutUsersOnTripsInput> create;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3473,18 +3473,18 @@ class UserCreateOrConnectWithoutUsesrOnTripsInput
       };
 }
 
-class UserCreateNestedOneWithoutUsesrOnTripsInput
+class UserCreateNestedOneWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserCreateNestedOneWithoutUsesrOnTripsInput({
+  const UserCreateNestedOneWithoutUsersOnTripsInput({
     this.create,
     this.connectOrCreate,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.UserCreateWithoutUsesrOnTripsInput,
-      _i2.UserUncheckedCreateWithoutUsesrOnTripsInput>? create;
+  final _i1.PrismaUnion<_i2.UserCreateWithoutUsersOnTripsInput,
+      _i2.UserUncheckedCreateWithoutUsersOnTripsInput>? create;
 
-  final _i2.UserCreateOrConnectWithoutUsesrOnTripsInput? connectOrCreate;
+  final _i2.UserCreateOrConnectWithoutUsersOnTripsInput? connectOrCreate;
 
   final _i2.UserWhereUniqueInput? connect;
 
@@ -3514,7 +3514,7 @@ class UsersOnTripsCreateWithoutTripInput
 
   final DateTime? updatedAt;
 
-  final _i2.UserCreateNestedOneWithoutUsesrOnTripsInput user;
+  final _i2.UserCreateNestedOneWithoutUsersOnTripsInput user;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3573,7 +3573,7 @@ class TripCreateWithoutUsersInput
     this.updatedAt,
     this.isShared,
     this.places,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -3594,7 +3594,7 @@ class TripCreateWithoutUsersInput
 
   final _i2.PlaceCreateNestedManyWithoutTripInput? places;
 
-  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3607,7 +3607,7 @@ class TripCreateWithoutUsersInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'places': places,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -3654,7 +3654,7 @@ class UserCreateWithoutTripsInput
     required this.providerId,
     this.profilePictureUrl,
     this.bio,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -3679,7 +3679,7 @@ class UserCreateWithoutTripsInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? bio;
 
-  final _i2.UsersOnTripsCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutUserInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3694,7 +3694,7 @@ class UserCreateWithoutTripsInput
         'providerId': providerId,
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -3845,7 +3845,7 @@ class UserUncheckedCreateWithoutTripsInput
     required this.providerId,
     this.profilePictureUrl,
     this.bio,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -3870,7 +3870,7 @@ class UserUncheckedCreateWithoutTripsInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? bio;
 
-  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutUserInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3885,7 +3885,7 @@ class UserUncheckedCreateWithoutTripsInput
         'providerId': providerId,
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -3937,9 +3937,9 @@ class UserCreateNestedManyWithoutTripsInput
       };
 }
 
-class TripCreateWithoutUsesrOnTripsInput
+class TripCreateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripCreateWithoutUsesrOnTripsInput({
+  const TripCreateWithoutUsersOnTripsInput({
     this.id,
     required this.tripName,
     this.description,
@@ -4016,9 +4016,9 @@ class UserUncheckedCreateNestedManyWithoutTripsInput
       };
 }
 
-class TripUncheckedCreateWithoutUsesrOnTripsInput
+class TripUncheckedCreateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUncheckedCreateWithoutUsesrOnTripsInput({
+  const TripUncheckedCreateWithoutUsersOnTripsInput({
     this.id,
     required this.tripName,
     this.description,
@@ -4066,17 +4066,17 @@ class TripUncheckedCreateWithoutUsesrOnTripsInput
       };
 }
 
-class TripCreateOrConnectWithoutUsesrOnTripsInput
+class TripCreateOrConnectWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripCreateOrConnectWithoutUsesrOnTripsInput({
+  const TripCreateOrConnectWithoutUsersOnTripsInput({
     required this.where,
     required this.create,
   });
 
   final _i2.TripWhereUniqueInput where;
 
-  final _i1.PrismaUnion<_i2.TripCreateWithoutUsesrOnTripsInput,
-      _i2.TripUncheckedCreateWithoutUsesrOnTripsInput> create;
+  final _i1.PrismaUnion<_i2.TripCreateWithoutUsersOnTripsInput,
+      _i2.TripUncheckedCreateWithoutUsersOnTripsInput> create;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4085,18 +4085,18 @@ class TripCreateOrConnectWithoutUsesrOnTripsInput
       };
 }
 
-class TripCreateNestedOneWithoutUsesrOnTripsInput
+class TripCreateNestedOneWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripCreateNestedOneWithoutUsesrOnTripsInput({
+  const TripCreateNestedOneWithoutUsersOnTripsInput({
     this.create,
     this.connectOrCreate,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.TripCreateWithoutUsesrOnTripsInput,
-      _i2.TripUncheckedCreateWithoutUsesrOnTripsInput>? create;
+  final _i1.PrismaUnion<_i2.TripCreateWithoutUsersOnTripsInput,
+      _i2.TripUncheckedCreateWithoutUsersOnTripsInput>? create;
 
-  final _i2.TripCreateOrConnectWithoutUsesrOnTripsInput? connectOrCreate;
+  final _i2.TripCreateOrConnectWithoutUsersOnTripsInput? connectOrCreate;
 
   final _i2.TripWhereUniqueInput? connect;
 
@@ -4126,7 +4126,7 @@ class UsersOnTripsCreateWithoutUserInput
 
   final DateTime? updatedAt;
 
-  final _i2.TripCreateNestedOneWithoutUsesrOnTripsInput trip;
+  final _i2.TripCreateNestedOneWithoutUsersOnTripsInput trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4187,7 +4187,7 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -4214,7 +4214,7 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.TripCreateNestedManyWithoutUsersInput? trips;
 
-  final _i2.UsersOnTripsCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutUserInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4230,7 +4230,7 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -4249,7 +4249,7 @@ class UserUncheckedCreateInput
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -4276,7 +4276,7 @@ class UserUncheckedCreateInput
 
   final _i2.TripUncheckedCreateNestedManyWithoutUsersInput? trips;
 
-  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutUserInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutUserInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4292,7 +4292,7 @@ class UserUncheckedCreateInput
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -5267,9 +5267,9 @@ class EnumRoleFieldUpdateOperationsInput
   Map<String, dynamic> toJson() => {'set': set};
 }
 
-class UserUpdateWithoutUsesrOnTripsInput
+class UserUpdateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUpdateWithoutUsesrOnTripsInput({
+  const UserUpdateWithoutUsersOnTripsInput({
     this.id,
     this.firebaseUid,
     this.email,
@@ -5672,7 +5672,7 @@ class TripUncheckedUpdateWithoutUsersInput
     this.updatedAt,
     this.isShared,
     this.places,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -5700,7 +5700,7 @@ class TripUncheckedUpdateWithoutUsersInput
 
   final _i2.PlaceUncheckedUpdateManyWithoutTripNestedInput? places;
 
-  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -5713,7 +5713,7 @@ class TripUncheckedUpdateWithoutUsersInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'places': places,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -5974,9 +5974,9 @@ class TripUncheckedUpdateManyWithoutUsersNestedInput
       };
 }
 
-class UserUncheckedUpdateWithoutUsesrOnTripsInput
+class UserUncheckedUpdateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUncheckedUpdateWithoutUsesrOnTripsInput({
+  const UserUncheckedUpdateWithoutUsersOnTripsInput({
     this.id,
     this.firebaseUid,
     this.email,
@@ -6050,19 +6050,19 @@ class UserUncheckedUpdateWithoutUsesrOnTripsInput
       };
 }
 
-class UserUpsertWithoutUsesrOnTripsInput
+class UserUpsertWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUpsertWithoutUsesrOnTripsInput({
+  const UserUpsertWithoutUsersOnTripsInput({
     required this.update,
     required this.create,
     this.where,
   });
 
-  final _i1.PrismaUnion<_i2.UserUpdateWithoutUsesrOnTripsInput,
-      _i2.UserUncheckedUpdateWithoutUsesrOnTripsInput> update;
+  final _i1.PrismaUnion<_i2.UserUpdateWithoutUsersOnTripsInput,
+      _i2.UserUncheckedUpdateWithoutUsersOnTripsInput> update;
 
-  final _i1.PrismaUnion<_i2.UserCreateWithoutUsesrOnTripsInput,
-      _i2.UserUncheckedCreateWithoutUsesrOnTripsInput> create;
+  final _i1.PrismaUnion<_i2.UserCreateWithoutUsersOnTripsInput,
+      _i2.UserUncheckedCreateWithoutUsersOnTripsInput> create;
 
   final _i2.UserWhereInput? where;
 
@@ -6074,17 +6074,17 @@ class UserUpsertWithoutUsesrOnTripsInput
       };
 }
 
-class UserUpdateToOneWithWhereWithoutUsesrOnTripsInput
+class UserUpdateToOneWithWhereWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUpdateToOneWithWhereWithoutUsesrOnTripsInput({
+  const UserUpdateToOneWithWhereWithoutUsersOnTripsInput({
     this.where,
     required this.data,
   });
 
   final _i2.UserWhereInput? where;
 
-  final _i1.PrismaUnion<_i2.UserUpdateWithoutUsesrOnTripsInput,
-      _i2.UserUncheckedUpdateWithoutUsesrOnTripsInput> data;
+  final _i1.PrismaUnion<_i2.UserUpdateWithoutUsersOnTripsInput,
+      _i2.UserUncheckedUpdateWithoutUsersOnTripsInput> data;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6093,9 +6093,9 @@ class UserUpdateToOneWithWhereWithoutUsesrOnTripsInput
       };
 }
 
-class UserUpdateOneRequiredWithoutUsesrOnTripsNestedInput
+class UserUpdateOneRequiredWithoutUsersOnTripsNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserUpdateOneRequiredWithoutUsesrOnTripsNestedInput({
+  const UserUpdateOneRequiredWithoutUsersOnTripsNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
@@ -6103,19 +6103,19 @@ class UserUpdateOneRequiredWithoutUsesrOnTripsNestedInput
     this.update,
   });
 
-  final _i1.PrismaUnion<_i2.UserCreateWithoutUsesrOnTripsInput,
-      _i2.UserUncheckedCreateWithoutUsesrOnTripsInput>? create;
+  final _i1.PrismaUnion<_i2.UserCreateWithoutUsersOnTripsInput,
+      _i2.UserUncheckedCreateWithoutUsersOnTripsInput>? create;
 
-  final _i2.UserCreateOrConnectWithoutUsesrOnTripsInput? connectOrCreate;
+  final _i2.UserCreateOrConnectWithoutUsersOnTripsInput? connectOrCreate;
 
-  final _i2.UserUpsertWithoutUsesrOnTripsInput? upsert;
+  final _i2.UserUpsertWithoutUsersOnTripsInput? upsert;
 
   final _i2.UserWhereUniqueInput? connect;
 
   final _i1.PrismaUnion<
-      _i2.UserUpdateToOneWithWhereWithoutUsesrOnTripsInput,
-      _i1.PrismaUnion<_i2.UserUpdateWithoutUsesrOnTripsInput,
-          _i2.UserUncheckedUpdateWithoutUsesrOnTripsInput>>? update;
+      _i2.UserUpdateToOneWithWhereWithoutUsersOnTripsInput,
+      _i1.PrismaUnion<_i2.UserUpdateWithoutUsersOnTripsInput,
+          _i2.UserUncheckedUpdateWithoutUsersOnTripsInput>>? update;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6147,7 +6147,7 @@ class UsersOnTripsUpdateWithoutTripInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
-  final _i2.UserUpdateOneRequiredWithoutUsesrOnTripsNestedInput? user;
+  final _i2.UserUpdateOneRequiredWithoutUsersOnTripsNestedInput? user;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6266,7 +6266,7 @@ class TripUpdateWithoutUsersInput
     this.updatedAt,
     this.isShared,
     this.places,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -6294,7 +6294,7 @@ class TripUpdateWithoutUsersInput
 
   final _i2.PlaceUpdateManyWithoutTripNestedInput? places;
 
-  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6307,7 +6307,7 @@ class TripUpdateWithoutUsersInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'places': places,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -6413,7 +6413,7 @@ class UserUpdateWithoutTripsInput
     this.providerId,
     this.profilePictureUrl,
     this.bio,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -6456,7 +6456,7 @@ class UserUpdateWithoutTripsInput
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
           _i1.PrismaNull>>? bio;
 
-  final _i2.UsersOnTripsUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutUserNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6471,7 +6471,7 @@ class UserUpdateWithoutTripsInput
         'providerId': providerId,
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -6662,7 +6662,7 @@ class UserUncheckedUpdateWithoutTripsInput
     this.providerId,
     this.profilePictureUrl,
     this.bio,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -6705,7 +6705,7 @@ class UserUncheckedUpdateWithoutTripsInput
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
           _i1.PrismaNull>>? bio;
 
-  final _i2.UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6720,7 +6720,7 @@ class UserUncheckedUpdateWithoutTripsInput
         'providerId': providerId,
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -7066,9 +7066,9 @@ class UserUpdateManyWithoutTripsNestedInput
       };
 }
 
-class TripUpdateWithoutUsesrOnTripsInput
+class TripUpdateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUpdateWithoutUsesrOnTripsInput({
+  const TripUpdateWithoutUsersOnTripsInput({
     this.id,
     this.tripName,
     this.description,
@@ -7187,9 +7187,9 @@ class UserUncheckedUpdateManyWithoutTripsNestedInput
       };
 }
 
-class TripUncheckedUpdateWithoutUsesrOnTripsInput
+class TripUncheckedUpdateWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUncheckedUpdateWithoutUsesrOnTripsInput({
+  const TripUncheckedUpdateWithoutUsersOnTripsInput({
     this.id,
     this.tripName,
     this.description,
@@ -7244,19 +7244,19 @@ class TripUncheckedUpdateWithoutUsesrOnTripsInput
       };
 }
 
-class TripUpsertWithoutUsesrOnTripsInput
+class TripUpsertWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUpsertWithoutUsesrOnTripsInput({
+  const TripUpsertWithoutUsersOnTripsInput({
     required this.update,
     required this.create,
     this.where,
   });
 
-  final _i1.PrismaUnion<_i2.TripUpdateWithoutUsesrOnTripsInput,
-      _i2.TripUncheckedUpdateWithoutUsesrOnTripsInput> update;
+  final _i1.PrismaUnion<_i2.TripUpdateWithoutUsersOnTripsInput,
+      _i2.TripUncheckedUpdateWithoutUsersOnTripsInput> update;
 
-  final _i1.PrismaUnion<_i2.TripCreateWithoutUsesrOnTripsInput,
-      _i2.TripUncheckedCreateWithoutUsesrOnTripsInput> create;
+  final _i1.PrismaUnion<_i2.TripCreateWithoutUsersOnTripsInput,
+      _i2.TripUncheckedCreateWithoutUsersOnTripsInput> create;
 
   final _i2.TripWhereInput? where;
 
@@ -7268,17 +7268,17 @@ class TripUpsertWithoutUsesrOnTripsInput
       };
 }
 
-class TripUpdateToOneWithWhereWithoutUsesrOnTripsInput
+class TripUpdateToOneWithWhereWithoutUsersOnTripsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUpdateToOneWithWhereWithoutUsesrOnTripsInput({
+  const TripUpdateToOneWithWhereWithoutUsersOnTripsInput({
     this.where,
     required this.data,
   });
 
   final _i2.TripWhereInput? where;
 
-  final _i1.PrismaUnion<_i2.TripUpdateWithoutUsesrOnTripsInput,
-      _i2.TripUncheckedUpdateWithoutUsesrOnTripsInput> data;
+  final _i1.PrismaUnion<_i2.TripUpdateWithoutUsersOnTripsInput,
+      _i2.TripUncheckedUpdateWithoutUsersOnTripsInput> data;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7287,9 +7287,9 @@ class TripUpdateToOneWithWhereWithoutUsesrOnTripsInput
       };
 }
 
-class TripUpdateOneRequiredWithoutUsesrOnTripsNestedInput
+class TripUpdateOneRequiredWithoutUsersOnTripsNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripUpdateOneRequiredWithoutUsesrOnTripsNestedInput({
+  const TripUpdateOneRequiredWithoutUsersOnTripsNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
@@ -7297,19 +7297,19 @@ class TripUpdateOneRequiredWithoutUsesrOnTripsNestedInput
     this.update,
   });
 
-  final _i1.PrismaUnion<_i2.TripCreateWithoutUsesrOnTripsInput,
-      _i2.TripUncheckedCreateWithoutUsesrOnTripsInput>? create;
+  final _i1.PrismaUnion<_i2.TripCreateWithoutUsersOnTripsInput,
+      _i2.TripUncheckedCreateWithoutUsersOnTripsInput>? create;
 
-  final _i2.TripCreateOrConnectWithoutUsesrOnTripsInput? connectOrCreate;
+  final _i2.TripCreateOrConnectWithoutUsersOnTripsInput? connectOrCreate;
 
-  final _i2.TripUpsertWithoutUsesrOnTripsInput? upsert;
+  final _i2.TripUpsertWithoutUsersOnTripsInput? upsert;
 
   final _i2.TripWhereUniqueInput? connect;
 
   final _i1.PrismaUnion<
-      _i2.TripUpdateToOneWithWhereWithoutUsesrOnTripsInput,
-      _i1.PrismaUnion<_i2.TripUpdateWithoutUsesrOnTripsInput,
-          _i2.TripUncheckedUpdateWithoutUsesrOnTripsInput>>? update;
+      _i2.TripUpdateToOneWithWhereWithoutUsersOnTripsInput,
+      _i1.PrismaUnion<_i2.TripUpdateWithoutUsersOnTripsInput,
+          _i2.TripUncheckedUpdateWithoutUsersOnTripsInput>>? update;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7341,7 +7341,7 @@ class UsersOnTripsUpdateWithoutUserInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
-  final _i2.TripUpdateOneRequiredWithoutUsesrOnTripsNestedInput? trip;
+  final _i2.TripUpdateOneRequiredWithoutUsersOnTripsNestedInput? trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7462,7 +7462,7 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -7507,7 +7507,7 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.TripUpdateManyWithoutUsersNestedInput? trips;
 
-  final _i2.UsersOnTripsUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutUserNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7523,7 +7523,7 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -7542,7 +7542,7 @@ class UserUncheckedUpdateInput
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -7587,7 +7587,7 @@ class UserUncheckedUpdateInput
 
   final _i2.TripUncheckedUpdateManyWithoutUsersNestedInput? trips;
 
-  final _i2.UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutUserNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7603,7 +7603,7 @@ class UserUncheckedUpdateInput
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -9347,7 +9347,7 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -9370,7 +9370,7 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.UserCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9384,7 +9384,7 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -9401,7 +9401,7 @@ class TripUncheckedCreateInput
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -9424,7 +9424,7 @@ class TripUncheckedCreateInput
 
   final _i2.UserUncheckedCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9438,7 +9438,7 @@ class TripUncheckedCreateInput
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -9537,7 +9537,7 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -9567,7 +9567,7 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.UserUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9581,7 +9581,7 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -9598,7 +9598,7 @@ class TripUncheckedUpdateInput
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -9628,7 +9628,7 @@ class TripUncheckedUpdateInput
 
   final _i2.UserUncheckedUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9642,7 +9642,7 @@ class TripUncheckedUpdateInput
         'isShared': isShared,
         'places': places,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -10589,9 +10589,9 @@ class UsersOnTripsCreateInput
 
   final DateTime? updatedAt;
 
-  final _i2.UserCreateNestedOneWithoutUsesrOnTripsInput user;
+  final _i2.UserCreateNestedOneWithoutUsersOnTripsInput user;
 
-  final _i2.TripCreateNestedOneWithoutUsesrOnTripsInput trip;
+  final _i2.TripCreateNestedOneWithoutUsersOnTripsInput trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -10797,9 +10797,9 @@ class UsersOnTripsUpdateInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       updatedAt;
 
-  final _i2.UserUpdateOneRequiredWithoutUsesrOnTripsNestedInput? user;
+  final _i2.UserUpdateOneRequiredWithoutUsersOnTripsNestedInput? user;
 
-  final _i2.TripUpdateOneRequiredWithoutUsesrOnTripsNestedInput? trip;
+  final _i2.TripUpdateOneRequiredWithoutUsersOnTripsNestedInput? trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11663,7 +11663,7 @@ class TripCreateWithoutPlacesInput
     this.updatedAt,
     this.isShared,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -11684,7 +11684,7 @@ class TripCreateWithoutPlacesInput
 
   final _i2.UserCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsCreateNestedManyWithoutTripInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11697,7 +11697,7 @@ class TripCreateWithoutPlacesInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -11713,7 +11713,7 @@ class TripUncheckedCreateWithoutPlacesInput
     this.updatedAt,
     this.isShared,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final String? id;
@@ -11734,7 +11734,7 @@ class TripUncheckedCreateWithoutPlacesInput
 
   final _i2.UserUncheckedCreateNestedManyWithoutTripsInput? users;
 
-  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedCreateNestedManyWithoutTripInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -11747,7 +11747,7 @@ class TripUncheckedCreateWithoutPlacesInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -12030,7 +12030,7 @@ class TripUpdateWithoutPlacesInput
     this.updatedAt,
     this.isShared,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -12058,7 +12058,7 @@ class TripUpdateWithoutPlacesInput
 
   final _i2.UserUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUpdateManyWithoutTripNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -12071,7 +12071,7 @@ class TripUpdateWithoutPlacesInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 
@@ -12087,7 +12087,7 @@ class TripUncheckedUpdateWithoutPlacesInput
     this.updatedAt,
     this.isShared,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
   });
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
@@ -12115,7 +12115,7 @@ class TripUncheckedUpdateWithoutPlacesInput
 
   final _i2.UserUncheckedUpdateManyWithoutTripsNestedInput? users;
 
-  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usesrOnTrips;
+  final _i2.UsersOnTripsUncheckedUpdateManyWithoutTripNestedInput? usersOnTrips;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -12128,7 +12128,7 @@ class TripUncheckedUpdateWithoutPlacesInput
         'updatedAt': updatedAt,
         'isShared': isShared,
         'users': users,
-        'UsesrOnTrips': usesrOnTrips,
+        'UsersOnTrips': usersOnTrips,
       };
 }
 

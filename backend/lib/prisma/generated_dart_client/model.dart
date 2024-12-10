@@ -241,7 +241,7 @@ class Trip {
     this.isShared,
     this.places,
     this.users,
-    this.usesrOnTrips,
+    this.usersOnTrips,
     this.$count,
   });
 
@@ -274,7 +274,7 @@ class Trip {
             ?.map((json) => _i2.Place.fromJson(json)),
         users: (json['users'] as Iterable?)
             ?.map((json) => _i2.User.fromJson(json)),
-        usesrOnTrips: (json['UsesrOnTrips'] as Iterable?)
+        usersOnTrips: (json['UsersOnTrips'] as Iterable?)
             ?.map((json) => _i2.UsersOnTrips.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.TripCountOutputType.fromJson(json['_count'])
@@ -301,7 +301,7 @@ class Trip {
 
   final Iterable<_i2.User>? users;
 
-  final Iterable<_i2.UsersOnTrips>? usesrOnTrips;
+  final Iterable<_i2.UsersOnTrips>? usersOnTrips;
 
   final _i3.TripCountOutputType? $count;
 
@@ -316,7 +316,7 @@ class Trip {
         'isShared': isShared,
         'places': places?.map((e) => e.toJson()),
         'users': users?.map((e) => e.toJson()),
-        'UsesrOnTrips': usesrOnTrips?.map((e) => e.toJson()),
+        'UsersOnTrips': usersOnTrips?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
       };
 }
@@ -335,7 +335,7 @@ class User {
     this.profilePictureUrl,
     this.bio,
     this.trips,
-    this.usesrOnTrips,
+    this.usersOnTrips,
     this.$count,
   });
 
@@ -364,7 +364,7 @@ class User {
         bio: json['bio'],
         trips: (json['trips'] as Iterable?)
             ?.map((json) => _i2.Trip.fromJson(json)),
-        usesrOnTrips: (json['UsesrOnTrips'] as Iterable?)
+        usersOnTrips: (json['UsersOnTrips'] as Iterable?)
             ?.map((json) => _i2.UsersOnTrips.fromJson(json)),
         $count: json['_count'] is Map
             ? _i3.UserCountOutputType.fromJson(json['_count'])
@@ -395,7 +395,7 @@ class User {
 
   final Iterable<_i2.Trip>? trips;
 
-  final Iterable<_i2.UsersOnTrips>? usesrOnTrips;
+  final Iterable<_i2.UsersOnTrips>? usersOnTrips;
 
   final _i3.UserCountOutputType? $count;
 
@@ -412,7 +412,7 @@ class User {
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips?.map((e) => e.toJson()),
-        'UsesrOnTrips': usesrOnTrips?.map((e) => e.toJson()),
+        'UsersOnTrips': usersOnTrips?.map((e) => e.toJson()),
         '_count': $count?.toJson(),
       };
 }

@@ -21,7 +21,7 @@ model User {
   profilePictureUrl String?        @map("profile_picture_url")
   bio               String?
   trips             Trip[]
-  UsesrOnTrips      UsersOnTrips[]
+  UsersOnTrips      UsersOnTrips[]
 
   @@map("users")
 }
@@ -43,7 +43,7 @@ model Trip {
   createdAt    DateTime       @default(now()) @map("created_at")
   updatedAt    DateTime       @updatedAt @map("updated_at")
   isShared     Boolean        @default(false) @map("is_shared")
-  UsesrOnTrips UsersOnTrips[]
+  UsersOnTrips UsersOnTrips[]
 
   @@map("trips")
 }
