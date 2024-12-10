@@ -43,6 +43,12 @@ class UserRoute {
           'loginType': LoginType.values,
         };
 
+        if (payload['loginType'] == 'EMAIL' &&
+            (payload['username'] == null || payload['password'] == null)) {
+          return Response(400,
+              body: json.encode({'error': 'Missing required fields'}));
+        }
+
         final validPayload =
             isValidPayload(payload, requiredFields, validateEnums);
         // validate payload
@@ -53,13 +59,22 @@ class UserRoute {
         final user = await prisma.user.create(
             data: PrismaUnion.$1(
           UserCreateInput(
-              firebaseUid: payload['firebaseUid'],
-              email: payload['email'],
-              username: PrismaUnion.$1(payload['username']),
-              password: PrismaUnion.$1(payload['password']),
-              providerId: payload['providerId'],
-              loginType: LoginType.values.firstWhere(
-                  (loginType) => loginType.name == payload['loginType'])),
+            firebaseUid: payload['firebaseUid'],
+            email: payload['email'],
+            providerId: payload['providerId'],
+            loginType: LoginType.values.firstWhere(
+                (loginType) => loginType.name == payload['loginType']),
+            username: payload['username'] != null
+                ? PrismaUnion.$1(payload['username'])
+                : null,
+            password: payload['password'] != null
+                ? PrismaUnion.$1(payload['password'])
+                : null,
+            profilePictureUrl: payload['profilePictureUrl'] != null
+                ? PrismaUnion.$1(payload['profilePictureUrl'])
+                : null,
+            bio: payload['bio'] != null ? PrismaUnion.$1(payload['bio']) : null,
+          ),
         ));
 
         return Response.ok(
@@ -128,14 +143,30 @@ class UserRoute {
         final updatedUser = await prisma.user.update(
           where: UserWhereUniqueInput(id: userId),
           data: PrismaUnion.$1(UserUpdateInput(
-            firebaseUid: fieldsToUpdate['firebaseUid'] != null ? PrismaUnion.$1(fieldsToUpdate['firebaseUid']) : null,
-            email: fieldsToUpdate['email'] != null ? PrismaUnion.$1(fieldsToUpdate['email']) : null,
-            username: fieldsToUpdate['username'] != null ? PrismaUnion.$1(fieldsToUpdate['username']) : null,
-            password: fieldsToUpdate['password'] != null ? PrismaUnion.$1(fieldsToUpdate['password']) : null,
-            providerId: fieldsToUpdate['providerId'] != null ? PrismaUnion.$1(fieldsToUpdate['providerId']) : null,
-            loginType: fieldsToUpdate['loginType'] != null ? PrismaUnion.$1(fieldsToUpdate['loginType']) : null,
-            profilePictureUrl: fieldsToUpdate['profilePictureUrl'] != null ? PrismaUnion.$1(fieldsToUpdate['profilePictureUrl']) : null,
-            bio: fieldsToUpdate['bio'] != null ? PrismaUnion.$1(fieldsToUpdate['bio']) : null,
+            firebaseUid: fieldsToUpdate['firebaseUid'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['firebaseUid'])
+                : null,
+            email: fieldsToUpdate['email'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['email'])
+                : null,
+            username: fieldsToUpdate['username'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['username'])
+                : null,
+            password: fieldsToUpdate['password'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['password'])
+                : null,
+            providerId: fieldsToUpdate['providerId'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['providerId'])
+                : null,
+            loginType: fieldsToUpdate['loginType'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['loginType'])
+                : null,
+            profilePictureUrl: fieldsToUpdate['profilePictureUrl'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['profilePictureUrl'])
+                : null,
+            bio: fieldsToUpdate['bio'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['bio'])
+                : null,
           )),
         );
 
