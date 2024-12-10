@@ -29,9 +29,8 @@ class TagRoute {
 
     Future<Response> getTagById(Request request, String tagId) async {
       try {
-        final parsedId = int.tryParse(tagId);
         final trip = await prisma.tag
-            .findUnique(where: TagWhereUniqueInput(id: parsedId));
+            .findUnique(where: TagWhereUniqueInput(id: tagId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
@@ -57,9 +56,8 @@ class TagRoute {
 
     Future<Response> deleteTag(Request request, String tagId) async {
       try {
-        final parsedId = int.tryParse(tagId);
         final trip = await prisma.tag
-            .delete(where: TagWhereUniqueInput(id: parsedId));
+            .delete(where: TagWhereUniqueInput(id: tagId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');

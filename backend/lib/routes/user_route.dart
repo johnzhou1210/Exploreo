@@ -30,9 +30,10 @@ class UserRoute {
     Future<Response> createUser(Request request) async {
       try {
         final payload = jsonDecode(await request.readAsString());
-
+        print(payload);
         // validate payload
         if (payload == null ||
+            payload['firebaseUid'] == null ||
             payload['email'] == null ||
             payload['providerId'] == null ||
             (payload['loginType'] == null &&
@@ -44,6 +45,7 @@ class UserRoute {
         final user = await prisma.user.create(
             data: PrismaUnion.$1(
           UserCreateInput(
+              firebaseUid: payload['firebaseUid'],
               email: payload['email'],
               username: PrismaUnion.$1(payload['username']),
               password: PrismaUnion.$1(payload['password']),
@@ -64,9 +66,8 @@ class UserRoute {
 
     Future<Response> getUserById(Request request, String userId) async {
       try {
-        final parsedId = int.tryParse(userId);
         final user = await prisma.user
-            .findUnique(where: UserWhereUniqueInput(id: parsedId));
+            .findUnique(where: UserWhereUniqueInput(id: userId));
 
         if (user == null) {
           return Response(404, body: 'NOT_FOUND');
@@ -88,9 +89,8 @@ class UserRoute {
 
     Future<Response> deleteUser(Request request, String userId) async {
       try {
-        final parsedId = int.tryParse(userId);
         final user =
-            await prisma.user.delete(where: UserWhereUniqueInput(id: parsedId));
+            await prisma.user.delete(where: UserWhereUniqueInput(id: userId));
 
         if (user == null) {
           return Response(404, body: 'NOT_FOUND');
