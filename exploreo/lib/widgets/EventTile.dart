@@ -3,63 +3,64 @@ import 'package:flutter/material.dart';
 import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
-class TripListTile extends StatefulWidget {
-  final Trip trip;
+class EventTile extends StatefulWidget {
+  final TripEvent event;
 
-  TripListTile({required this.trip});
+  EventTile({
+    required this.event,
+  });
 
   @override
-  _TripListTileState createState() => _TripListTileState();
+  _EventTileState createState() => _EventTileState();
 }
 
-class _TripListTileState extends State<TripListTile> {
+class _EventTileState extends State<EventTile> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripInfoScreen(trip: widget.trip)));
+        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen));
       },
       child: Container(
-        height: 130,
+        height: 80,
         width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Card(
             elevation: 2,
             child: Row(
               children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.network(widget.trip.imageUrl,
-                        fit: BoxFit.fitHeight)),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
+                  constraints: BoxConstraints(minWidth: 50, maxWidth: MediaQuery.of(context).size.width / 1.33),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
-                      Text(
-                        widget.trip.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                          fontFamily: 'Serif',
-                          height: 1.5,
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          widget.event.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            fontFamily: 'Serif',
+                            height: 1.5,
+                          ),
                         ),
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.calendar_month_outlined,
                             color: Colors.grey,
                             size: 16,
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
-                            widget.trip.date,
-                            style: TextStyle(
+                            widget.event.date,
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),

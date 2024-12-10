@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:exploreo/data/TestTripData.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
+import 'package:exploreo/screens/TripInfoScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
@@ -11,14 +15,19 @@ import 'package:http/http.dart' as http;
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
-class PlanTripScreen extends StatefulWidget {
-  const PlanTripScreen({super.key});
+class EditTripScreen extends StatefulWidget {
+  Trip trip;
+
+  EditTripScreen({
+    super.key,
+    required this.trip,
+  });
 
   @override
-  State<PlanTripScreen> createState() => _PlanTripScreenState();
+  State<EditTripScreen> createState() => _EditTripScreenState();
 }
 
-class _PlanTripScreenState extends State<PlanTripScreen> {
+class _EditTripScreenState extends State<EditTripScreen> {
   DateTimeRange? selectedDates = DateTimeRange(
     start: DateTime.now(),
     end: DateTime.now(),
@@ -27,6 +36,18 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   final TextEditingController tripNotesController = TextEditingController();
   List<TripEvent> events = [];
   String? _imageUrl;
+
+
+  @override
+  void initState() {
+    super.initState();
+    tripNameController.text = widget.trip.title;
+    tripNotesController.text = widget.trip.description;
+    events = widget.trip.events;
+    _imageUrl = widget.trip.imageUrl;
+    selectedDates = ParseDateRange(widget.trip.date);
+  }
+
 
   Future<void> _searchImage(String query) async {
     setState(() {
@@ -74,18 +95,16 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const HomeScreen())); // Whatever page it will go back to
+                          Navigator.of(context).pop(); // Whatever page it will go back to
                         },
                         iconSize: 16,
                         icon: const Icon(Icons.close),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 80),
+                  const SizedBox(width: 110),
                   const Text(
-                    'Plan a new trip',
+                    'Edit trip',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 20,
@@ -102,7 +121,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                 Flexible(
                     flex: 5,
                     child: Text(
-                      "Build an itinerary and map out your upcoming travel plans",
+                      "Make changes to your trip",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black54,
@@ -218,13 +237,17 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                         _searchImage(tripNameController.text);
 
                         Future.delayed(Duration(seconds: 1), () {
-                          // Construct trip object
-                          Trip newTrip = Trip(title: tripNameController.text, date: FormatDateRange(selectedDates!), imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg', description: tripNotesController.text, events: []);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddEventsScreen(trip: newTrip),
-                          ));
+                          // UPDATE TRIP
+                          Trip foundTrip = trips.firstWhere((item) => item.id == widget.trip.id);
+
+                          foundTrip.title = tripNameController.text;
+                         foundTrip.date = FormatDateRange(selectedDates!);
+                          foundTrip.imageUrl = _imageUrl ?? 'https://example.com/default-image.jpg';
+                          foundTrip.description = tripNotesController.text;
+
+                          Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => TripInfoScreen(trip: foundTrip)),
+                          );
                         });
 
                       },
@@ -233,7 +256,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                         foregroundColor: Colors.white,
                       ),
                       child: const Text(
-                        "Continue",
+                        "Confirm",
                         style: TextStyle(fontSize: 20),
                       ),
                     )),
@@ -253,9 +276,25 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     return '$start - $end';
   }
 
+  // Undoes format date range function
+  DateTimeRange ParseDateRange(String dateRangeStr) {
+    final DateFormat formatter = DateFormat('MMM dd, yyyy');
+    // Split the string on " - " to get start and end dates
+    final parts = dateRangeStr.split(' - ');
+
+    if (parts.length != 2) {
+      throw const FormatException('Invalid date range format');
+    }
+
+    // Parse the start and end dates back into DateTime objects
+    DateTime start = formatter.parse(parts[0]);
+    DateTime end = formatter.parse(parts[1]);
+
+    // Return a DateTimeRange object
+    return DateTimeRange(start: start, end: end);
+  }
 
   Future<String?> FetchImage(String query) async {
-
     final String accessKey = 'vsin1BRLPtFEJ28ElzLxGx7CWsMXjhyejF2jD8I1mGox8doZP9V8cwJm';
     final String url = 'https://api.pexels.com/v1/search?query=$query&per_page=1';
     final response = await http.get(

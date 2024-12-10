@@ -7,7 +7,8 @@ import '../data/TestTripData.dart';
 import '../widgets/TripListTile.dart';
 
 class Trip {
-  // int id;
+  static int _idCounter = 0;
+  final int id ;
   String title;
   String date;
   String imageUrl;
@@ -16,13 +17,12 @@ class Trip {
   List<TripEvent> events;
 
   Trip({
-    // required this.id,
     required this.title,
     required this.date,
     this.imageUrl = "https://example.com/default-image.jpg",
     this.description = "",
     required this.events,
-});
+}) : id = ++_idCounter ;
 }
 
 class TripEvent {
@@ -59,27 +59,29 @@ class _TripsScreenState extends State<TripsScreen> {
 
           children: [
             SizedBox(height: 40),
-            Row(
-
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: 15),
-                Material(
-                  child: Ink(
-                    decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                      color: Color.fromARGB(50, 200, 200, 200),
-                    ),
-                    child :IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen())); // Whatever page it will go back to
-                      },
-                      iconSize: 16,
-                      icon: Icon(Icons.arrow_back_ios_new_rounded),
 
-                    ),
-                  ),
-                ),
-                SizedBox(width: 40),
+                /* Commenting this out because it doesn't make sense to exist (it is root page of itinerary tab */
+                // SizedBox(width: 15),
+                // Material(
+                //   child: Ink(
+                //     decoration: const ShapeDecoration(
+                //         shape: CircleBorder(),
+                //       color: Color.fromARGB(50, 200, 200, 200),
+                //     ),
+                //     child :IconButton(
+                //       onPressed: () {
+                //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen())); // Whatever page it will go back to
+                //       },
+                //       iconSize: 16,
+                //       icon: Icon(Icons.arrow_back_ios_new_rounded),
+                //
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(width: 40),
                 const Text(
                   'Trips',
                   textAlign: TextAlign.center,
@@ -88,12 +90,12 @@ class _TripsScreenState extends State<TripsScreen> {
               ],
             ),
 
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
 
             Container(
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     "Travel Trips",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -101,10 +103,10 @@ class _TripsScreenState extends State<TripsScreen> {
                       fontFamily: 'Serif'
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     trips.length.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                       color: Color.fromARGB(255, 30, 100, 255),

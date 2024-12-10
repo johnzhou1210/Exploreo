@@ -1,4 +1,5 @@
 import 'package:exploreo/screens/HomeScreen.dart';
+import 'package:exploreo/screens/TripInfoScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
@@ -9,19 +10,11 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class AddEventsScreen extends StatefulWidget {
-  final String tripName;
-  final DateTimeRange? tripDateRange;
-  final String tripNotes;
-  final String? imageUrl;
-  final List<TripEvent> events;
+  Trip trip;
 
-  const AddEventsScreen({
+  AddEventsScreen({
     super.key,
-    required this.tripName,
-    this.tripDateRange,
-    required this.tripNotes,
-    this.imageUrl,
-    required this.events,
+    required this.trip,
   });
 
   @override
@@ -35,6 +28,13 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   );
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDates = ParseDateRange(widget.trip.date);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +52,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(widget.imageUrl ??
-                        'https://example.com/default-image.jpg'),
+                    image: NetworkImage(widget.trip.imageUrl),
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
                   ),
@@ -121,7 +120,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Add events to your trip to ${widget.tripName}",
+                          "Add events to your trip to ${widget.trip.title}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -235,6 +234,11 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             /*TODO: Redirect user to this same page but with the fields empty for input again to add another event*/
+                            widget.trip.events.add(TripEvent(title: eventNameController.text, date: FormatDateRange(selectedDates), description: eventNotesController.text));
+                            print(widget.trip.events.length);
+                            Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => AddEventsScreen(trip: widget.trip))
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -259,27 +263,25 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             /* TODO: Create a Trip object and add it to the user's database and also add the array of events to this new Trip object */
-                            List<TripEvent> updatedEvents =
-                                List.from(widget.events);
+
                             TripEvent newEvent = TripEvent(
                                 title: eventNameController.text,
                                 date: FormatDateRange(selectedDates),
                                 description: eventNotesController.text);
-                            updatedEvents.add(newEvent);
+                            widget.trip.events.add(newEvent);
                             Trip newTrip = Trip(
-                                title: widget.tripName,
-                                date: FormatDateRange(widget.tripDateRange),
-                                imageUrl: widget.imageUrl ??
-                                    'https://example.com/default-image.jpg',
-                                events: updatedEvents,
-                                description: widget.tripNotes);
+                                title: widget.trip.title,
+                                date: widget.trip.date,
+                                imageUrl: widget.trip.imageUrl,
+                                events: widget.trip.events,
+                                description: widget.trip.description);
                             // Add to trips list
                             trips.add(newTrip);
 
                             // Send user to trips page
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const HomeScreen(entryIndex:  1))); // Whatever page it will go back to
+                            Navigator.pushReplacement(context, 
+                              MaterialPageRoute(builder: (context) => TripInfoScreen(trip: newTrip))
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -307,4 +309,23 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     String end = formatter.format(range.end);
     return '$start - $end';
   }
+
+  // Undoes format date range function
+  DateTimeRange ParseDateRange(String dateRangeStr) {
+    final DateFormat formatter = DateFormat('MMM dd, yyyy');
+    // Split the string on " - " to get start and end dates
+    final parts = dateRangeStr.split(' - ');
+
+    if (parts.length != 2) {
+      throw const FormatException('Invalid date range format');
+    }
+
+    // Parse the start and end dates back into DateTime objects
+    DateTime start = formatter.parse(parts[0]);
+    DateTime end = formatter.parse(parts[1]);
+
+    // Return a DateTimeRange object
+    return DateTimeRange(start: start, end: end);
+  }
+
 }
