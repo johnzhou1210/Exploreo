@@ -28,7 +28,23 @@ class TagRoute {
     }
 
     Future<Response> getTagById(Request request, String tagId) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final parsedId = int.tryParse(tagId);
+        final trip = await prisma.tag
+            .findUnique(where: TagWhereUniqueInput(id: parsedId));
+
+        if (trip == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(trip.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     Future<Response> createTag(Request request) async {

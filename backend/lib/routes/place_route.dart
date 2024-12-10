@@ -28,7 +28,23 @@ class PlaceRoute {
     }
 
     Future<Response> getPlaceById(Request request, String placeId) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final parsedId = int.tryParse(placeId);
+        final trip = await prisma.place
+            .findUnique(where: PlaceWhereUniqueInput(id: parsedId));
+
+        if (trip == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(trip.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     Future<Response> createPlace(Request request) async {
