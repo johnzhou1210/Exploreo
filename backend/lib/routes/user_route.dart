@@ -44,9 +44,9 @@ class UserRoute {
         };
 
         if (payload['loginType'] == 'EMAIL' &&
-            (payload['username'] == null || payload['password'] == null)) {
+            (payload['email'] == null || payload['password'] == null)) {
           return Response(400,
-              body: json.encode({'error': 'Missing required fields'}));
+              body: json.encode({'error': 'Missing email or password field'}));
         }
 
         final validPayload =
