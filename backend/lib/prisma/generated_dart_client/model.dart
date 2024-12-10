@@ -73,6 +73,8 @@ class Place {
     this.placeName,
     this.description,
     this.note,
+    this.startDate,
+    this.endDate,
     this.tripId,
     this.createdAt,
     this.updatedAt,
@@ -86,6 +88,16 @@ class Place {
         placeName: json['placeName'],
         description: json['description'],
         note: json['note'],
+        startDate: switch (json['startDate']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startDate']
+        },
+        endDate: switch (json['endDate']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['endDate']
+        },
         tripId: json['tripId'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
@@ -113,6 +125,10 @@ class Place {
 
   final String? note;
 
+  final DateTime? startDate;
+
+  final DateTime? endDate;
+
   final String? tripId;
 
   final DateTime? createdAt;
@@ -130,6 +146,8 @@ class Place {
         'placeName': placeName,
         'description': description,
         'note': note,
+        'startDate': startDate?.toIso8601String(),
+        'endDate': endDate?.toIso8601String(),
         'tripId': tripId,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
@@ -220,6 +238,7 @@ class Trip {
     this.endDate,
     this.createdAt,
     this.updatedAt,
+    this.isShared,
     this.places,
     this.users,
     this.usesrOnTrips,
@@ -250,6 +269,7 @@ class Trip {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        isShared: json['isShared'],
         places: (json['places'] as Iterable?)
             ?.map((json) => _i2.Place.fromJson(json)),
         users: (json['users'] as Iterable?)
@@ -275,6 +295,8 @@ class Trip {
 
   final DateTime? updatedAt;
 
+  final bool? isShared;
+
   final Iterable<_i2.Place>? places;
 
   final Iterable<_i2.User>? users;
@@ -291,6 +313,7 @@ class Trip {
         'endDate': endDate?.toIso8601String(),
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'isShared': isShared,
         'places': places?.map((e) => e.toJson()),
         'users': users?.map((e) => e.toJson()),
         'UsesrOnTrips': usesrOnTrips?.map((e) => e.toJson()),
@@ -481,6 +504,7 @@ class CreateManyTripAndReturnOutputType {
     this.endDate,
     this.createdAt,
     this.updatedAt,
+    this.isShared,
   });
 
   factory CreateManyTripAndReturnOutputType.fromJson(Map json) =>
@@ -508,6 +532,7 @@ class CreateManyTripAndReturnOutputType {
           String value => DateTime.parse(value),
           _ => json['updatedAt']
         },
+        isShared: json['isShared'],
       );
 
   final String? id;
@@ -524,6 +549,8 @@ class CreateManyTripAndReturnOutputType {
 
   final DateTime? updatedAt;
 
+  final bool? isShared;
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'tripName': tripName,
@@ -532,6 +559,7 @@ class CreateManyTripAndReturnOutputType {
         'endDate': endDate?.toIso8601String(),
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
+        'isShared': isShared,
       };
 }
 
@@ -603,6 +631,8 @@ class CreateManyPlaceAndReturnOutputType {
     this.placeName,
     this.description,
     this.note,
+    this.startDate,
+    this.endDate,
     this.tripId,
     this.createdAt,
     this.updatedAt,
@@ -615,6 +645,16 @@ class CreateManyPlaceAndReturnOutputType {
         placeName: json['placeName'],
         description: json['description'],
         note: json['note'],
+        startDate: switch (json['startDate']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['startDate']
+        },
+        endDate: switch (json['endDate']) {
+          DateTime value => value,
+          String value => DateTime.parse(value),
+          _ => json['endDate']
+        },
         tripId: json['tripId'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
@@ -637,6 +677,10 @@ class CreateManyPlaceAndReturnOutputType {
 
   final String? note;
 
+  final DateTime? startDate;
+
+  final DateTime? endDate;
+
   final String? tripId;
 
   final DateTime? createdAt;
@@ -650,6 +694,8 @@ class CreateManyPlaceAndReturnOutputType {
         'placeName': placeName,
         'description': description,
         'note': note,
+        'startDate': startDate?.toIso8601String(),
+        'endDate': endDate?.toIso8601String(),
         'tripId': tripId,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),

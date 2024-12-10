@@ -42,6 +42,7 @@ model Trip {
   users        User[]
   createdAt    DateTime       @default(now()) @map("created_at")
   updatedAt    DateTime       @updatedAt @map("updated_at")
+  isShared     Boolean        @default(false) @map("is_shared")
   UsesrOnTrips UsersOnTrips[]
 
   @@map("trips")
@@ -67,15 +68,17 @@ enum Role {
 }
 
 model Place {
-  id          String   @id @default(uuid()) @db.Uuid
-  placeName   String   @map("place_name")
+  id          String    @id @default(uuid()) @db.Uuid
+  placeName   String    @map("place_name")
   description String?
   note        String?
-  trip        Trip     @relation(fields: [tripId], references: [id])
-  tripId      String   @map("trip_id") @db.Uuid
+  startDate   DateTime? @map("start_date")
+  endDate     DateTime? @map("end_date")
+  trip        Trip      @relation(fields: [tripId], references: [id])
+  tripId      String    @map("trip_id") @db.Uuid
   tags        Tag[]
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
 
   @@map("places")
 }
