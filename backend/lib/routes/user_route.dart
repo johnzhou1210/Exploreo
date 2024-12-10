@@ -4,6 +4,7 @@ import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
+import 'package:backend/utils/validate_payload.dart';
 import 'dart:convert';
 
 class UserRoute {
@@ -30,15 +31,21 @@ class UserRoute {
     Future<Response> createUser(Request request) async {
       try {
         final payload = jsonDecode(await request.readAsString());
-        print(payload);
+
+        const requiredFields = [
+          'firebaseUid',
+          'email',
+          'providerId',
+          'loginType'
+        ];
+        const validateEnums = {
+          'loginType': LoginType.values,
+        };
+
+        final validPayload =
+            isValidPayload(payload, requiredFields, validateEnums);
         // validate payload
-        if (payload == null ||
-            payload['firebaseUid'] == null ||
-            payload['email'] == null ||
-            payload['providerId'] == null ||
-            (payload['loginType'] == null &&
-                !!LoginType.values.any(
-                    (loginType) => loginType.name == payload['loginType']))) {
+        if (!validPayload) {
           return Response(400,
               body: json.encode({'error': 'Missing required fields'}));
         }
