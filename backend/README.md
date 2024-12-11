@@ -35,7 +35,7 @@ npm install
 2. GET /users/:userId
    Get user details by uuid
 
-3. POST /users
+3. POST /users 
    Required fields in body
 
     ```
@@ -57,9 +57,7 @@ npm install
     ]
     ```
 
-4. PUT /users/:userId
-
-    Update user profile
+4. PUT /users/:userId  
 
     Optional fields in body:
 
@@ -78,17 +76,17 @@ npm install
 
 5. DELETE /users/:userId
 
-6. GET /users/:userId/trips
+6. GET /users/:userId/trips  
    Gets all trips that the user is included in
 
 ## Trips
 
 1. GET /trips
 
-2. GET /trips/:tripId
+2. GET /trips/:tripId  
    Get trip details by uuid
 
-3. POST /trips
+3. POST /trips  
    Required fields in body
 
     ```
@@ -106,10 +104,12 @@ npm install
     [
         'description'
         'isShared'
+        'imageUrl'
+        'notes'
     ]
     ```
 
-4. PUT /trips/:tripId
+4. PUT /trips/:tripId  
 
     Update trip profile
 
@@ -122,6 +122,8 @@ npm install
         'startDate',
         'endDate',
         'isShared'
+        'imageUrl'
+        'notes'
     ]
     ```
 
@@ -134,10 +136,10 @@ npm install
 
 1. GET /places
 
-2. GET /places/:placeId
+2. GET /places/:placeId  
    Get place details by uuid
 
-3. POST /places
+3. POST /places  
    Required fields in body
 
     ```
@@ -153,13 +155,11 @@ npm install
     [
         'endDate': DateTime in iso8601 format
         'startDate': DateTime in iso8601 format
+        'notes
     ]
     ```
 
-4. PUT /places/:placeId
-
-    Update place profile
-
+4. PUT /places/:placeId  
     Optional fields in body:
 
     ```
@@ -168,6 +168,7 @@ npm install
         'description'
         'endDate': DateTime in iso8601 format
         'startDate': DateTime in iso8601 format
+        'notes'
     ]
     ```
 
@@ -180,7 +181,7 @@ npm install
 2. GET /tags/:tagId
    Get tag details by uuid
 
-3. POST /tags
+3. POST /tags  
    Required fields in body
 
     ```
@@ -189,10 +190,7 @@ npm install
     ]
     ```
 
-4. PUT /tags/:tagId
-
-    Update tag profile
-
+4. PUT /tags/:tagId  
     Optional fields in body:
 
     ```
