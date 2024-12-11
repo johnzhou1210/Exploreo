@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:exploreo/api_calls/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:exploreo/data/TestTripData.dart';
 
 Future<void> addUserCall(
     {required User user, required String username, String? password}) async {
@@ -32,7 +33,7 @@ Future<void> addUserCall(
   }
 }
 
-Future<void> getUserTrips({required String userId}) async {
+Future<List<TripObject>> getUserTrips({required String userId}) async {
   try {
     // Construct the endpoint with the userId as a dynamic parameter
     final String endpoint = 'http://10.0.2.2:8080/users/$userId/trips';
@@ -47,12 +48,18 @@ Future<void> getUserTrips({required String userId}) async {
 
     // Handle the response
     if (response.statusCode == 200) {
-      final trips = jsonDecode(response.body); // Parse the response body
-      print('User Trips: $trips');
+      final tripsJson =
+          jsonDecode(response.body) as List<dynamic>; // Parse the response body
+      print('User Trips: $tripsJson');
+
+      // Convert JSON data to a list of `TripObject`
+      return tripsJson.map((trip) => TripObject.fromJson(trip)).toList();
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      throw Exception('Failed to fetch trips: ${response.reasonPhrase}');
     }
   } catch (error) {
     print('Error making GET request: $error');
+    throw Exception('Error making GET request: $error');
   }
 }

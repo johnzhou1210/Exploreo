@@ -1,6 +1,9 @@
-import 'package:exploreo/api_calls/utils.dart';
+import 'dart:convert';
 
-Future<void> addTripCall({
+import 'package:exploreo/api_calls/utils.dart';
+import 'package:exploreo/data/TestTripData.dart';
+
+Future<TripObject?> addTripCall({
   required String userId,
   required String tripName,
   required DateTime startDate,
@@ -11,7 +14,6 @@ Future<void> addTripCall({
   String? notes,
 }) async {
   try {
-    // Construct the request body
     Map<String, dynamic> tripBody = {
       'userId': userId,
       'tripName': tripName,
@@ -23,22 +25,72 @@ Future<void> addTripCall({
       if (notes != null) 'notes': notes,
     };
 
-    print('Request Body: $tripBody'); // Debugging
+    print('Request Body: $tripBody');
 
-    // Make the POST request to the backend
     final response = await makeAuthenticatedRequest(
       endpoint: 'http://10.0.2.2:8080/trips',
       method: "POST",
       body: tripBody,
     );
 
-    // Handle the response
     if (response.statusCode == 200) {
       print('Trip Created Successfully: ${response.body}');
+      final responseData = jsonDecode(response.body);
+      return TripObject.fromJson(responseData);
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return null;
     }
   } catch (error) {
     print('Error making POST request: $error');
+    return null;
+  }
+}
+
+Future<TripObject?> updateTripCall({
+  required String tripId,
+  String? tripName,
+  String? description,
+  DateTime? startDate,
+  DateTime? endDate,
+  bool? isShared,
+  String? imageUrl,
+  String? notes,
+}) async {
+  try {
+    Map<String, dynamic> tripBody = {
+      if (tripName != null) 'tripName': tripName,
+      if (description != null) 'description': description,
+      if (startDate != null) 'startDate': startDate.toIso8601String(),
+      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (isShared != null) 'isShared': isShared.toString(),
+      if (imageUrl != null) 'imageUrl': imageUrl,
+      if (notes != null) 'notes': notes,
+    };
+
+    print('Updating Trip: $tripBody');
+
+    final String endpoint = 'http://10.0.2.2:8080/trips/$tripId';
+
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "PUT",
+      body: tripBody,
+    );
+
+    if (response.statusCode == 200) {
+      final updatedTripJson = jsonDecode(response.body);
+      print('Trip Updated Successfully: $updatedTripJson');
+      return TripObject.fromJson(updatedTripJson);
+    } else if (response.statusCode == 404) {
+      print('Error: Trip not found');
+      return null;
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return null;
+    }
+  } catch (error) {
+    print('Error making PATCH request: $error');
+    return null;
   }
 }

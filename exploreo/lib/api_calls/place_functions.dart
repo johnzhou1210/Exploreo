@@ -1,6 +1,8 @@
 import 'package:exploreo/api_calls/utils.dart';
+import 'dart:convert';
+import 'package:exploreo/data/TestTripData.dart';
 
-Future<void> addPlaceCall({
+Future<PlaceObject?> addPlaceCall({
   required String placeName,
   required String tripId,
   DateTime? startDate,
@@ -28,13 +30,64 @@ Future<void> addPlaceCall({
       body: placeBody,
     );
 
-    // Handle response
+    // Handle the response
     if (response.statusCode == 200) {
-      print('Success: ${response.body}');
+      final createdPlaceJson = jsonDecode(response.body);
+      print('Place Created Successfully: $createdPlaceJson');
+      return PlaceObject.fromJson(
+          createdPlaceJson); // Parse response into PlaceObject
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return null; // Return null for errors
     }
   } catch (error) {
     print('Error making POST request: $error');
+    return null; // Return null on exception
+  }
+}
+
+Future<PlaceObject?> updatePlaceCall({
+  required String placeId,
+  String? placeName,
+  String? description,
+  DateTime? startDate,
+  DateTime? endDate,
+  String? notes,
+}) async {
+  try {
+    // Construct the request body with only updatable fields
+    Map<String, dynamic> placeBody = {
+      if (placeName != null) 'placeName': placeName,
+      if (description != null) 'description': description,
+      if (startDate != null) 'startDate': startDate.toIso8601String(),
+      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (notes != null) 'notes': notes,
+    };
+
+    print('Updating Place: $placeBody');
+
+    final String endpoint = 'http://10.0.2.2:8080/places/$placeId';
+
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "PUT",
+      body: placeBody,
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      final updatedPlaceJson = jsonDecode(response.body);
+      print('Place Updated Successfully: $updatedPlaceJson');
+      return PlaceObject.fromJson(updatedPlaceJson);
+    } else if (response.statusCode == 404) {
+      print('Error: Place not found');
+      return null;
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return null;
+    }
+  } catch (error) {
+    print('Error making PATCH request: $error');
+    return null; // Return null on exception
   }
 }
