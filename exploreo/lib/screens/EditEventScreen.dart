@@ -112,7 +112,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 110),
+                      const SizedBox(width: 100),
                       const Text(
                         'Edit event',
                         textAlign: TextAlign.center,
