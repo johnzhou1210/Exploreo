@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:exploreo/user_auth/firebase_auth_implementation.dart'; // Ensure this is the correct import path for FirebaseAuthService
+import 'package:exploreo/screens/LoginScreen.dart'; // Ensure this is the correct import path for your LoginScreen
 
 class ProfileScreen extends StatelessWidget {
+  final FirebaseAuthService _auth =
+      FirebaseAuthService(); // FirebaseAuthService instance
+
+  ProfileScreen({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    await _auth.signOut(); // Call the signOut method
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (Route<dynamic> route) => false, // Remove all previous routes
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,10 +24,12 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context); // Go back to the previous screen
+          },
         ),
-        title: Text(
+        title: const Text(
           'Profile',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -20,48 +37,55 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           CircleAvatar(
             radius: 50,
             backgroundColor: Colors.grey[200],
             child: Icon(Icons.person, size: 50, color: Colors.grey[700]),
           ),
-          SizedBox(height: 15),
-          Text(
-            'John Doe',
+          const SizedBox(height: 15),
+          const Text(
+            'John Doe', // Replace with actual user info
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 5),
-          Text(
-            'johndoe@gmail.com',
+          const SizedBox(height: 5),
+          const Text(
+            'johndoe@gmail.com', // Replace with actual user email
             style: TextStyle(
               color: Colors.grey,
               fontSize: 14,
             ),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           ListTile(
-            leading: Icon(Icons.person_outline),
-            title: Text('Profile'),
-            trailing: Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.person_outline),
+            title: const Text('Profile'),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
           ),
           Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
           ListTile(
-            leading: Icon(Icons.bookmark_outline),
-            title: Text('Bookmarked'),
-            trailing: Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.bookmark_outline),
+            title: const Text('Bookmarked'),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
           ),
           Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
           ListTile(
-            leading: Icon(Icons.history),
-            title: Text('Previous Trips'),
-            trailing: Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.history),
+            title: const Text('Previous Trips'),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {},
+          ),
+          Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
+          // Logout Option
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.red),
+            title: const Text('Logout', style: TextStyle(color: Colors.red)),
+            onTap: () => _logout(context), // Call the logout function
           ),
           Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
         ],
@@ -69,4 +93,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-

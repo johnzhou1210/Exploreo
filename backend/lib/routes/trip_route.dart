@@ -29,9 +29,8 @@ class TripRoute {
 
     Future<Response> getTripById(Request request, String tripId) async {
       try {
-        final parsedId = int.tryParse(tripId);
         final trip = await prisma.trip
-            .findUnique(where: TripWhereUniqueInput(id: parsedId));
+            .findUnique(where: TripWhereUniqueInput(id: tripId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
@@ -57,9 +56,8 @@ class TripRoute {
 
     Future<Response> deleteTrip(Request request, String tripId) async {
       try {
-        final parsedId = int.tryParse(tripId);
         final trip =
-            await prisma.trip.delete(where: TripWhereUniqueInput(id: parsedId));
+            await prisma.trip.delete(where: TripWhereUniqueInput(id: tripId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');

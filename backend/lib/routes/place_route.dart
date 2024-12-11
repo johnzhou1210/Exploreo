@@ -29,9 +29,8 @@ class PlaceRoute {
 
     Future<Response> getPlaceById(Request request, String placeId) async {
       try {
-        final parsedId = int.tryParse(placeId);
         final trip = await prisma.place
-            .findUnique(where: PlaceWhereUniqueInput(id: parsedId));
+            .findUnique(where: PlaceWhereUniqueInput(id: placeId));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
@@ -57,10 +56,9 @@ class PlaceRoute {
 
     Future<Response> deletePlace(Request request, String placeId) async {
       try {
-        final parsedId = int.tryParse(placeId);
         final deletedPlace = await prisma.place
-            .delete(where: PlaceWhereUniqueInput(id: parsedId));
-        
+            .delete(where: PlaceWhereUniqueInput(id: placeId));
+
         if (deletedPlace == null) {
           return Response(404, body: 'NOT_FOUND');
         }
@@ -69,7 +67,6 @@ class PlaceRoute {
           json.encode(deletedPlace.toJson()),
           headers: {'Content-Type': 'application/json'},
         );
-          
       } catch (e) {
         print(e);
         return Response(400, body: 'INTERNAL_SERVER_ERROR');
