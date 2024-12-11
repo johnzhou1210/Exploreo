@@ -1,3 +1,5 @@
+import 'package:exploreo/api_calls/trip_functions.dart';
+import 'package:exploreo/api_calls/user_functions.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/util/TimeRangeFormatter.dart';
@@ -25,10 +27,14 @@ class TripInfoScreen extends StatefulWidget {
 
 class _TripInfoScreenState extends State<TripInfoScreen> {
 
-  @override
-  void initState() {
-    super.initState();
+  late TripObject trip;
+  List<PlaceObject> places = [];
 
+  @override
+  void initState() async {
+    super.initState();
+    trip = (await getTripById(widget.tripId.toString()))!;
+    places = await getTripPlaces(tripId: widget.tripId.toString());
   }
 
   @override
@@ -41,7 +47,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(widget.trip.imageUrl ??
+              image: NetworkImage(trip.imageUrl ??
                   'https://example.com/default-image.jpg'),
               // Use your image URL here
               fit: BoxFit.cover, // Options: cover, contain, fill, etc.
@@ -120,7 +126,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
-                            'Your trip to ${widget.trip.title}',
+                            'Your trip to ${trip.tripName}',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 20, fontFamily: 'Roboto'),
@@ -134,27 +140,19 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                 const SizedBox(height: 15),
 
                 // Events list for this trip
+                //　GET ALL PLACES, FILTER BY USER ID
 
                 Flexible(
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: trips
-                        .firstWhere((trip) => trip.id == widget.trip.id)
-                        .events
-                        .length,
+                    itemCount: places.length,
                     itemBuilder: (context, index) {
 
-                      /* // TODO
-                            // PLACES GET REQUEST.
-                            // THEN FILTER RESULTS by TRIP ID
-                                  // THEN SORT FILTERED RESULTS BY DATE
-                                      sortedEvents = [...widget.trip.events];
+                          List<PlaceObject> sortedEvents = [...places];
+                          sortedEvents.sort((a,b) =>  DateTime.parse(a.startDate ?? '').compareTo(DateTime.parse(b.startDate ?? '')));
 
-                                          sortedEvents.sort((a,b) => a.date.compareTo(b.date));
 
-                                         */
-
-                      return EventTile(trip: widget.trip, event: sortedEvents[index]);
+                      return EventTile(eventId: int.parse(sortedEvents[index].id));
                     },
                   ),
                 ),
@@ -178,7 +176,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddEventsScreen(trip: widget.trip)),
+                    builder: (context) => AddEventsScreen(tripId: widget.tripId)),
               );
             }),
       ),

@@ -1,3 +1,5 @@
+import 'package:exploreo/api_calls/place_functions.dart';
+import 'package:exploreo/api_calls/trip_functions.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,13 +32,17 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
 
+  TripObject trip;
+
   @override
-  void initState() {
+  void initState() async {
     super.initState();
-    /* // TODO
-    SET DEFAULT SELECTED DATE TO TRIP DATE (USE GET REQUEST TO GET TRIP BY ID)
-    selectedDates = ParseDateRange(widget.trip.date);
-    * */
+
+    trip = (await getTripById(widget.tripId.toString()))!;
+
+    // SET DEFAULT SELECTED DATE TO TRIP DATE (USE GET REQUEST TO GET TRIP BY ID)
+    selectedDates = DateTimeRange(start: DateTime.parse(trip.startDate), end: DateTime.parse(trip.endDate));
+
   }
 
   @override
@@ -54,12 +60,12 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
-                  image: DecorationImage( // resolve todo to rid of error
+                  image: DecorationImage(
 
-                    /* // TODO
-                    SET IMAGE URL TO TRIP's IMAGE URL (USE GET REQUEST TO GET TRIP BY ID)
-                       image: NetworkImage(widget.trip.imageUrl),
-                    * */
+                    // TODO
+                    // SET IMAGE URL TO TRIP's IMAGE URL (USE GET REQUEST TO GET TRIP BY ID)
+                       image: NetworkImage(trip.imageUrl ?? 'https://example.com/default-image.jpg'),
+
 
 
                     // Use your image URL here
@@ -133,7 +139,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Add events to your trip to ${widget.trip.title}", //　TODO: GET REQUEST TO GET TRIP TITLE
+                          "Add events to your trip to ${trip.tripName}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -188,25 +194,13 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                       await showDateRangePicker(
                                           context: context,
                                           firstDate: DateTime(
-                                              ParseDateRange(widget.trip.date) // TODO: GET REQUEST TO GET TRIP DATE
-                                                  .start
-                                                  .year,
-                                              ParseDateRange(widget.trip.date) // TODO: GET REQUEST TO GET TRIP DATE
-                                                  .start
-                                                  .month,
-                                              ParseDateRange(widget.trip.date) // TODO: GET REQUEST TO GET TRIP DATE
-                                                  .start
-                                                  .day),
+                                              DateTime.parse(trip.startDate).year,
+                                              DateTime.parse(trip.startDate).month,
+                                              DateTime.parse(trip.startDate).day),
                                           lastDate: DateTime(
-                                              ParseDateRange(widget.trip.date) // TODO: GET REQUEST TO GET TRIP DATE
-                                                  .end
-                                                  .year,
-                                              ParseDateRange(widget.trip.date) // TODO: GET REQUEST TO GET TRIP DATE
-                                                  .end
-                                                  .month,
-                                              ParseDateRange(widget.trip.date) // TODO: GET REQUEST TO GET TRIP DATE
-                                                  .end
-                                                  .day));
+                                              DateTime.parse(trip.endDate).year,
+                                              DateTime.parse(trip.endDate).month,
+                                              DateTime.parse(trip.endDate).day));
                                   if (dateTimeRange != null) {
                                     setState(() {
                                       selectedDates = dateTimeRange;
@@ -263,20 +257,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
 
-                            /* // TODO: USE PLACE POST REQUEST TO CREATE NEW EVENT
-
-                                widget.trip.events.add(TripEvent(
-                                title: eventNameController.text.isEmpty
-                                    ? 'Untitled'
-                                    : eventNameController.text,
-                                date: FormatDateRange(selectedDates!),
-                                description: eventNotesController.text));
-                            print(widget.trip.events.length);
-
-
-                            * */
+                            PlaceObject? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
+                            // We don't need the newPlace object at the moment
 
                             // Send user to this screen again to add another event
                             Navigator.pushReplacement(
@@ -306,25 +290,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // CREATE EVENT. DON'T CREATE TRIP HERE ANYMORE!
 
-
-                            /* // TODO: USE PLACE POST REQUEST TO CREATE NEW EVENT
-
-                                    TripEvent newEvent = TripEvent(
-                                title: eventNameController.text.isEmpty
-                                    ? 'Untitled'
-                                    : eventNameController.text,
-                                date: FormatDateRange(selectedDates!),
-                                description: eventNotesController.text);
-                            widget.trip.events.add(newEvent);
-
-
-
-                            * */
-
-
+                            PlaceObject? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
 
                             // Send user to trips page
                             Navigator.pushReplacement(

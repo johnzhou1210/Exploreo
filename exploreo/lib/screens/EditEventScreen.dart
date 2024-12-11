@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:exploreo/api_calls/place_functions.dart';
 import 'package:exploreo/data/TestTripData.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
@@ -21,10 +22,12 @@ import 'TripsScreen.dart';
 class EditEventScreen extends StatefulWidget {
 
   int eventId;
+  String imageUrl;
 
   EditEventScreen({
     super.key,
     required this.eventId,
+    required this.imageUrl,
   });
 
   @override
@@ -43,21 +46,18 @@ class _EditEventScreenState extends State<EditEventScreen> {
   String? _imageUrl;
   bool _isLoading = false;
 
+  late PlaceObject eventRef;
+
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
 
-    /* // TODO: PLACES GET REQUEST TO GET PLACE BY ID
+     // TODO: PLACES GET REQUEST TO GET PLACE BY ID
 
-           TripEvent eventRef =
-        widget.trip.events.firstWhere((event) => event.id == widget.eventId);
-    eventNameController.text = eventRef.title;
-    eventNotesController.text = eventRef.description;
-    selectedDates = ParseDateRange(eventRef.date);
-
-
-    * */
-
+    PlaceObject? eventRef = await getPlaceByIdCall(widget.eventId.toString());
+    eventNameController.text = eventRef!.placeName;
+    eventNotesController.text = eventRef.description!;
+    selectedDates = DateTimeRange(start: DateTime.parse(eventRef.startDate ?? ''), end: DateTime.parse(eventRef.endDate ?? ''));
 
   }
 
@@ -77,7 +77,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(widget.trip.imageUrl), // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
+                    image: NetworkImage(widget.imageUrl),
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
                   ),

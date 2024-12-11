@@ -1,3 +1,5 @@
+import 'package:exploreo/api_calls/trip_functions.dart';
+import 'package:exploreo/util/TimeRangeFormatter.dart';
 import 'package:flutter/material.dart';
 
 import '../data/TestTripData.dart';
@@ -14,6 +16,14 @@ class TripListTile extends StatefulWidget {
 }
 
 class _TripListTileState extends State<TripListTile> {
+  late TripObject trip;
+
+  @override
+  void initState() async {
+    super.initState();
+    trip = (await getTripById(widget.tripId.toString()))!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -32,7 +42,7 @@ class _TripListTileState extends State<TripListTile> {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: Image.network(widget.trip.imageUrl, // TODO: REPLACE WITH TRIPS GET REQUEST TO GET IMAGE URL
+                    child: Image.network(trip.imageUrl ?? 'https://example.com/default-image.jpg',
                         fit: BoxFit.fitHeight)),
                 const SizedBox(width: 15),
                 ConstrainedBox(
@@ -42,7 +52,7 @@ class _TripListTileState extends State<TripListTile> {
                     children: [
                       const SizedBox(height: 10),
                       Text(
-                        widget.trip.title, // TODO: REPLACE WITH TRIPS GET REQUEST TO GET TITLE
+                        trip.tripName,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
@@ -59,7 +69,7 @@ class _TripListTileState extends State<TripListTile> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            widget.trip.date, // TODO: REPLACE WITH TRIPS GET REQUEST TO GET DATE
+                            FormatDateRange(DateTimeRange(start: DateTime.parse(trip.startDate), end: DateTime.parse(trip.endDate))),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

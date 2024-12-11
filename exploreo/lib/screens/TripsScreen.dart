@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
+import '../api_calls/user_functions.dart';
 import '../data/TestTripData.dart';
+import '../user_auth/userState.dart';
 import '../widgets/TripListTile.dart';
+import 'package:provider/provider.dart';
 
 class TripsScreen extends StatefulWidget {
   const TripsScreen({super.key});
@@ -13,6 +16,14 @@ class TripsScreen extends StatefulWidget {
 }
 
 class _TripsScreenState extends State<TripsScreen> {
+  late List<TripObject> userTrips;
+
+  @override
+  Future<void> initState() async {
+    super.initState();
+    userTrips = await getUserTrips(userId: Provider.of<UserState>(context).currentUser!.uid);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -50,7 +61,8 @@ class _TripsScreenState extends State<TripsScreen> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    trips.length.toString(), // TODO: GET ALL TRIPS WITH SAME USER ID AND GET LENGTH OF THAT AND TURN INTO STRING
+
+                    userTrips.length.toString(),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -65,19 +77,19 @@ class _TripsScreenState extends State<TripsScreen> {
             Flexible(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: trips.length, // TODO: GET ALL TRIPS WITH SAME USER ID AND GET LENGTH OF THAT
+                itemCount: userTrips.length,
                 itemBuilder: (context, index) {
 
-                  /* // TODO: GET ALL TRIPS OF SAME USER ID WITH GET REQUEST
-                      THEN SORT BY DATE
 
-                       return TripListTile(
-                    tripId: trips[index]
+                  List<TripObject> sortedTrips = [...userTrips];
+
+                  sortedTrips.sort((a,b) => a.startDate.compareTo(b.startDate));
+
+                  return TripListTile(
+                    tripId: int.parse(sortedTrips[index].id),
 
                   );
 
-
-                  * */
 
 
 
