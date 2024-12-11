@@ -18,11 +18,11 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class EditTripScreen extends StatefulWidget {
-  Trip trip;
+  final int tripId;
 
   EditTripScreen({
     super.key,
-    required this.trip,
+    required this.tripId,
   });
 
   @override
@@ -36,7 +36,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
   );
   final TextEditingController tripNameController = TextEditingController();
   final TextEditingController tripNotesController = TextEditingController();
-  List<TripEvent> events = [];
   String? _imageUrl;
   bool _isLoading = false;
 
@@ -44,11 +43,19 @@ class _EditTripScreenState extends State<EditTripScreen> {
   @override
   void initState() {
     super.initState();
+
+    /* // TODO:  GET TRIP OBJECT WITH TRIP GET REQUEST AND TRIP ID
+    * INIT DEFAULT VALUES WITH TRIP OBJECT CONTENT
+    *
+
     tripNameController.text = widget.trip.title;
     tripNotesController.text = widget.trip.description;
     events = widget.trip.events;
     _imageUrl = widget.trip.imageUrl;
     selectedDates = ParseDateRange(widget.trip.date);
+
+
+     */
   }
 
 
@@ -83,6 +90,9 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
 
       // UPDATE TRIP
+      /* // TODO: TRIP PUT REQUEST TO UPDATE CURRENT TRIP BY ID
+      *
+      *
       Trip foundTrip = trips.firstWhere((item) => item.id == widget.trip.id);
       foundTrip.title =
       tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
@@ -90,9 +100,11 @@ class _EditTripScreenState extends State<EditTripScreen> {
       foundTrip.imageUrl = _imageUrl ?? 'https://example.com/default-image.jpg';
       foundTrip.description = tripNotesController.text;
 
+      */
+
       Navigator.pushReplacement(context,
         MaterialPageRoute(
-            builder: (context) => TripInfoScreen(trip: foundTrip)),
+            builder: (context) => TripInfoScreen(tripId: widget.tripId)),
       );
     }
   }
@@ -162,7 +174,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                   child: SizedBox(),
                 ),
               ]),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Input fields
               Column(
@@ -213,7 +225,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                               }
                             },
                             decoration: InputDecoration(
-                              prefixIcon: Icon(CupertinoIcons.calendar_today),
+                              prefixIcon: const Icon(CupertinoIcons.calendar_today),
                               border: const OutlineInputBorder(),
                               hintText: FormatDateRange(selectedDates!),
                             ),
@@ -263,14 +275,21 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Remove trip form trips
-                        int indexToRemove = trips.indexWhere((trip) => trip.id == widget.trip.id);
-                        trips.removeAt(indexToRemove);
+                        // Remove trip from trips
+                        /* // TODO
+                          // TRIPS DELETE REQUEST TO DELETE TRIP BY ID
+
+                          int indexToRemove = trips.indexWhere((trip) => trip.id == widget.trip.id);
+                          trips.removeAt(indexToRemove);
+
+
+                        * */
+
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  HomeScreen(entryIndex: 1)),
+                                  const HomeScreen(entryIndex: 1)),
                               (Route<dynamic> route) =>
                           false, // Keeps only the home route
                         );

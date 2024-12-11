@@ -12,11 +12,11 @@ import 'EditTripScreen.dart';
 import 'TripsScreen.dart';
 
 class TripInfoScreen extends StatefulWidget {
-  final Trip trip;
+  final int tripId;
 
   const TripInfoScreen({
     super.key,
-    required this.trip,
+    required this.tripId,
   });
 
   @override
@@ -24,13 +24,11 @@ class TripInfoScreen extends StatefulWidget {
 }
 
 class _TripInfoScreenState extends State<TripInfoScreen> {
-  List<TripEvent> sortedEvents = [];
+
   @override
   void initState() {
     super.initState();
-    sortedEvents = [...widget.trip.events];
 
-    sortedEvents.sort((a,b) => a.date.compareTo(b.date));
   }
 
   @override
@@ -107,10 +105,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                             child: IconButton(
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => EditTripScreen(
-                                        trip: widget
-                                            .trip // change to EditTripScreen
-                                        )));
+                                    builder: (context) => EditTripScreen(tripId: widget.tripId)));
                               },
                               iconSize: 24,
                               icon: const Icon(Icons.edit),
@@ -148,6 +143,17 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                         .events
                         .length,
                     itemBuilder: (context, index) {
+
+                      /* // TODO
+                            // PLACES GET REQUEST.
+                            // THEN FILTER RESULTS by TRIP ID
+                                  // THEN SORT FILTERED RESULTS BY DATE
+                                      sortedEvents = [...widget.trip.events];
+
+                                          sortedEvents.sort((a,b) => a.date.compareTo(b.date));
+
+                                         */
+
                       return EventTile(trip: widget.trip, event: sortedEvents[index]);
                     },
                   ),

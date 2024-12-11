@@ -5,9 +5,9 @@ import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
 class TripListTile extends StatefulWidget {
-  final Trip trip;
+  final int tripId;
 
-  TripListTile({required this.trip});
+  TripListTile({required this.tripId});
 
   @override
   _TripListTileState createState() => _TripListTileState();
@@ -18,12 +18,12 @@ class _TripListTileState extends State<TripListTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripInfoScreen(trip: widget.trip)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripInfoScreen(tripId: widget.tripId)));
       },
       child: Container(
         height: 130,
         width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Card(
@@ -32,17 +32,17 @@ class _TripListTileState extends State<TripListTile> {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: Image.network(widget.trip.imageUrl,
+                    child: Image.network(widget.trip.imageUrl, // TODO: REPLACE WITH TRIPS GET REQUEST TO GET IMAGE URL
                         fit: BoxFit.fitHeight)),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
+                  constraints: const BoxConstraints(minWidth: 100, maxWidth: 200),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
-                        widget.trip.title,
+                        widget.trip.title, // TODO: REPLACE WITH TRIPS GET REQUEST TO GET TITLE
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
@@ -52,15 +52,15 @@ class _TripListTileState extends State<TripListTile> {
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.calendar_month_outlined,
                             color: Colors.grey,
                             size: 16,
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
-                            widget.trip.date,
-                            style: TextStyle(
+                            widget.trip.date, // TODO: REPLACE WITH TRIPS GET REQUEST TO GET DATE
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),

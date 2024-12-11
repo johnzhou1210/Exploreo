@@ -19,12 +19,11 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class EditEventScreen extends StatefulWidget {
-  Trip trip;
+
   int eventId;
 
   EditEventScreen({
     super.key,
-    required this.trip,
     required this.eventId,
   });
 
@@ -39,18 +38,27 @@ class _EditEventScreenState extends State<EditEventScreen> {
   );
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
-  List<TripEvent> events = [];
+
+
   String? _imageUrl;
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    TripEvent eventRef =
+
+    /* // TODO: PLACES GET REQUEST TO GET PLACE BY ID
+
+           TripEvent eventRef =
         widget.trip.events.firstWhere((event) => event.id == widget.eventId);
     eventNameController.text = eventRef.title;
     eventNotesController.text = eventRef.description;
     selectedDates = ParseDateRange(eventRef.date);
+
+
+    * */
+
+
   }
 
   @override
@@ -69,7 +77,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(widget.trip.imageUrl),
+                    image: NetworkImage(widget.trip.imageUrl), // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
                   ),
@@ -131,7 +139,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Make changes to ${widget.trip.events.firstWhere((event) => event.id == widget.eventId).title}",
+                          "Make changes to ${widget.trip.events.firstWhere((event) => event.id == widget.eventId).title}", // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -142,7 +150,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                       child: SizedBox(),
                     ),
                   ]),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
 
                   // Input fields
                   Column(
@@ -185,23 +193,23 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                       await showDateRangePicker(
                                           context: context,
                                           firstDate: DateTime(
-                                              ParseDateRange(widget.trip.date)
+                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                                                   .start
                                                   .year,
-                                              ParseDateRange(widget.trip.date)
+                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                                                   .start
                                                   .month,
-                                              ParseDateRange(widget.trip.date)
+                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                                                   .start
                                                   .day),
                                           lastDate: DateTime(
-                                              ParseDateRange(widget.trip.date)
+                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                                                   .end
                                                   .year,
-                                              ParseDateRange(widget.trip.date)
+                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                                                   .end
                                                   .month,
-                                              ParseDateRange(widget.trip.date)
+                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
                                                   .end
                                                   .day));
                                   if (dateTimeRange != null) {
@@ -212,7 +220,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                 },
                                 decoration: InputDecoration(
                                   prefixIcon:
-                                      Icon(CupertinoIcons.calendar_today),
+                                      const Icon(CupertinoIcons.calendar_today),
                                   border: const OutlineInputBorder(),
                                   hintText: FormatDateRange(selectedDates!),
                                 ),
@@ -262,7 +270,10 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             // Remove event from trips
-                            int targetTripIndex = trips.indexWhere(
+
+                            /* // TODO: PLACES DELETE REQUEST BY GET REQUEST TO GET PLACE ID
+
+                                 int targetTripIndex = trips.indexWhere(
                                 (trip) => trip.id == widget.trip.id);
                             String eventNameToRemove = trips[targetTripIndex]
                                 .events
@@ -272,11 +283,16 @@ class _EditEventScreenState extends State<EditEventScreen> {
                             trips[targetTripIndex].events.removeWhere(
                                 (event) => event.id == widget.eventId);
 
+
+                            * */
+
+
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TripInfoScreen(trip: widget.trip)));
+                                        TripInfoScreen(tripId: widget.tripId))); // TODO: GET TRIP ID BY PLACES GET REQUEST
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
@@ -301,24 +317,24 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             // Update event
-                            TripEvent eventRef = widget.trip.events.firstWhere(
-                                (event) => event.id == widget.eventId);
-                            eventRef.title = eventNameController.text.isEmpty
+
+                            /* // TODO: PLACES PUT REQUEST TO UPDATE PLACE
+                                     TripEvent eventRef = widget.trip.events.firstWhere(
+                                  (event) => event.id == widget.eventId);
+                              eventRef.title = eventNameController.text.isEmpty
                                 ? 'Untitled'
                                 : eventNameController.text;
-                            eventRef.description = eventNotesController.text;
-                            eventRef.date = FormatDateRange(selectedDates!);
+                              eventRef.description = eventNotesController.text;
+                             eventRef.date = FormatDateRange(selectedDates!);
+                            * */
 
-                            Snack(
-                                context: context,
-                                message: "Updated event '${eventRef.title}'",
-                                duration: const Duration(milliseconds: 500));
+
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TripInfoScreen(trip: widget.trip)));
+                                        TripInfoScreen(tripId: widget.tripId))); // TODO: GET TRIP ID BY PLACES GET REQUEST
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,

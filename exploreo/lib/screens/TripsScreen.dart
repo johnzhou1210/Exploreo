@@ -23,31 +23,11 @@ class _TripsScreenState extends State<TripsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: [
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-                /* Commenting this out because it doesn't make sense to exist (it is root page of itinerary tab */
-                // SizedBox(width: 15),
-                // Material(
-                //   child: Ink(
-                //     decoration: const ShapeDecoration(
-                //         shape: CircleBorder(),
-                //       color: Color.fromARGB(50, 200, 200, 200),
-                //     ),
-                //     child :IconButton(
-                //       onPressed: () {
-                //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen())); // Whatever page it will go back to
-                //       },
-                //       iconSize: 16,
-                //       icon: Icon(Icons.arrow_back_ios_new_rounded),
-                //
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(width: 40),
-                const Text(
+                Text(
                   'Trips',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontFamily: 'Roboto'),
@@ -70,7 +50,7 @@ class _TripsScreenState extends State<TripsScreen> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    trips.length.toString(),
+                    trips.length.toString(), // TODO: GET ALL TRIPS WITH SAME USER ID AND GET LENGTH OF THAT AND TURN INTO STRING
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -85,12 +65,22 @@ class _TripsScreenState extends State<TripsScreen> {
             Flexible(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: trips.length,
+                itemCount: trips.length, // TODO: GET ALL TRIPS WITH SAME USER ID AND GET LENGTH OF THAT
                 itemBuilder: (context, index) {
-                  return TripListTile(
-                    trip: trips[index]
+
+                  /* // TODO: GET ALL TRIPS OF SAME USER ID WITH GET REQUEST
+                      THEN SORT BY DATE
+
+                       return TripListTile(
+                    tripId: trips[index]
 
                   );
+
+
+                  * */
+
+
+
                 },
               ),
             )

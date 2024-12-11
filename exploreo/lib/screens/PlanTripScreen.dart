@@ -30,7 +30,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   );
   final TextEditingController tripNameController = TextEditingController();
   final TextEditingController tripNotesController = TextEditingController();
-  List<TripEvent> events = [];
+
   String? _imageUrl;
   bool _isLoading = false;
 
@@ -55,24 +55,35 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     }
   }
 
+  // This function does not do anything to the database!
   void _onContinuePressed() async {
     String tripName =
         tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
     await _searchImage(tripName);
 
-    // Proceed to next screen after fetching image
-    Trip newTrip = Trip(
-      title: tripName,
-      date: FormatDateRange(selectedDates!),
-      imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg',
-      description: tripNotesController.text,
-      events: [],
-    );
+    // Wait until image is fetched
+
+    // Trip newTrip = Trip(
+    //   title: tripName,
+    //   date: FormatDateRange(selectedDates!),
+    //   imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg',
+    //   description: tripNotesController.text,
+    //   events: [],
+    // );
+
+
+    /* // TODO
+    // POST REQUEST TO CREATE TRIP
+
+
+    // GET REQUEST TO GET TRIP BY ID
+    int tripId = getTripById();
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => AddEventsScreen(trip: newTrip)),
-    );
+      MaterialPageRoute(builder: (context) => TripInfoScreen(tripId: tripId)), // change page to Trip Info Screen instead
+    );*/
+
   }
 
   @override
@@ -93,9 +104,9 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
               const SizedBox(height: 40),
               const Row(
                 children: [
-                  const SizedBox(width: 60),
-                  const SizedBox(width: 80),
-                  const Text(
+                  SizedBox(width: 60),
+                  SizedBox(width: 80),
+                  Text(
                     'Plan a new trip',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -124,7 +135,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                   child: SizedBox(),
                 ),
               ]),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Input fields
               Column(
@@ -175,7 +186,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                               }
                             },
                             decoration: InputDecoration(
-                              prefixIcon: Icon(CupertinoIcons.calendar_today),
+                              prefixIcon: const Icon(CupertinoIcons.calendar_today),
                               border: const OutlineInputBorder(),
                               hintText: FormatDateRange(selectedDates!),
                             ),

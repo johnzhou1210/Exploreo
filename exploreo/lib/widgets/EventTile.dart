@@ -6,12 +6,10 @@ import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
 class EventTile extends StatefulWidget {
-  TripEvent event;
-  Trip trip;
+  int eventId;
 
   EventTile({
-    required this.trip,
-    required this.event,
+    required this.eventId,
   });
 
   @override
@@ -23,7 +21,7 @@ class _EventTileState extends State<EventTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(trip: widget.trip, eventId: widget.event.id)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(eventId: widget.eventId)));
       },
       child: Container(
         height: 80,
@@ -45,7 +43,7 @@ class _EventTileState extends State<EventTile> {
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          widget.event.title,
+                          widget.event.title, // TODO: REPLACE WITH PLACES GET REQUEST TO GET PLACE
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -63,7 +61,7 @@ class _EventTileState extends State<EventTile> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            widget.event.date,
+                            widget.event.date, // TODO: REPLACE WITH PLACES GET REQUEST TO GET DATE
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
