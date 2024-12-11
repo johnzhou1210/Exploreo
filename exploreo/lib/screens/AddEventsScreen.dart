@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:intl/intl.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
@@ -32,7 +32,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
 
-  TripObject trip;
+  late Trip trip;
 
   @override
   void initState() async {
@@ -259,7 +259,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
 
-                            PlaceObject? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
+                            Place? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
                             // We don't need the newPlace object at the moment
 
                             // Send user to this screen again to add another event
@@ -293,7 +293,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                           onPressed: () async {
                             // CREATE EVENT. DON'T CREATE TRIP HERE ANYMORE!
 
-                            PlaceObject? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
+                            Place? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
 
                             // Send user to trips page
                             Navigator.pushReplacement(

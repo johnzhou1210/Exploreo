@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../widgets/EventTile.dart';
 import '../widgets/TripListTile.dart';
 import 'EditTripScreen.dart';
@@ -27,8 +27,8 @@ class TripInfoScreen extends StatefulWidget {
 
 class _TripInfoScreenState extends State<TripInfoScreen> {
 
-  late TripObject trip;
-  List<PlaceObject> places = [];
+  late Trip trip;
+  List<Place> places = [];
 
   @override
   void initState() async {
@@ -148,7 +148,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                     itemCount: places.length,
                     itemBuilder: (context, index) {
 
-                          List<PlaceObject> sortedEvents = [...places];
+                          List<Place> sortedEvents = [...places];
                           sortedEvents.sort((a,b) =>  DateTime.parse(a.startDate ?? '').compareTo(DateTime.parse(b.startDate ?? '')));
 
 

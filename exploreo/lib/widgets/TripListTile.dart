@@ -2,9 +2,9 @@ import 'package:exploreo/api_calls/trip_functions.dart';
 import 'package:exploreo/util/TimeRangeFormatter.dart';
 import 'package:flutter/material.dart';
 
-import '../data/TestTripData.dart';
+import 'package:exploreo/data/objects.dart';
 import '../screens/TripInfoScreen.dart';
-import '../screens/TripsScreen.dart';
+// import '../screens/TripsScreen.dart';
 
 class TripListTile extends StatefulWidget {
   final int tripId;
@@ -16,7 +16,7 @@ class TripListTile extends StatefulWidget {
 }
 
 class _TripListTileState extends State<TripListTile> {
-  late TripObject trip;
+  late Trip trip;
 
   @override
   void initState() async {

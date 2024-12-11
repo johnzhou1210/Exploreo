@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import '../api_calls/user_functions.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../user_auth/userState.dart';
 import '../widgets/TripListTile.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class TripsScreen extends StatefulWidget {
 }
 
 class _TripsScreenState extends State<TripsScreen> {
-  late List<TripObject> userTrips;
+  late List<Trip> userTrips;
 
   @override
   Future<void> initState() async {
@@ -81,7 +81,7 @@ class _TripsScreenState extends State<TripsScreen> {
                 itemBuilder: (context, index) {
 
 
-                  List<TripObject> sortedTrips = [...userTrips];
+                  List<Trip> sortedTrips = [...userTrips];
 
                   sortedTrips.sort((a,b) => a.startDate.compareTo(b.startDate));
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:exploreo/data/TestTripData.dart';
+import 'package:exploreo/data/objects.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';

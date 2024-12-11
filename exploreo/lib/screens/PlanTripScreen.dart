@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../user_auth/userState.dart';
 import '../util/ImageFetcher.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripInfoScreen.dart';
@@ -79,7 +79,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
 
      // TODO
     // POST REQUEST TO CREATE TRIP
-    TripObject? tripObj = await addTripCall(userId: Provider.of<UserState>(context).currentUser!.uid , tripName: tripNameController.text, startDate: selectedDates!.start, endDate: selectedDates!.end, description: tripNotesController.text, imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg');
+    Trip? tripObj = await addTripCall(userId: Provider.of<UserState>(context).currentUser!.uid , tripName: tripNameController.text, startDate: selectedDates!.start, endDate: selectedDates!.end, description: tripNotesController.text, imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg');
 
     // GET REQUEST TO GET NEW TRIP BY ID
     int tripId = int.parse(tripObj!.id);
