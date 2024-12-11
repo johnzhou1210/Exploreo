@@ -18,8 +18,15 @@ class TripRoute {
 
     Future<Response> getAllTrips(Request request) async {
       try {
-        var trips = await prisma.trip.findMany();
-        var tripList = trips.map((trip) => trip.toJson()).toList();
+        var trips = await prisma.trip.findMany(
+          include: TripInclude(usersOnTrips: PrismaUnion.$1(true)),
+        );
+
+        var tripList = trips.map((trip) {
+          var tripJson = trip.toJson();
+          tripJson['UsersOnTrips'] = trip.usersOnTrips?.map((userOnTrip) => userOnTrip.toJson()).toList() ?? [];
+          return tripJson;
+        }).toList();
 
         return Response.ok(
           json.encode(tripList),

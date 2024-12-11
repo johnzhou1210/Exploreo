@@ -210,9 +210,17 @@ class UserRoute {
               usersOnTrips: UsersOnTripsListRelationFilter(
                   some:
                       UsersOnTripsWhereInput(userId: PrismaUnion.$2(userId)))),
+          include: TripInclude(usersOnTrips: PrismaUnion.$1(true)),
         );
 
-        var tripList = trips.map((trip) => trip.toJson()).toList();
+        var tripList = trips.map((trip) {
+          var tripJson = trip.toJson();
+          tripJson['UsersOnTrips'] = trip.usersOnTrips
+                  ?.map((userOnTrip) => userOnTrip.toJson())
+                  .toList() ??
+              [];
+          return tripJson;
+        }).toList();
 
         return Response.ok(
           json.encode(tripList),
@@ -230,7 +238,7 @@ class UserRoute {
     router.put('/<userId>', updateUser);
     router.delete('/<userId>', deleteUser);
 
-    router.get('<userId>/trips', getAllTrips);
+    router.get('/<userId>/trips', getAllTrips);
 
     return router;
   }
