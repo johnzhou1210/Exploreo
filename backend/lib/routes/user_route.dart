@@ -235,7 +235,7 @@ class UserRoute {
 
     router.get('/', getAllUsers);
     router.get('/<userId>', getUserById);
-    router.post('/createUser', createUser);
+    router.post('/', createUser);
     router.put('/<userId>', updateUser);
     router.delete('/<userId>', deleteUser);
 

@@ -675,8 +675,9 @@ class DateTimeNullableFilter
       };
 }
 
-class TripRelationFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const TripRelationFilter({
+class TripScalarRelationFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const TripScalarRelationFilter({
     this.$is,
     this.isNot,
   });
@@ -803,7 +804,7 @@ class PlaceWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
-  final _i1.PrismaUnion<_i2.TripRelationFilter, _i2.TripWhereInput>? trip;
+  final _i1.PrismaUnion<_i2.TripScalarRelationFilter, _i2.TripWhereInput>? trip;
 
   final _i2.TagListRelationFilter? tags;
 
@@ -925,8 +926,9 @@ class EnumRoleFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class UserRelationFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserRelationFilter({
+class UserScalarRelationFilter
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UserScalarRelationFilter({
     this.$is,
     this.isNot,
   });
@@ -978,9 +980,9 @@ class UsersOnTripsWhereInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
-  final _i1.PrismaUnion<_i2.UserRelationFilter, _i2.UserWhereInput>? user;
+  final _i1.PrismaUnion<_i2.UserScalarRelationFilter, _i2.UserWhereInput>? user;
 
-  final _i1.PrismaUnion<_i2.TripRelationFilter, _i2.TripWhereInput>? trip;
+  final _i1.PrismaUnion<_i2.TripScalarRelationFilter, _i2.TripWhereInput>? trip;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1531,7 +1533,7 @@ class PlaceWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
-  final _i1.PrismaUnion<_i2.TripRelationFilter, _i2.TripWhereInput>? trip;
+  final _i1.PrismaUnion<_i2.TripScalarRelationFilter, _i2.TripWhereInput>? trip;
 
   final _i2.TagListRelationFilter? tags;
 
@@ -2288,9 +2290,9 @@ class UsersOnTripsWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
 
-  final _i1.PrismaUnion<_i2.UserRelationFilter, _i2.UserWhereInput>? user;
+  final _i1.PrismaUnion<_i2.UserScalarRelationFilter, _i2.UserWhereInput>? user;
 
-  final _i1.PrismaUnion<_i2.TripRelationFilter, _i2.TripWhereInput>? trip;
+  final _i1.PrismaUnion<_i2.TripScalarRelationFilter, _i2.TripWhereInput>? trip;
 
   @override
   Map<String, dynamic> toJson() => {
