@@ -1,8 +1,9 @@
 import 'package:exploreo/api_calls/utils.dart';
 import 'dart:convert';
-import 'package:exploreo/data/TestTripData.dart';
+import 'package:exploreo/data/objects.dart';
+import 'package:exploreo/util/config.dart';
 
-Future<PlaceObject?> addPlaceCall({
+Future<Place?> addPlaceCall({
   required String placeName,
   required String tripId,
   DateTime? startDate,
@@ -25,7 +26,7 @@ Future<PlaceObject?> addPlaceCall({
 
     // Make the POST request to the backend
     final response = await makeAuthenticatedRequest(
-      endpoint: 'http://10.0.2.2:8080/places',
+      endpoint: '${Config.apiUrl}/places',
       method: "POST",
       body: placeBody,
     );
@@ -34,8 +35,8 @@ Future<PlaceObject?> addPlaceCall({
     if (response.statusCode == 200) {
       final createdPlaceJson = jsonDecode(response.body);
       print('Place Created Successfully: $createdPlaceJson');
-      return PlaceObject.fromJson(
-          createdPlaceJson); // Parse response into PlaceObject
+      return Place.fromJson(
+          createdPlaceJson); // Parse response into Place
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
       return null; // Return null for errors
@@ -46,7 +47,7 @@ Future<PlaceObject?> addPlaceCall({
   }
 }
 
-Future<PlaceObject?> updatePlaceCall({
+Future<Place?> updatePlaceCall({
   required String placeId,
   String? placeName,
   String? description,
@@ -66,7 +67,7 @@ Future<PlaceObject?> updatePlaceCall({
 
     print('Updating Place: $placeBody');
 
-    final String endpoint = 'http://10.0.2.2:8080/places/$placeId';
+    final String endpoint = '${Config.apiUrl}/places/$placeId';
 
     final response = await makeAuthenticatedRequest(
       endpoint: endpoint,
@@ -78,7 +79,7 @@ Future<PlaceObject?> updatePlaceCall({
     if (response.statusCode == 200) {
       final updatedPlaceJson = jsonDecode(response.body);
       print('Place Updated Successfully: $updatedPlaceJson');
-      return PlaceObject.fromJson(updatedPlaceJson);
+      return Place.fromJson(updatedPlaceJson);
     } else if (response.statusCode == 404) {
       print('Error: Place not found');
       return null;

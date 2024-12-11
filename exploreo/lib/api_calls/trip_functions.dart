@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:exploreo/api_calls/utils.dart';
-import 'package:exploreo/data/TestTripData.dart';
+import 'package:exploreo/data/objects.dart';
+import 'package:exploreo/util/config.dart';
 
-Future<TripObject?> addTripCall({
+Future<Trip?> addTripCall({
   required String userId,
   required String tripName,
   required DateTime startDate,
@@ -28,7 +29,7 @@ Future<TripObject?> addTripCall({
     print('Request Body: $tripBody');
 
     final response = await makeAuthenticatedRequest(
-      endpoint: 'http://10.0.2.2:8080/trips',
+      endpoint: '${Config.apiUrl}/trips',
       method: "POST",
       body: tripBody,
     );
@@ -36,7 +37,7 @@ Future<TripObject?> addTripCall({
     if (response.statusCode == 200) {
       print('Trip Created Successfully: ${response.body}');
       final responseData = jsonDecode(response.body);
-      return TripObject.fromJson(responseData);
+      return Trip.fromJson(responseData);
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
       return null;
@@ -47,7 +48,7 @@ Future<TripObject?> addTripCall({
   }
 }
 
-Future<TripObject?> updateTripCall({
+Future<Trip?> updateTripCall({
   required String tripId,
   String? tripName,
   String? description,
@@ -70,7 +71,7 @@ Future<TripObject?> updateTripCall({
 
     print('Updating Trip: $tripBody');
 
-    final String endpoint = 'http://10.0.2.2:8080/trips/$tripId';
+    final String endpoint = '${Config.apiUrl}/trips/$tripId';
 
     final response = await makeAuthenticatedRequest(
       endpoint: endpoint,
@@ -81,7 +82,7 @@ Future<TripObject?> updateTripCall({
     if (response.statusCode == 200) {
       final updatedTripJson = jsonDecode(response.body);
       print('Trip Updated Successfully: $updatedTripJson');
-      return TripObject.fromJson(updatedTripJson);
+      return Trip.fromJson(updatedTripJson);
     } else if (response.statusCode == 404) {
       print('Error: Trip not found');
       return null;
