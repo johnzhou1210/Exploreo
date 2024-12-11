@@ -4,6 +4,8 @@ import 'package:orm/orm.dart';
 import "package:shelf/shelf.dart";
 import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
+import 'package:backend/utils/validate_payload.dart';
+import 'package:backend/utils/extract_updatable_fields.dart';
 import 'dart:convert';
 
 class UserRoute {
@@ -30,27 +32,48 @@ class UserRoute {
     Future<Response> createUser(Request request) async {
       try {
         final payload = jsonDecode(await request.readAsString());
-        print("hit create user: $payload");
+
+        const requiredFields = [
+          'firebaseUid',
+          'email',
+          'providerId',
+          'loginType'
+        ];
+        const validateEnums = {
+          'loginType': LoginType.values,
+        };
+
+        if (payload['loginType'] == 'EMAIL' &&
+            (payload['email'] == null || payload['password'] == null)) {
+          return Response(400,
+              body: json.encode({'error': 'Missing email or password field'}));
+        }
+
+        final validPayload =
+            isValidPayload(payload, requiredFields, validateEnums);
         // validate payload
-        if (payload == null ||
-            payload['email'] == null ||
-            payload['username'] == null ||
-            payload['uid'] == null) {
-          print("missing required fields");
+        if (!validPayload) {
           return Response(400,
               body: json.encode({'error': 'Missing required fields'}));
         }
         final user = await prisma.user.create(
             data: PrismaUnion.$1(
           UserCreateInput(
-            providerId: payload['uid'],
+            firebaseUid: payload['firebaseUid'],
             email: payload['email'],
-            firebaseUid: payload['uid'],
-            username: PrismaUnion.$1(payload['username']),
-            // password: PrismaUnion.$1(payload['password']),
-            // providerId: payload['providerId'],
-            // loginType: LoginType.values.firstWhere(
-            // (loginType) => loginType.name == payload['loginType'])
+            providerId: payload['providerId'],
+            loginType: LoginType.values.firstWhere(
+                (loginType) => loginType.name == payload['loginType']),
+            username: payload['username'] != null
+                ? PrismaUnion.$1(payload['username'])
+                : null,
+            password: payload['password'] != null
+                ? PrismaUnion.$1(payload['password'])
+                : null,
+            profilePictureUrl: payload['profilePictureUrl'] != null
+                ? PrismaUnion.$1(payload['profilePictureUrl'])
+                : null,
+            bio: payload['bio'] != null ? PrismaUnion.$1(payload['bio']) : null,
           ),
         ));
 
@@ -84,7 +107,81 @@ class UserRoute {
     }
 
     Future<Response> updateUser(Request request, String userId) async {
-      return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      try {
+        final payload = jsonDecode(await request.readAsString());
+
+        const updatableFields = [
+          'firebaseUid',
+          'email',
+          'username',
+          'password',
+          'providerId',
+          'loginType',
+          'profilePictureUrl',
+          'bio',
+        ];
+
+        const validateEnums = {
+          'loginType': LoginType.values,
+        };
+
+        final fieldsToUpdate = extractUpdatableFields(payload, updatableFields);
+
+        if (fieldsToUpdate.isEmpty) {
+          return Response(400, body: 'NO_VALID_FIELDS_TO_UPDATE');
+        }
+
+        if (fieldsToUpdate.containsKey("loginType")) {
+          final validPayload =
+              isValidPayload(fieldsToUpdate, [], validateEnums);
+          if (!validPayload) {
+            return Response(400,
+                body: json.encode({'error': 'Invalid login type'}));
+          }
+        }
+
+        final updatedUser = await prisma.user.update(
+          where: UserWhereUniqueInput(id: userId),
+          data: PrismaUnion.$1(UserUpdateInput(
+            firebaseUid: fieldsToUpdate['firebaseUid'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['firebaseUid'])
+                : null,
+            email: fieldsToUpdate['email'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['email'])
+                : null,
+            username: fieldsToUpdate['username'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['username'])
+                : null,
+            password: fieldsToUpdate['password'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['password'])
+                : null,
+            providerId: fieldsToUpdate['providerId'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['providerId'])
+                : null,
+            loginType: fieldsToUpdate['loginType'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['loginType'])
+                : null,
+            profilePictureUrl: fieldsToUpdate['profilePictureUrl'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['profilePictureUrl'])
+                : null,
+            bio: fieldsToUpdate['bio'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['bio'])
+                : null,
+          )),
+        );
+
+        if (updatedUser == null) {
+          return Response(404, body: 'NOT_FOUND');
+        }
+
+        return Response.ok(
+          json.encode(updatedUser.toJson()),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
     }
 
     Future<Response> deleteUser(Request request, String userId) async {
@@ -106,11 +203,42 @@ class UserRoute {
       }
     }
 
+    Future<Response> getAllTrips(Request request, String userId) async {
+      try {
+        var trips = await prisma.trip.findMany(
+          where: TripWhereInput(
+              usersOnTrips: UsersOnTripsListRelationFilter(
+                  some:
+                      UsersOnTripsWhereInput(userId: PrismaUnion.$2(userId)))),
+          include: TripInclude(usersOnTrips: PrismaUnion.$1(true)),
+        );
+
+        var tripList = trips.map((trip) {
+          var tripJson = trip.toJson();
+          tripJson['UsersOnTrips'] = trip.usersOnTrips
+                  ?.map((userOnTrip) => userOnTrip.toJson())
+                  .toList() ??
+              [];
+          return tripJson;
+        }).toList();
+
+        return Response.ok(
+          json.encode(tripList),
+          headers: {'Content-Type': 'application/json'},
+        );
+      } catch (e) {
+        print(e);
+        return Response(400, body: 'INTERNAL_SERVER_ERROR');
+      }
+    }
+
     router.get('/', getAllUsers);
     router.get('/<userId>', getUserById);
-    router.post('/createUser', createUser);
-    router.put('/<id>', updateUser);
-    router.delete('/<id>', deleteUser);
+    router.post('/', createUser);
+    router.put('/<userId>', updateUser);
+    router.delete('/<userId>', deleteUser);
+
+    router.get('/<userId>/trips', getAllTrips);
 
     return router;
   }

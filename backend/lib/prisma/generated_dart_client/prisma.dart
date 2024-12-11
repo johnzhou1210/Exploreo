@@ -1191,11 +1191,11 @@ class UserWhereUniqueInput
     this.id,
     this.firebaseUid,
     this.email,
+    this.username,
     this.providerId,
     this.AND,
     this.OR,
     this.NOT,
-    this.username,
     this.createdAt,
     this.updatedAt,
     this.password,
@@ -1212,6 +1212,8 @@ class UserWhereUniqueInput
 
   final String? email;
 
+  final String? username;
+
   final String? providerId;
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? AND;
@@ -1219,9 +1221,6 @@ class UserWhereUniqueInput
   final Iterable<_i2.UserWhereInput>? OR;
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? NOT;
-
-  final _i1.PrismaUnion<_i2.StringNullableFilter,
-      _i1.PrismaUnion<String, _i1.PrismaNull>>? username;
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? createdAt;
 
@@ -1247,11 +1246,11 @@ class UserWhereUniqueInput
         'id': id,
         'firebaseUid': firebaseUid,
         'email': email,
+        'username': username,
         'providerId': providerId,
         'AND': AND,
         'OR': OR,
         'NOT': NOT,
-        'username': username,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'password': password,
