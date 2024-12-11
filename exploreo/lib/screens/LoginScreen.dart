@@ -7,6 +7,8 @@ import 'package:exploreo/user_auth/firebase_auth_implementation.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:provider/provider.dart';
 import 'package:exploreo/user_auth/userState.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:twitter_login/twitter_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<User?> signUpWithEmailAndPassword(String email, String password) async {
     try {
@@ -26,7 +29,7 @@ class FirebaseAuthService {
     }
     return null;
   }
-
+/*
   Future<User?> signInWithGoogle() async {
     try {
       OAuthProvider googleProvider = OAuthProvider("google.com");
@@ -40,6 +43,29 @@ class FirebaseAuthService {
       print("There was an error with Google sign in: $e");
     }
     return null;
+  }
+ */
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return null; // User canceled sign-in
+
+      // Obtain the GoogleSignInAuthentication
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      // Sign in to Firebase with the credential
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+      return userCredential.user;
+    } catch (e) {
+      print('Error during Google Sign-In: $e');
+      return null;
+    }
   }
 
   Future<User?> signInWithTwitter() async {
@@ -88,4 +114,3 @@ class FirebaseAuthService {
     }
   }
 }
-

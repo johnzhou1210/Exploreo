@@ -44,6 +44,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   provider: ^6.1.2
   firebase_core: ^3.8.1
+  google_sign_in: ^6.2.2
   twitter_login:
     git:
       url: https://github.com/0maru/twitter_login.git
