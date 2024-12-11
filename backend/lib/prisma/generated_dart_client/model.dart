@@ -7,7 +7,7 @@ import 'prisma.dart' as _i3;
 enum LoginType implements _i1.PrismaEnum {
   email._('EMAIL'),
   google._('GOOGLE'),
-  facebook._('FACEBOOK');
+  twitter._('TWITTER');
 
   const LoginType._(this.name);
 
