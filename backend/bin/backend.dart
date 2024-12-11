@@ -32,7 +32,7 @@ void main() async {
   app.all('/<path|.*>', _echoRequest);
   var handler = const Pipeline()
       .addMiddleware(logRequests())
-      // .addMiddleware(authMiddleware(apiKey!))
+      .addMiddleware(authMiddleware(apiKey!))
       .addHandler(app.call);
 
   try {

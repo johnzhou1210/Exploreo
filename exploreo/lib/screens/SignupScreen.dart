@@ -42,7 +42,10 @@ class _SignupScreenState extends State<SignupScreen> {
       User? user = await _auth.signUpWithEmailAndPassword(
           _emailController.text, _passwordController.text);
       if (user != null) {
-        await addUserCall(user: user, username: _usernameController.text);
+        final response = await addUserCall(
+            user: user,
+            username: _usernameController.text,
+            password: _passwordController.text);
         Provider.of<UserState>(context, listen: false).setUser(user);
 
         Navigator.of(context).pushAndRemoveUntil(

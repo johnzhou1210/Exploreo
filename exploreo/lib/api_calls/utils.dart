@@ -24,7 +24,7 @@ Future<http.Response> makeAuthenticatedRequest(
   };
 
   Uri uri = Uri.parse(endpoint);
-  switch (method.toUpperCase()) {
+  switch (method) {
     case 'POST':
       return await http.post(uri,
           headers: mergedHeaders, body: jsonEncode(body));
