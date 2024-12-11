@@ -93,24 +93,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
               const SizedBox(height: 40),
               Row(
                 children: [
-                  const SizedBox(width: 15),
-                  Material(
-                    child: Ink(
-                      decoration: const ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: Color.fromARGB(50, 200, 200, 200),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const HomeScreen())); // Whatever page it will go back to
-                        },
-                        iconSize: 16,
-                        icon: const Icon(Icons.close),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(width: 60),
                   const SizedBox(width: 80),
                   const Text(
                     'Plan a new trip',
