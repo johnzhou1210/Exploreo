@@ -1,6 +1,4 @@
-import '../screens/TripsScreen.dart';
-
-class TripObject {
+class Trip {
   final String id;
   final String tripName;
   final String startDate;
@@ -11,7 +9,7 @@ class TripObject {
   final String? notes;
   final List<dynamic> usersOnTrips;
 
-  TripObject({
+  Trip({
     required this.id,
     required this.tripName,
     required this.startDate,
@@ -23,8 +21,8 @@ class TripObject {
     required this.usersOnTrips,
   });
 
-  factory TripObject.fromJson(Map<String, dynamic> json) {
-    return TripObject(
+  factory Trip.fromJson(Map<String, dynamic> json) {
+    return Trip(
       id: json['id'],
       tripName: json['tripName'],
       startDate: json['startDate'],
@@ -38,7 +36,7 @@ class TripObject {
   }
 }
 
-class PlaceObject {
+class Place {
   final String id;
   final String placeName;
   final String? description;
@@ -46,7 +44,7 @@ class PlaceObject {
   final String? endDate;
   final String? notes;
 
-  PlaceObject({
+  Place({
     required this.id,
     required this.placeName,
     this.description,
@@ -55,8 +53,8 @@ class PlaceObject {
     this.notes,
   });
 
-  factory PlaceObject.fromJson(Map<String, dynamic> json) {
-    return PlaceObject(
+  factory Place.fromJson(Map<String, dynamic> json) {
+    return Place(
       id: json['id'],
       placeName: json['placeName'],
       description: json['description'],

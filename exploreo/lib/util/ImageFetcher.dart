@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../util/config.dart';
 
 Future<String?> FetchImage(String query) async {
-  final String accessKey = dotenv.env['IMAGE_API_KEY'] ?? '';
+  final String accessKey = Config.imageApiKey;
   if (accessKey.isEmpty) {
     print("API key is missing or not loaded.");
     return 'error';

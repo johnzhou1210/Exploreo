@@ -6,10 +6,12 @@ import "package:shelf_router/shelf_router.dart";
 import 'package:backend/prisma.dart';
 import 'package:backend/utils/validate_payload.dart';
 import 'package:backend/utils/extract_updatable_fields.dart';
+import 'package:backend/handlers/firebase_user_handler.dart';
 import 'dart:convert';
 
 class UserRoute {
   final prisma = PrismaSingleton.client;
+  final FirebaseUserHandler firebaseUserHandler = FirebaseUserHandler();
 
   Router get router {
     final router = Router();
@@ -240,6 +242,11 @@ class UserRoute {
     router.delete('/<userId>', deleteUser);
 
     router.get('/<userId>/trips', getAllTrips);
+
+    router.get('/firebase/<firebaseUid>', firebaseUserHandler.getUserByFirebaseUid);
+    router.delete('/firebase/<firebaseUid>', firebaseUserHandler.deleteUser);
+    router.put('/firebase/<firebaseUid>', firebaseUserHandler.updateUser);
+    router.get('/firebase/<firebaseUid>/trips', firebaseUserHandler.getAllTrips);
 
     return router;
   }
