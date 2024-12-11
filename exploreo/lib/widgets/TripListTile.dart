@@ -7,28 +7,22 @@ import '../screens/TripInfoScreen.dart';
 // import '../screens/TripsScreen.dart';
 
 class TripListTile extends StatefulWidget {
-  final int tripId;
+  final Trip trip;
 
-  TripListTile({required this.tripId});
+  TripListTile({required this.trip});
 
   @override
   _TripListTileState createState() => _TripListTileState();
 }
 
 class _TripListTileState extends State<TripListTile> {
-  late Trip trip;
-
-  @override
-  void initState() async {
-    super.initState();
-    trip = (await getTripById(widget.tripId.toString()))!;
-  }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => TripInfoScreen(tripId: widget.tripId)));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) =>
+        //         TripInfoScreen(tripId: widget.trip.id)));
       },
       child: Container(
         height: 130,
@@ -42,17 +36,21 @@ class _TripListTileState extends State<TripListTile> {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: Image.network(trip.imageUrl ?? 'https://example.com/default-image.jpg',
-                        fit: BoxFit.fitHeight)),
+                    child: widget.trip.imageUrl != null
+                        ? Image.network(widget.trip.imageUrl!,
+                            fit: BoxFit.fitHeight)
+                        : Image.asset("assets/images/placeholder.jpeg",
+                            fit: BoxFit.fitHeight)),
                 const SizedBox(width: 15),
                 ConstrainedBox(
-                  constraints: const BoxConstraints(minWidth: 100, maxWidth: 200),
+                  constraints:
+                      const BoxConstraints(minWidth: 100, maxWidth: 200),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 10),
                       Text(
-                        trip.tripName,
+                        widget.trip.tripName,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
@@ -69,7 +67,9 @@ class _TripListTileState extends State<TripListTile> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            FormatDateRange(DateTimeRange(start: DateTime.parse(trip.startDate), end: DateTime.parse(trip.endDate))),
+                            FormatDateRange(DateTimeRange(
+                                start: DateTime.parse(widget.trip.startDate),
+                                end: DateTime.parse(widget.trip.endDate))),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

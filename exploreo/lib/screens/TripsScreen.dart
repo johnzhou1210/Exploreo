@@ -1,5 +1,5 @@
 import 'package:exploreo/screens/HomeScreen.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
@@ -16,90 +16,101 @@ class TripsScreen extends StatefulWidget {
 }
 
 class _TripsScreenState extends State<TripsScreen> {
-  late List<Trip> userTrips;
+  late List<Trip> userTrips = [];
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    userTrips = await getUserTrips(userId: Provider.of<UserState>(context).currentUser!.uid);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchTrips();
+  }
+
+  Future<void> fetchTrips() async {
+    try {
+      final userState = Provider.of<UserState>(context);
+
+      if (userState.currentUser == null || userState.userId == null) {
+        // If not logged in, show the LoginScreen
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+        return;
+      }
+      ;
+      List<Trip> trips = await getUserTrips(userId: userState.userId!);
+      setState(() {
+        userTrips = trips;
+      });
+      print("FETCHED TRIPS");
+      trips.forEach(print);
+    } catch (e) {
+      print("There was an error fetching trips");
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        body: Center(
-            child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Center(
+          child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
 
-          children: [
-            const SizedBox(height: 40),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Trips',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: 'Roboto'),
+        children: [
+          const SizedBox(height: 40),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Trips',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontFamily: 'Roboto'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Column(
+            children: [
+              const Text(
+                "Travel Trips",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontFamily: 'Serif'),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                userTrips.length.toString(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 30, 100, 255),
                 ),
-              ],
-            ),
-
-            const SizedBox(height: 15),
-
-            Container(
-              child: Column(
-                children: [
-                  const Text(
-                    "Travel Trips",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      fontFamily: 'Serif'
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-
-                    userTrips.length.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Color.fromARGB(255, 30, 100, 255),
-                    ),
-                  ),
-                ],
               ),
+            ],
+          ),
+          Flexible(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: userTrips.length,
+              itemBuilder: (context, index) {
+                List<Trip> sortedTrips = [...userTrips];
+
+                sortedTrips.sort((a, b) => a.startDate.compareTo(b.startDate));
+
+                return TripListTile(
+                  trip: sortedTrips[index],
+                );
+              },
             ),
-
-
-            Flexible(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: userTrips.length,
-                itemBuilder: (context, index) {
-
-
-                  List<Trip> sortedTrips = [...userTrips];
-
-                  sortedTrips.sort((a,b) => a.startDate.compareTo(b.startDate));
-
-                  return TripListTile(
-                    tripId: int.parse(sortedTrips[index].id),
-
-                  );
-
-
-
-
-                },
-              ),
-            )
-
-          ],
-        )),
-
+          )
+        ],
+      )),
     );
   }
 }
