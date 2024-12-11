@@ -155,24 +155,27 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
               ]),
         ),
       ]),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black54,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                32), // Make it rounded but not fully circular
-          ),
-          child: const Icon(
-            Icons.add,
-            size: 32,
-          ),
-          onPressed: () {
-            // Go to add event screen
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AddEventsScreen(trip: widget.trip)),
-            );
-          }),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: FloatingActionButton(
+            backgroundColor: Colors.black54,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  32), // Make it rounded but not fully circular
+            ),
+            child: const Icon(
+              Icons.add,
+              size: 32,
+            ),
+            onPressed: () {
+              // Go to add event screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddEventsScreen(trip: widget.trip)),
+              );
+            }),
+      ),
     );
   }
 }

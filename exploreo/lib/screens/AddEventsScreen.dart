@@ -36,7 +36,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     selectedDates = ParseDateRange(widget.trip.date);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +69,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
               // Page content
               // Cancel button
 
-
-
-
-
               Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,35 +77,48 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                   // Header and back button
                   const SizedBox(height: 40),
                   Row(
-
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const SizedBox(width: 15),
-                      Material(
-                        color: Colors.transparent,
-                        child: Ink(
-                          decoration: const ShapeDecoration(
-                            shape: CircleBorder(),
-                            color: Color.fromARGB(50, 200, 200, 200),
+                      Row(
+                        children: [
+                          SizedBox(
+                              width: (trips.indexWhere((trip) =>
+                                          trip.id == widget.trip.id) !=
+                                      -1)
+                                  ? 15
+                                  : 65),
+                          Visibility(
+                            visible: (trips.indexWhere(
+                                    (trip) => trip.id == widget.trip.id) !=
+                                -1),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Ink(
+                                decoration: const ShapeDecoration(
+                                  shape: CircleBorder(),
+                                  color: Color.fromARGB(50, 200, 200, 200),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Whatever page it will go back to
+                                  },
+                                  iconSize: 16,
+                                  icon: const Icon(Icons.close),
+                                ),
+                              ),
+                            ),
                           ),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pop(); // Whatever page it will go back to
-                            },
-                            iconSize: 16,
-                            icon: const Icon(Icons.close),
+                          const SizedBox(width: 90),
+                          const Text(
+                            'Add events',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 90),
-                      const Text(
-                        'Add events',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold),
+                        ],
                       ),
                     ],
                   ),
@@ -176,8 +184,26 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                   final DateTimeRange? dateTimeRange =
                                       await showDateRangePicker(
                                           context: context,
-                                          firstDate: DateTime(ParseDateRange(widget.trip.date).start.year, ParseDateRange(widget.trip.date).start.month, ParseDateRange(widget.trip.date).start.day),
-                                          lastDate: DateTime(ParseDateRange(widget.trip.date).end.year, ParseDateRange(widget.trip.date).end.month, ParseDateRange(widget.trip.date).end.day));
+                                          firstDate: DateTime(
+                                              ParseDateRange(widget.trip.date)
+                                                  .start
+                                                  .year,
+                                              ParseDateRange(widget.trip.date)
+                                                  .start
+                                                  .month,
+                                              ParseDateRange(widget.trip.date)
+                                                  .start
+                                                  .day),
+                                          lastDate: DateTime(
+                                              ParseDateRange(widget.trip.date)
+                                                  .end
+                                                  .year,
+                                              ParseDateRange(widget.trip.date)
+                                                  .end
+                                                  .month,
+                                              ParseDateRange(widget.trip.date)
+                                                  .end
+                                                  .day));
                                   if (dateTimeRange != null) {
                                     setState(() {
                                       selectedDates = dateTimeRange;
@@ -236,11 +262,18 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             /*TODO: Redirect user to this same page but with the fields empty for input again to add another event*/
-                            widget.trip.events.add(TripEvent(title: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, date: FormatDateRange(selectedDates!), description: eventNotesController.text));
+                            widget.trip.events.add(TripEvent(
+                                title: eventNameController.text.isEmpty
+                                    ? 'Untitled'
+                                    : eventNameController.text,
+                                date: FormatDateRange(selectedDates!),
+                                description: eventNotesController.text));
                             print(widget.trip.events.length);
-                            Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => AddEventsScreen(trip: widget.trip))
-                            );
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddEventsScreen(trip: widget.trip)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -267,21 +300,28 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                             /* TODO: Create a Trip object and add it to the user's database and also add the array of events to this new Trip object */
 
                             TripEvent newEvent = TripEvent(
-                                title: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text,
+                                title: eventNameController.text.isEmpty
+                                    ? 'Untitled'
+                                    : eventNameController.text,
                                 date: FormatDateRange(selectedDates!),
                                 description: eventNotesController.text);
                             widget.trip.events.add(newEvent);
 
                             // Add to trips list if it doens't exist
-                            print("${trips.indexWhere((trip) => trip.id == widget.trip.id)} ${widget.trip.id}");
-                            if (trips.indexWhere((trip) => trip.id == widget.trip.id) == -1) {
+                            print(
+                                "${trips.indexWhere((trip) => trip.id == widget.trip.id)} ${widget.trip.id}");
+                            if (trips.indexWhere(
+                                    (trip) => trip.id == widget.trip.id) ==
+                                -1) {
                               trips.add(widget.trip);
                             }
 
                             // Send user to trips page
-                            Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => TripInfoScreen(trip: widget.trip))
-                            );
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TripInfoScreen(trip: widget.trip)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -302,5 +342,4 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
       ),
     );
   }
-
 }
