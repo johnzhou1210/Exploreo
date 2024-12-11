@@ -4,9 +4,20 @@ import 'package:exploreo/screens/PlanTripScreen.dart';
 import 'package:exploreo/screens/TripsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  // await dotenv.load(fileName: ".env");
+
+  try {
+    await dotenv.load(fileName: ".env");
+    print("Environment file loaded successfully.");
+  } catch (e) {
+    print("Failed to load environment file: $e");
+  }
+
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

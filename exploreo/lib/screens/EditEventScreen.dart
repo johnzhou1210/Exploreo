@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../data/ImageFetcher.dart';
+import '../util/ImageFetcher.dart';
 import '../util/Snack.dart';
 import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
