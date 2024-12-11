@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:exploreo/api_calls/utils.dart';
-import 'package:exploreo/data/TestTripData.dart';
+import 'package:exploreo/data/objects.dart';
+import 'package:exploreo/util/config.dart';
 
-import 'dart:convert';
-
-import 'package:exploreo/api_calls/utils.dart';
-import 'package:exploreo/data/TestTripData.dart';
-Future<TripObject?> addTripCall({
+Future<Trip?> addTripCall({
   required String userId,
   required String tripName,
   required DateTime startDate,
@@ -18,7 +15,6 @@ Future<TripObject?> addTripCall({
   String? notes,
 }) async {
   try {
-    // Construct the request body
     Map<String, dynamic> tripBody = {
       'userId': userId,
       'tripName': tripName,
@@ -30,11 +26,10 @@ Future<TripObject?> addTripCall({
       if (notes != null) 'notes': notes,
     };
 
-    print('Request Body: $tripBody'); // Debugging
+    print('Request Body: $tripBody');
 
-    // Make the POST request to the backend
     final response = await makeAuthenticatedRequest(
-      endpoint: 'http://10.0.2.2:8080/trips',
+      endpoint: '${Config.apiUrl}/trips',
       method: "POST",
       body: tripBody,
     );
@@ -42,20 +37,18 @@ Future<TripObject?> addTripCall({
     if (response.statusCode == 200) {
       print('Trip Created Successfully: ${response.body}');
       final responseData = jsonDecode(response.body);
-      return TripObject.fromJson(
-          responseData); // Parse the response and return as TripObject
+      return Trip.fromJson(responseData);
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
-      return null; // Return null on error
+      return null;
     }
   } catch (error) {
     print('Error making POST request: $error');
-    return null; // Return null on exception
+    return null;
   }
 }
 
-
-Future<TripObject?> updateTripCall({
+Future<Trip?> updateTripCall({
   required String tripId,
   String? tripName,
   String? description,
@@ -78,7 +71,7 @@ Future<TripObject?> updateTripCall({
 
     print('Updating Trip: $tripBody');
 
-    final String endpoint = 'http://10.0.2.2:8080/trips/$tripId';
+    final String endpoint = '${Config.apiUrl}/trips/$tripId';
 
     final response = await makeAuthenticatedRequest(
       endpoint: endpoint,
@@ -89,7 +82,7 @@ Future<TripObject?> updateTripCall({
     if (response.statusCode == 200) {
       final updatedTripJson = jsonDecode(response.body);
       print('Trip Updated Successfully: $updatedTripJson');
-      return TripObject.fromJson(updatedTripJson);
+      return Trip.fromJson(updatedTripJson);
     } else if (response.statusCode == 404) {
       print('Error: Trip not found');
       return null;
@@ -103,10 +96,9 @@ Future<TripObject?> updateTripCall({
   }
 }
 
-
-Future<TripObject?> getTripById(String tripId) async {
+Future<Trip?> getTripById(String tripId) async {
   try {
-    final String endpoint = 'http://10.0.2.2:8080/trips/$tripId';
+    final String endpoint = '${Config.apiUrl}/trips/$tripId';
 
     // Make the GET request to retrieve the trip
     final response = await makeAuthenticatedRequest(
@@ -117,7 +109,7 @@ Future<TripObject?> getTripById(String tripId) async {
     if (response.statusCode == 200) {
       final tripJson = jsonDecode(response.body);
       print('Trip Retrieved Successfully: $tripJson');
-      return TripObject.fromJson(tripJson);
+      return Trip.fromJson(tripJson);
     } else if (response.statusCode == 404) {
       print('Error: Trip not found');
       return null;

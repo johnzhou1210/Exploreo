@@ -650,6 +650,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.2"
+  twitter_login:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "1c07502a413bdc80251dae2dc2c44c8c100a8ef5"
+      url: "https://github.com/0maru/twitter_login.git"
+    source: git
+    version: "4.4.3"
   typed_data:
     dependency: transitive
     description:
