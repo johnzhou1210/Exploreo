@@ -92,3 +92,32 @@ Future<Place?> updatePlaceCall({
     return null; // Return null on exception
   }
 }
+
+Future<Place?> getPlaceByIdCall(String placeId) async {
+  try {
+    // Construct the endpoint URL
+    final String endpoint = '${Config.apiUrl}/places/$placeId';
+
+    // Make the GET request to the backend
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "GET",
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      print('Place Retrieved Successfully: ${response.body}');
+      final responseData = jsonDecode(response.body);
+      return Place.fromJson(responseData);
+    } else if (response.statusCode == 404) {
+      print('Error: Place not found');
+      return null;
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return null;
+    }
+  } catch (error) {
+    print('Error making GET request: $error');
+    return null; // Return null on exception
+  }
+}
