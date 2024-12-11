@@ -1,15 +1,26 @@
+import 'package:exploreo/api_calls/place_functions.dart';
+import 'package:exploreo/util/TimeRangeFormatter.dart';
 import 'package:flutter/material.dart';
 
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../screens/EditEventScreen.dart';
 import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
 class EventTile extends StatefulWidget {
   int eventId;
+  String imageUrl; // just for visuals
+  String tripName; // just for visuals
+
+  // Just to restrict user input to date range when editing. These dates are start and end dates for Trip, NOT Place.
+  DateTime tripStart, tripEnd;
 
   EventTile({
     required this.eventId,
+    required this.imageUrl,
+    required this.tripName,
+    required this.tripStart,
+    required this.tripEnd,
   });
 
   @override
@@ -17,11 +28,20 @@ class EventTile extends StatefulWidget {
 }
 
 class _EventTileState extends State<EventTile> {
+
+  late Place eventRef;
+
+  @override
+  void initState() async {
+    super.initState();
+    eventRef = (await getPlaceByIdCall(widget.eventId.toString()))!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(eventId: widget.eventId)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(minDate: widget.tripStart, maxDate: widget.tripEnd,  tripName: widget.tripName, imageUrl: widget.imageUrl, eventId: widget.eventId)));
       },
       child: Container(
         height: 80,
@@ -43,7 +63,7 @@ class _EventTileState extends State<EventTile> {
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          widget.event.title, // TODO: REPLACE WITH PLACES GET REQUEST TO GET PLACE
+                          eventRef.placeName,
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -61,7 +81,7 @@ class _EventTileState extends State<EventTile> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            widget.event.date, // TODO: REPLACE WITH PLACES GET REQUEST TO GET DATE
+                            FormatDateRange(DateTimeRange(start:  DateTime.parse(eventRef.startDate ?? ''), end: DateTime.parse(eventRef.endDate ?? ''))),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

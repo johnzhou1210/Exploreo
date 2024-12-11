@@ -121,3 +121,32 @@ Future<Place?> getPlaceByIdCall(String placeId) async {
     return null; // Return null on exception
   }
 }
+
+
+Future<bool> deletePlaceByIdCall(String placeId) async {
+  try {
+    // Construct the endpoint URL
+    final String endpoint = 'http://10.0.2.2:8080/places/$placeId';
+
+    // Make the DELETE request to the backend
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "DELETE",
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      print('Place Deleted Successfully');
+      return true; // Return true on successful deletion
+    } else if (response.statusCode == 404) {
+      print('Error: Place not found');
+      return false;
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return false;
+    }
+  } catch (error) {
+    print('Error making DELETE request: $error');
+    return false; // Return false on exception
+  }
+}

@@ -148,11 +148,13 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                     itemCount: places.length,
                     itemBuilder: (context, index) {
 
-                          List<Place> sortedEvents = [...places];
-                          sortedEvents.sort((a,b) =>  DateTime.parse(a.startDate ?? '').compareTo(DateTime.parse(b.startDate ?? '')));
+                     List<Place> sortedEvents = [...places];
+                     sortedEvents.sort((a,b) =>  DateTime.parse(a.startDate ?? '').compareTo(DateTime.parse(b.startDate ?? '')));
 
+                     DateTime tripStart = DateTime.parse(trip.startDate);
+                     DateTime tripEnd = DateTime.parse(trip.endDate);
 
-                      return EventTile(eventId: int.parse(sortedEvents[index].id));
+                      return EventTile(tripStart: tripStart, tripEnd:  tripEnd, imageUrl: trip.imageUrl ?? 'https://example.com/default-image.jpg', eventId: int.parse(sortedEvents[index].id), tripName: trip.tripName);
                     },
                   ),
                 ),

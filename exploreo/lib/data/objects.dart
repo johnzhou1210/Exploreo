@@ -43,6 +43,7 @@ class Place {
   final String? startDate;
   final String? endDate;
   final String? notes;
+  final String tripId;
 
   Place({
     required this.id,
@@ -51,6 +52,7 @@ class Place {
     this.startDate,
     this.endDate,
     this.notes,
+    required this.tripId,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class Place {
       startDate: json['startDate'],
       endDate: json['endDate'],
       notes: json['notes'],
+      tripId: json['tripId'],
     );
   }
 }

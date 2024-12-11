@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:exploreo/api_calls/place_functions.dart';
-import 'package:exploreo/data/TestTripData.dart';
+import 'package:exploreo/data/objects.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';
@@ -22,12 +22,20 @@ import 'TripsScreen.dart';
 class EditEventScreen extends StatefulWidget {
 
   int eventId;
-  String imageUrl;
+  String imageUrl; // just for visuals
+  String tripName; // just for visuals
+
+  // just to restrict user input the dates within trip period
+  DateTime minDate;
+  DateTime maxDate;
 
   EditEventScreen({
     super.key,
     required this.eventId,
     required this.imageUrl,
+    required this.tripName,
+    required this.minDate,
+    required this.maxDate,
   });
 
   @override
@@ -46,15 +54,13 @@ class _EditEventScreenState extends State<EditEventScreen> {
   String? _imageUrl;
   bool _isLoading = false;
 
-  late PlaceObject eventRef;
+  late Place eventRef;
 
   @override
   Future<void> initState() async {
     super.initState();
 
-     // TODO: PLACES GET REQUEST TO GET PLACE BY ID
-
-    PlaceObject? eventRef = await getPlaceByIdCall(widget.eventId.toString());
+    Place? eventRef = await getPlaceByIdCall(widget.eventId.toString());
     eventNameController.text = eventRef!.placeName;
     eventNotesController.text = eventRef.description!;
     selectedDates = DateTimeRange(start: DateTime.parse(eventRef.startDate ?? ''), end: DateTime.parse(eventRef.endDate ?? ''));
@@ -139,7 +145,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Make changes to ${widget.trip.events.firstWhere((event) => event.id == widget.eventId).title}", // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
+                          "Make changes to ${widget.tripName}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -192,26 +198,8 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                   final DateTimeRange? dateTimeRange =
                                       await showDateRangePicker(
                                           context: context,
-                                          firstDate: DateTime(
-                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
-                                                  .start
-                                                  .year,
-                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
-                                                  .start
-                                                  .month,
-                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
-                                                  .start
-                                                  .day),
-                                          lastDate: DateTime(
-                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
-                                                  .end
-                                                  .year,
-                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
-                                                  .end
-                                                  .month,
-                                              ParseDateRange(widget.trip.date) // TODO: PLACES GET REQUEST TO GET PLACE, THEN TRIPS GET REQUEST TO GET TRIP
-                                                  .end
-                                                  .day));
+                                          firstDate: widget.minDate,
+                                          lastDate: widget.maxDate);
                                   if (dateTimeRange != null) {
                                     setState(() {
                                       selectedDates = dateTimeRange;
@@ -268,31 +256,18 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // Remove event from trips
 
-                            /* // TODO: PLACES DELETE REQUEST BY GET REQUEST TO GET PLACE ID
 
-                                 int targetTripIndex = trips.indexWhere(
-                                (trip) => trip.id == widget.trip.id);
-                            String eventNameToRemove = trips[targetTripIndex]
-                                .events
-                                .firstWhere(
-                                    (event) => event.id == widget.eventId)
-                                .title;
-                            trips[targetTripIndex].events.removeWhere(
-                                (event) => event.id == widget.eventId);
-
-
-                            * */
-
-
+                            // TODO: PLACES DELETE REQUEST BY GET REQUEST TO GET PLACE ID
+                            bool success = await deletePlaceByIdCall(widget.eventId.toString());
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TripInfoScreen(tripId: widget.tripId))); // TODO: GET TRIP ID BY PLACES GET REQUEST
+                                        TripInfoScreen(tripId: int.parse(eventRef.tripId) )));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
@@ -334,7 +309,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TripInfoScreen(tripId: widget.tripId))); // TODO: GET TRIP ID BY PLACES GET REQUEST
+                                        TripInfoScreen(tripId: int.parse(eventRef.tripId) )));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
