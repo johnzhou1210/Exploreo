@@ -13,10 +13,15 @@ import 'package:backend/prisma.dart';
 import 'package:backend/middleware/auth_middleware.dart';
 import 'package:dotenv/dotenv.dart';
 
-final env = DotEnv(includePlatformEnvironment: true)..load();
-
 void main() async {
+  final env = DotEnv(includePlatformEnvironment: true)..load();
+  // print all environment variables
+  print('read all vars? ${env.isEveryDefined(['DATABASE_URL', 'FIREBASE_API_KEY'])}');
   final apiKey = env['FIREBASE_API_KEY'];
+  if (apiKey == null) {
+    print('FIREBASE_API_KEY not found in .env file');
+    exit(1);
+  }
   final prisma = PrismaSingleton.client;
   var app = Router();
 
