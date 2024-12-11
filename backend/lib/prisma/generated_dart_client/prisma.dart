@@ -763,7 +763,7 @@ class PlaceWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -789,7 +789,7 @@ class PlaceWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       _i1.PrismaUnion<String, _i1.PrismaNull>>? description;
 
   final _i1.PrismaUnion<_i2.StringNullableFilter,
-      _i1.PrismaUnion<String, _i1.PrismaNull>>? note;
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<_i2.DateTimeNullableFilter,
       _i1.PrismaUnion<DateTime, _i1.PrismaNull>>? startDate;
@@ -815,7 +815,7 @@ class PlaceWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -1030,6 +1030,8 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -1055,6 +1057,12 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? endDate;
 
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? createdAt;
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
@@ -1077,6 +1085,8 @@ class TripWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -1354,6 +1364,8 @@ class TripOrderByWithRelationInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -1371,6 +1383,10 @@ class TripOrderByWithRelationInput
   final _i2.SortOrder? startDate;
 
   final _i2.SortOrder? endDate;
+
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? imageUrl;
+
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? notes;
 
   final _i2.SortOrder? createdAt;
 
@@ -1391,6 +1407,8 @@ class TripOrderByWithRelationInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -1416,7 +1434,7 @@ class PlaceOrderByWithRelationInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -1432,7 +1450,7 @@ class PlaceOrderByWithRelationInput
 
   final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? description;
 
-  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? note;
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? notes;
 
   final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? startDate;
 
@@ -1453,7 +1471,7 @@ class PlaceOrderByWithRelationInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -1473,7 +1491,7 @@ class PlaceWhereUniqueInput
     this.NOT,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -1499,7 +1517,7 @@ class PlaceWhereUniqueInput
       _i1.PrismaUnion<String, _i1.PrismaNull>>? description;
 
   final _i1.PrismaUnion<_i2.StringNullableFilter,
-      _i1.PrismaUnion<String, _i1.PrismaNull>>? note;
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<_i2.DateTimeNullableFilter,
       _i1.PrismaUnion<DateTime, _i1.PrismaNull>>? startDate;
@@ -1525,7 +1543,7 @@ class PlaceWhereUniqueInput
         'NOT': NOT,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -1540,7 +1558,7 @@ enum PlaceScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   id<String>('id', 'Place'),
   placeName<String>('placeName', 'Place'),
   description<String>('description', 'Place'),
-  note<String>('note', 'Place'),
+  notes<String>('notes', 'Place'),
   startDate<DateTime>('startDate', 'Place'),
   endDate<DateTime>('endDate', 'Place'),
   tripId<String>('tripId', 'Place'),
@@ -1894,6 +1912,8 @@ class TripWhereUniqueInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -1919,6 +1939,12 @@ class TripWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? endDate;
 
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? createdAt;
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
@@ -1941,6 +1967,8 @@ class TripWhereUniqueInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -1956,6 +1984,8 @@ enum TripScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   description<String>('description', 'Trip'),
   startDate<DateTime>('startDate', 'Trip'),
   endDate<DateTime>('endDate', 'Trip'),
+  imageUrl<String>('imageUrl', 'Trip'),
+  notes<String>('notes', 'Trip'),
   createdAt<DateTime>('createdAt', 'Trip'),
   updatedAt<DateTime>('updatedAt', 'Trip'),
   isShared<bool>('isShared', 'Trip');
@@ -2564,7 +2594,7 @@ class PlaceSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -2581,7 +2611,7 @@ class PlaceSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final bool? description;
 
-  final bool? note;
+  final bool? notes;
 
   final bool? startDate;
 
@@ -2604,7 +2634,7 @@ class PlaceSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -2623,6 +2653,8 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -2641,6 +2673,10 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
   final bool? startDate;
 
   final bool? endDate;
+
+  final bool? imageUrl;
+
+  final bool? notes;
 
   final bool? createdAt;
 
@@ -2663,6 +2699,8 @@ class TripSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -2845,7 +2883,7 @@ class PlaceCreateWithoutTripInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -2859,7 +2897,7 @@ class PlaceCreateWithoutTripInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -2876,7 +2914,7 @@ class PlaceCreateWithoutTripInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -2921,7 +2959,7 @@ class PlaceUncheckedCreateWithoutTripInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -2935,7 +2973,7 @@ class PlaceUncheckedCreateWithoutTripInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -2952,7 +2990,7 @@ class PlaceUncheckedCreateWithoutTripInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -2986,7 +3024,7 @@ class PlaceCreateManyTripInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -2999,7 +3037,7 @@ class PlaceCreateManyTripInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -3014,7 +3052,7 @@ class PlaceCreateManyTripInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -3306,6 +3344,8 @@ class TripUncheckedCreateWithoutUsersInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -3322,6 +3362,10 @@ class TripUncheckedCreateWithoutUsersInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -3340,6 +3384,8 @@ class TripUncheckedCreateWithoutUsersInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -3569,6 +3615,8 @@ class TripCreateWithoutUsersInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -3585,6 +3633,10 @@ class TripCreateWithoutUsersInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -3603,6 +3655,8 @@ class TripCreateWithoutUsersInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -3945,6 +3999,8 @@ class TripCreateWithoutUsersOnTripsInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -3961,6 +4017,10 @@ class TripCreateWithoutUsersOnTripsInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -3979,6 +4039,8 @@ class TripCreateWithoutUsersOnTripsInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -4024,6 +4086,8 @@ class TripUncheckedCreateWithoutUsersOnTripsInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -4040,6 +4104,10 @@ class TripUncheckedCreateWithoutUsersOnTripsInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -4058,6 +4126,8 @@ class TripUncheckedCreateWithoutUsersOnTripsInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -4764,7 +4834,7 @@ class PlaceUpdateWithoutTripInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -4785,7 +4855,7 @@ class PlaceUpdateWithoutTripInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -4810,7 +4880,7 @@ class PlaceUpdateWithoutTripInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -4894,7 +4964,7 @@ class PlaceUncheckedUpdateWithoutTripInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -4915,7 +4985,7 @@ class PlaceUncheckedUpdateWithoutTripInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -4940,7 +5010,7 @@ class PlaceUncheckedUpdateWithoutTripInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -5001,7 +5071,7 @@ class PlaceScalarWhereInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -5025,7 +5095,7 @@ class PlaceScalarWhereInput
       _i1.PrismaUnion<String, _i1.PrismaNull>>? description;
 
   final _i1.PrismaUnion<_i2.StringNullableFilter,
-      _i1.PrismaUnion<String, _i1.PrismaNull>>? note;
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<_i2.DateTimeNullableFilter,
       _i1.PrismaUnion<DateTime, _i1.PrismaNull>>? startDate;
@@ -5047,7 +5117,7 @@ class PlaceScalarWhereInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -5062,7 +5132,7 @@ class PlaceUpdateManyMutationInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -5082,7 +5152,7 @@ class PlaceUpdateManyMutationInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -5105,7 +5175,7 @@ class PlaceUpdateManyMutationInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -5119,7 +5189,7 @@ class PlaceUncheckedUpdateManyWithoutTripInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -5139,7 +5209,7 @@ class PlaceUncheckedUpdateManyWithoutTripInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -5162,7 +5232,7 @@ class PlaceUncheckedUpdateManyWithoutTripInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -5668,6 +5738,8 @@ class TripUncheckedUpdateWithoutUsersInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -5690,6 +5762,16 @@ class TripUncheckedUpdateWithoutUsersInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -5709,6 +5791,8 @@ class TripUncheckedUpdateWithoutUsersInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -5747,6 +5831,8 @@ class TripScalarWhereInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -5771,6 +5857,12 @@ class TripScalarWhereInput
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? endDate;
 
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<_i2.StringNullableFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? createdAt;
 
   final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? updatedAt;
@@ -5787,6 +5879,8 @@ class TripScalarWhereInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -5801,6 +5895,8 @@ class TripUpdateManyMutationInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -5821,6 +5917,16 @@ class TripUpdateManyMutationInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -5836,6 +5942,8 @@ class TripUpdateManyMutationInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -5850,6 +5958,8 @@ class TripUncheckedUpdateManyWithoutUsersInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -5870,6 +5980,16 @@ class TripUncheckedUpdateManyWithoutUsersInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -5885,6 +6005,8 @@ class TripUncheckedUpdateManyWithoutUsersInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -6262,6 +6384,8 @@ class TripUpdateWithoutUsersInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -6284,6 +6408,16 @@ class TripUpdateWithoutUsersInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -6303,6 +6437,8 @@ class TripUpdateWithoutUsersInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -7074,6 +7210,8 @@ class TripUpdateWithoutUsersOnTripsInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -7096,6 +7234,16 @@ class TripUpdateWithoutUsersOnTripsInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -7115,6 +7263,8 @@ class TripUpdateWithoutUsersOnTripsInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -7195,6 +7345,8 @@ class TripUncheckedUpdateWithoutUsersOnTripsInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -7217,6 +7369,16 @@ class TripUncheckedUpdateWithoutUsersOnTripsInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -7236,6 +7398,8 @@ class TripUncheckedUpdateWithoutUsersOnTripsInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9342,6 +9506,8 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9359,6 +9525,10 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -9379,6 +9549,8 @@ class TripCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9396,6 +9568,8 @@ class TripUncheckedCreateInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9413,6 +9587,10 @@ class TripUncheckedCreateInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -9433,6 +9611,8 @@ class TripUncheckedCreateInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9449,6 +9629,8 @@ class TripCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9464,6 +9646,10 @@ class TripCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final DateTime endDate;
 
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
+
   final DateTime? createdAt;
 
   final DateTime? updatedAt;
@@ -9477,6 +9663,8 @@ class TripCreateManyInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9491,6 +9679,8 @@ class CreateManyTripAndReturnOutputTypeSelect
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9506,6 +9696,10 @@ class CreateManyTripAndReturnOutputTypeSelect
 
   final bool? endDate;
 
+  final bool? imageUrl;
+
+  final bool? notes;
+
   final bool? createdAt;
 
   final bool? updatedAt;
@@ -9519,6 +9713,8 @@ class CreateManyTripAndReturnOutputTypeSelect
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9532,6 +9728,8 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9554,6 +9752,16 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
@@ -9576,6 +9784,8 @@ class TripUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9593,6 +9803,8 @@ class TripUncheckedUpdateInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9616,6 +9828,16 @@ class TripUncheckedUpdateInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -9637,6 +9859,8 @@ class TripUncheckedUpdateInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9654,6 +9878,8 @@ class TripUncheckedUpdateManyInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9674,6 +9900,16 @@ class TripUncheckedUpdateManyInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -9689,6 +9925,8 @@ class TripUncheckedUpdateManyInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9702,6 +9940,8 @@ class TripCountAggregateOutputType {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9715,6 +9955,8 @@ class TripCountAggregateOutputType {
         description: json['description'],
         startDate: json['startDate'],
         endDate: json['endDate'],
+        imageUrl: json['imageUrl'],
+        notes: json['notes'],
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
         isShared: json['isShared'],
@@ -9731,6 +9973,10 @@ class TripCountAggregateOutputType {
 
   final int? endDate;
 
+  final int? imageUrl;
+
+  final int? notes;
+
   final int? createdAt;
 
   final int? updatedAt;
@@ -9745,6 +9991,8 @@ class TripCountAggregateOutputType {
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -9759,6 +10007,8 @@ class TripMinAggregateOutputType {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9779,6 +10029,8 @@ class TripMinAggregateOutputType {
           String value => DateTime.parse(value),
           _ => json['endDate']
         },
+        imageUrl: json['imageUrl'],
+        notes: json['notes'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -9802,6 +10054,10 @@ class TripMinAggregateOutputType {
 
   final DateTime? endDate;
 
+  final String? imageUrl;
+
+  final String? notes;
+
   final DateTime? createdAt;
 
   final DateTime? updatedAt;
@@ -9814,6 +10070,8 @@ class TripMinAggregateOutputType {
         'description': description,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         'isShared': isShared,
@@ -9827,6 +10085,8 @@ class TripMaxAggregateOutputType {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9847,6 +10107,8 @@ class TripMaxAggregateOutputType {
           String value => DateTime.parse(value),
           _ => json['endDate']
         },
+        imageUrl: json['imageUrl'],
+        notes: json['notes'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -9870,6 +10132,10 @@ class TripMaxAggregateOutputType {
 
   final DateTime? endDate;
 
+  final String? imageUrl;
+
+  final String? notes;
+
   final DateTime? createdAt;
 
   final DateTime? updatedAt;
@@ -9882,6 +10148,8 @@ class TripMaxAggregateOutputType {
         'description': description,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         'isShared': isShared,
@@ -9895,6 +10163,8 @@ class TripGroupByOutputType {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9917,6 +10187,8 @@ class TripGroupByOutputType {
           String value => DateTime.parse(value),
           _ => json['endDate']
         },
+        imageUrl: json['imageUrl'],
+        notes: json['notes'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -9949,6 +10221,10 @@ class TripGroupByOutputType {
 
   final DateTime? endDate;
 
+  final String? imageUrl;
+
+  final String? notes;
+
   final DateTime? createdAt;
 
   final DateTime? updatedAt;
@@ -9967,6 +10243,8 @@ class TripGroupByOutputType {
         'description': description,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         'isShared': isShared,
@@ -9984,6 +10262,8 @@ class TripCountOrderByAggregateInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -9999,6 +10279,10 @@ class TripCountOrderByAggregateInput
 
   final _i2.SortOrder? endDate;
 
+  final _i2.SortOrder? imageUrl;
+
+  final _i2.SortOrder? notes;
+
   final _i2.SortOrder? createdAt;
 
   final _i2.SortOrder? updatedAt;
@@ -10012,6 +10296,8 @@ class TripCountOrderByAggregateInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10026,6 +10312,8 @@ class TripMaxOrderByAggregateInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10041,6 +10329,10 @@ class TripMaxOrderByAggregateInput
 
   final _i2.SortOrder? endDate;
 
+  final _i2.SortOrder? imageUrl;
+
+  final _i2.SortOrder? notes;
+
   final _i2.SortOrder? createdAt;
 
   final _i2.SortOrder? updatedAt;
@@ -10054,6 +10346,8 @@ class TripMaxOrderByAggregateInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10068,6 +10362,8 @@ class TripMinOrderByAggregateInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10083,6 +10379,10 @@ class TripMinOrderByAggregateInput
 
   final _i2.SortOrder? endDate;
 
+  final _i2.SortOrder? imageUrl;
+
+  final _i2.SortOrder? notes;
+
   final _i2.SortOrder? createdAt;
 
   final _i2.SortOrder? updatedAt;
@@ -10096,6 +10396,8 @@ class TripMinOrderByAggregateInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10110,6 +10412,8 @@ class TripOrderByWithAggregationInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10127,6 +10431,10 @@ class TripOrderByWithAggregationInput
   final _i2.SortOrder? startDate;
 
   final _i2.SortOrder? endDate;
+
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? imageUrl;
+
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? notes;
 
   final _i2.SortOrder? createdAt;
 
@@ -10147,6 +10455,8 @@ class TripOrderByWithAggregationInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10227,6 +10537,8 @@ class TripScalarWhereWithAggregatesInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10251,6 +10563,12 @@ class TripScalarWhereWithAggregatesInput
 
   final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>? endDate;
 
+  final _i1.PrismaUnion<_i2.StringNullableWithAggregatesFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<_i2.StringNullableWithAggregatesFilter,
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>? createdAt;
 
   final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>? updatedAt;
@@ -10267,6 +10585,8 @@ class TripScalarWhereWithAggregatesInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10281,6 +10601,8 @@ class TripCountAggregateOutputTypeSelect
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10297,6 +10619,10 @@ class TripCountAggregateOutputTypeSelect
 
   final bool? endDate;
 
+  final bool? imageUrl;
+
+  final bool? notes;
+
   final bool? createdAt;
 
   final bool? updatedAt;
@@ -10312,6 +10638,8 @@ class TripCountAggregateOutputTypeSelect
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10337,6 +10665,8 @@ class TripMinAggregateOutputTypeSelect
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10352,6 +10682,10 @@ class TripMinAggregateOutputTypeSelect
 
   final bool? endDate;
 
+  final bool? imageUrl;
+
+  final bool? notes;
+
   final bool? createdAt;
 
   final bool? updatedAt;
@@ -10365,6 +10699,8 @@ class TripMinAggregateOutputTypeSelect
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10389,6 +10725,8 @@ class TripMaxAggregateOutputTypeSelect
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10404,6 +10742,10 @@ class TripMaxAggregateOutputTypeSelect
 
   final bool? endDate;
 
+  final bool? imageUrl;
+
+  final bool? notes;
+
   final bool? createdAt;
 
   final bool? updatedAt;
@@ -10417,6 +10759,8 @@ class TripMaxAggregateOutputTypeSelect
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -10441,6 +10785,8 @@ class TripGroupByOutputTypeSelect
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -10458,6 +10804,10 @@ class TripGroupByOutputTypeSelect
   final bool? startDate;
 
   final bool? endDate;
+
+  final bool? imageUrl;
+
+  final bool? notes;
 
   final bool? createdAt;
 
@@ -10478,6 +10828,8 @@ class TripGroupByOutputTypeSelect
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -11659,6 +12011,8 @@ class TripCreateWithoutPlacesInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -11675,6 +12029,10 @@ class TripCreateWithoutPlacesInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -11693,6 +12051,8 @@ class TripCreateWithoutPlacesInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -11709,6 +12069,8 @@ class TripUncheckedCreateWithoutPlacesInput
     this.description,
     required this.startDate,
     required this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -11725,6 +12087,10 @@ class TripUncheckedCreateWithoutPlacesInput
   final DateTime startDate;
 
   final DateTime endDate;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? imageUrl;
+
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final DateTime? createdAt;
 
@@ -11743,6 +12109,8 @@ class TripUncheckedCreateWithoutPlacesInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -11798,7 +12166,7 @@ class PlaceCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -11813,7 +12181,7 @@ class PlaceCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -11832,7 +12200,7 @@ class PlaceCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -11848,7 +12216,7 @@ class PlaceUncheckedCreateInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     required this.tripId,
@@ -11863,7 +12231,7 @@ class PlaceUncheckedCreateInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -11882,7 +12250,7 @@ class PlaceUncheckedCreateInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -11898,7 +12266,7 @@ class PlaceCreateManyInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     required this.tripId,
@@ -11912,7 +12280,7 @@ class PlaceCreateManyInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -11929,7 +12297,7 @@ class PlaceCreateManyInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -11962,7 +12330,7 @@ class CreateManyPlaceAndReturnOutputTypeSelect
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -11977,7 +12345,7 @@ class CreateManyPlaceAndReturnOutputTypeSelect
 
   final bool? description;
 
-  final bool? note;
+  final bool? notes;
 
   final bool? startDate;
 
@@ -11997,7 +12365,7 @@ class CreateManyPlaceAndReturnOutputTypeSelect
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12026,6 +12394,8 @@ class TripUpdateWithoutPlacesInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -12047,6 +12417,16 @@ class TripUpdateWithoutPlacesInput
 
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
@@ -12067,6 +12447,8 @@ class TripUpdateWithoutPlacesInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -12083,6 +12465,8 @@ class TripUncheckedUpdateWithoutPlacesInput
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -12105,6 +12489,16 @@ class TripUncheckedUpdateWithoutPlacesInput
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       endDate;
 
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? imageUrl;
+
+  final _i1.PrismaUnion<
+      String,
+      _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
+          _i1.PrismaNull>>? notes;
+
   final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
       createdAt;
 
@@ -12124,6 +12518,8 @@ class TripUncheckedUpdateWithoutPlacesInput
         'description': description,
         'startDate': startDate,
         'endDate': endDate,
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         'isShared': isShared,
@@ -12214,7 +12610,7 @@ class PlaceUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -12236,7 +12632,7 @@ class PlaceUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -12263,7 +12659,7 @@ class PlaceUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -12279,7 +12675,7 @@ class PlaceUncheckedUpdateInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12301,7 +12697,7 @@ class PlaceUncheckedUpdateInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -12328,7 +12724,7 @@ class PlaceUncheckedUpdateInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12344,7 +12740,7 @@ class PlaceUncheckedUpdateManyInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12365,7 +12761,7 @@ class PlaceUncheckedUpdateManyInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -12390,7 +12786,7 @@ class PlaceUncheckedUpdateManyInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12404,7 +12800,7 @@ class PlaceCountAggregateOutputType {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12418,7 +12814,7 @@ class PlaceCountAggregateOutputType {
         id: json['id'],
         placeName: json['placeName'],
         description: json['description'],
-        note: json['note'],
+        notes: json['notes'],
         startDate: json['startDate'],
         endDate: json['endDate'],
         tripId: json['tripId'],
@@ -12433,7 +12829,7 @@ class PlaceCountAggregateOutputType {
 
   final int? description;
 
-  final int? note;
+  final int? notes;
 
   final int? startDate;
 
@@ -12451,7 +12847,7 @@ class PlaceCountAggregateOutputType {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12466,7 +12862,7 @@ class PlaceMinAggregateOutputType {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12479,7 +12875,7 @@ class PlaceMinAggregateOutputType {
         id: json['id'],
         placeName: json['placeName'],
         description: json['description'],
-        note: json['note'],
+        notes: json['notes'],
         startDate: switch (json['startDate']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -12509,7 +12905,7 @@ class PlaceMinAggregateOutputType {
 
   final String? description;
 
-  final String? note;
+  final String? notes;
 
   final DateTime? startDate;
 
@@ -12525,7 +12921,7 @@ class PlaceMinAggregateOutputType {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
         'tripId': tripId,
@@ -12539,7 +12935,7 @@ class PlaceMaxAggregateOutputType {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12552,7 +12948,7 @@ class PlaceMaxAggregateOutputType {
         id: json['id'],
         placeName: json['placeName'],
         description: json['description'],
-        note: json['note'],
+        notes: json['notes'],
         startDate: switch (json['startDate']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -12582,7 +12978,7 @@ class PlaceMaxAggregateOutputType {
 
   final String? description;
 
-  final String? note;
+  final String? notes;
 
   final DateTime? startDate;
 
@@ -12598,7 +12994,7 @@ class PlaceMaxAggregateOutputType {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
         'tripId': tripId,
@@ -12612,7 +13008,7 @@ class PlaceGroupByOutputType {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12627,7 +13023,7 @@ class PlaceGroupByOutputType {
         id: json['id'],
         placeName: json['placeName'],
         description: json['description'],
-        note: json['note'],
+        notes: json['notes'],
         startDate: switch (json['startDate']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -12666,7 +13062,7 @@ class PlaceGroupByOutputType {
 
   final String? description;
 
-  final String? note;
+  final String? notes;
 
   final DateTime? startDate;
 
@@ -12688,7 +13084,7 @@ class PlaceGroupByOutputType {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
         'tripId': tripId,
@@ -12706,7 +13102,7 @@ class PlaceCountOrderByAggregateInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12720,7 +13116,7 @@ class PlaceCountOrderByAggregateInput
 
   final _i2.SortOrder? description;
 
-  final _i2.SortOrder? note;
+  final _i2.SortOrder? notes;
 
   final _i2.SortOrder? startDate;
 
@@ -12737,7 +13133,7 @@ class PlaceCountOrderByAggregateInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12752,7 +13148,7 @@ class PlaceMaxOrderByAggregateInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12766,7 +13162,7 @@ class PlaceMaxOrderByAggregateInput
 
   final _i2.SortOrder? description;
 
-  final _i2.SortOrder? note;
+  final _i2.SortOrder? notes;
 
   final _i2.SortOrder? startDate;
 
@@ -12783,7 +13179,7 @@ class PlaceMaxOrderByAggregateInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12798,7 +13194,7 @@ class PlaceMinOrderByAggregateInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12812,7 +13208,7 @@ class PlaceMinOrderByAggregateInput
 
   final _i2.SortOrder? description;
 
-  final _i2.SortOrder? note;
+  final _i2.SortOrder? notes;
 
   final _i2.SortOrder? startDate;
 
@@ -12829,7 +13225,7 @@ class PlaceMinOrderByAggregateInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -12844,7 +13240,7 @@ class PlaceOrderByWithAggregationInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -12861,7 +13257,7 @@ class PlaceOrderByWithAggregationInput
 
   final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? description;
 
-  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? note;
+  final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? notes;
 
   final _i1.PrismaUnion<_i2.SortOrder, _i2.SortOrderInput>? startDate;
 
@@ -12884,7 +13280,7 @@ class PlaceOrderByWithAggregationInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13027,7 +13423,7 @@ class PlaceScalarWhereWithAggregatesInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13051,7 +13447,7 @@ class PlaceScalarWhereWithAggregatesInput
       _i1.PrismaUnion<String, _i1.PrismaNull>>? description;
 
   final _i1.PrismaUnion<_i2.StringNullableWithAggregatesFilter,
-      _i1.PrismaUnion<String, _i1.PrismaNull>>? note;
+      _i1.PrismaUnion<String, _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<_i2.DateTimeNullableWithAggregatesFilter,
       _i1.PrismaUnion<DateTime, _i1.PrismaNull>>? startDate;
@@ -13073,7 +13469,7 @@ class PlaceScalarWhereWithAggregatesInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13088,7 +13484,7 @@ class PlaceCountAggregateOutputTypeSelect
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13103,7 +13499,7 @@ class PlaceCountAggregateOutputTypeSelect
 
   final bool? description;
 
-  final bool? note;
+  final bool? notes;
 
   final bool? startDate;
 
@@ -13122,7 +13518,7 @@ class PlaceCountAggregateOutputTypeSelect
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13148,7 +13544,7 @@ class PlaceMinAggregateOutputTypeSelect
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13162,7 +13558,7 @@ class PlaceMinAggregateOutputTypeSelect
 
   final bool? description;
 
-  final bool? note;
+  final bool? notes;
 
   final bool? startDate;
 
@@ -13179,7 +13575,7 @@ class PlaceMinAggregateOutputTypeSelect
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13204,7 +13600,7 @@ class PlaceMaxAggregateOutputTypeSelect
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13218,7 +13614,7 @@ class PlaceMaxAggregateOutputTypeSelect
 
   final bool? description;
 
-  final bool? note;
+  final bool? notes;
 
   final bool? startDate;
 
@@ -13235,7 +13631,7 @@ class PlaceMaxAggregateOutputTypeSelect
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13260,7 +13656,7 @@ class PlaceGroupByOutputTypeSelect
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13277,7 +13673,7 @@ class PlaceGroupByOutputTypeSelect
 
   final bool? description;
 
-  final bool? note;
+  final bool? notes;
 
   final bool? startDate;
 
@@ -13300,7 +13696,7 @@ class PlaceGroupByOutputTypeSelect
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13402,7 +13798,7 @@ class PlaceCreateWithoutTagsInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -13416,7 +13812,7 @@ class PlaceCreateWithoutTagsInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -13433,7 +13829,7 @@ class PlaceCreateWithoutTagsInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -13448,7 +13844,7 @@ class PlaceUncheckedCreateWithoutTagsInput
     this.id,
     required this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     required this.tripId,
@@ -13462,7 +13858,7 @@ class PlaceUncheckedCreateWithoutTagsInput
 
   final _i1.PrismaUnion<String, _i1.PrismaNull>? description;
 
-  final _i1.PrismaUnion<String, _i1.PrismaNull>? note;
+  final _i1.PrismaUnion<String, _i1.PrismaNull>? notes;
 
   final _i1.PrismaUnion<DateTime, _i1.PrismaNull>? startDate;
 
@@ -13479,7 +13875,7 @@ class PlaceUncheckedCreateWithoutTagsInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13681,7 +14077,7 @@ class PlaceUpdateWithoutTagsInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -13702,7 +14098,7 @@ class PlaceUpdateWithoutTagsInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -13727,7 +14123,7 @@ class PlaceUpdateWithoutTagsInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': createdAt,
@@ -13742,7 +14138,7 @@ class PlaceUncheckedUpdateWithoutTagsInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13763,7 +14159,7 @@ class PlaceUncheckedUpdateWithoutTagsInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -13788,7 +14184,7 @@ class PlaceUncheckedUpdateWithoutTagsInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,
@@ -13846,7 +14242,7 @@ class PlaceUncheckedUpdateManyWithoutTagsInput
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -13867,7 +14263,7 @@ class PlaceUncheckedUpdateManyWithoutTagsInput
   final _i1.PrismaUnion<
       String,
       _i1.PrismaUnion<_i2.NullableStringFieldUpdateOperationsInput,
-          _i1.PrismaNull>>? note;
+          _i1.PrismaNull>>? notes;
 
   final _i1.PrismaUnion<
       DateTime,
@@ -13892,7 +14288,7 @@ class PlaceUncheckedUpdateManyWithoutTagsInput
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate,
         'endDate': endDate,
         'tripId': tripId,

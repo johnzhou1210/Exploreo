@@ -72,7 +72,7 @@ class Place {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -87,7 +87,7 @@ class Place {
         id: json['id'],
         placeName: json['placeName'],
         description: json['description'],
-        note: json['note'],
+        notes: json['notes'],
         startDate: switch (json['startDate']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -123,7 +123,7 @@ class Place {
 
   final String? description;
 
-  final String? note;
+  final String? notes;
 
   final DateTime? startDate;
 
@@ -145,7 +145,7 @@ class Place {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
         'tripId': tripId,
@@ -236,6 +236,8 @@ class Trip {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -259,6 +261,8 @@ class Trip {
           String value => DateTime.parse(value),
           _ => json['endDate']
         },
+        imageUrl: json['imageUrl'],
+        notes: json['notes'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -291,6 +295,10 @@ class Trip {
 
   final DateTime? endDate;
 
+  final String? imageUrl;
+
+  final String? notes;
+
   final DateTime? createdAt;
 
   final DateTime? updatedAt;
@@ -311,6 +319,8 @@ class Trip {
         'description': description,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         'isShared': isShared,
@@ -502,6 +512,8 @@ class CreateManyTripAndReturnOutputType {
     this.description,
     this.startDate,
     this.endDate,
+    this.imageUrl,
+    this.notes,
     this.createdAt,
     this.updatedAt,
     this.isShared,
@@ -522,6 +534,8 @@ class CreateManyTripAndReturnOutputType {
           String value => DateTime.parse(value),
           _ => json['endDate']
         },
+        imageUrl: json['imageUrl'],
+        notes: json['notes'],
         createdAt: switch (json['createdAt']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -545,6 +559,10 @@ class CreateManyTripAndReturnOutputType {
 
   final DateTime? endDate;
 
+  final String? imageUrl;
+
+  final String? notes;
+
   final DateTime? createdAt;
 
   final DateTime? updatedAt;
@@ -557,6 +575,8 @@ class CreateManyTripAndReturnOutputType {
         'description': description,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
+        'imageUrl': imageUrl,
+        'notes': notes,
         'createdAt': createdAt?.toIso8601String(),
         'updatedAt': updatedAt?.toIso8601String(),
         'isShared': isShared,
@@ -630,7 +650,7 @@ class CreateManyPlaceAndReturnOutputType {
     this.id,
     this.placeName,
     this.description,
-    this.note,
+    this.notes,
     this.startDate,
     this.endDate,
     this.tripId,
@@ -644,7 +664,7 @@ class CreateManyPlaceAndReturnOutputType {
         id: json['id'],
         placeName: json['placeName'],
         description: json['description'],
-        note: json['note'],
+        notes: json['notes'],
         startDate: switch (json['startDate']) {
           DateTime value => value,
           String value => DateTime.parse(value),
@@ -675,7 +695,7 @@ class CreateManyPlaceAndReturnOutputType {
 
   final String? description;
 
-  final String? note;
+  final String? notes;
 
   final DateTime? startDate;
 
@@ -693,7 +713,7 @@ class CreateManyPlaceAndReturnOutputType {
         'id': id,
         'placeName': placeName,
         'description': description,
-        'note': note,
+        'notes': notes,
         'startDate': startDate?.toIso8601String(),
         'endDate': endDate?.toIso8601String(),
         'tripId': tripId,

@@ -88,6 +88,12 @@ class PlaceRoute {
                 endDate: payload['endDate'] != null
                     ? PrismaUnion.$1(DateTime.parse(payload['endDate']))
                     : null,
+                description: payload['description'] != null
+                    ? PrismaUnion.$1(payload['description'])
+                    : null,
+                notes: payload['notes'] != null
+                    ? PrismaUnion.$1(payload['notes'])
+                    : null,
                 trip: TripCreateNestedOneWithoutPlacesInput(
                     connect: TripWhereUniqueInput(id: payload["tripId"])))));
 
@@ -110,6 +116,7 @@ class PlaceRoute {
           'description',
           'startDate',
           'endDate',
+          'notes'
         ];
 
         final fieldsToUpdate = extractUpdatableFields(payload, updatableFields);
@@ -140,6 +147,9 @@ class PlaceRoute {
                 : null,
             endDate: fieldsToUpdate['endDate'] != null
                 ? PrismaUnion.$1(DateTime.parse(fieldsToUpdate['endDate']))
+                : null,
+            notes: fieldsToUpdate['notes'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['notes'])
                 : null,
           )),
         );

@@ -38,6 +38,8 @@ model Trip {
   description  String?        @map("description")
   startDate    DateTime       @map("start_date")
   endDate      DateTime       @map("end_date")
+  imageUrl     String?        @map("image_url")
+  notes        String?
   places       Place[]
   users        User[]
   createdAt    DateTime       @default(now()) @map("created_at")
@@ -71,7 +73,7 @@ model Place {
   id          String    @id @default(uuid()) @db.Uuid
   placeName   String    @map("place_name")
   description String?
-  note        String?
+  notes       String?
   startDate   DateTime? @map("start_date")
   endDate     DateTime? @map("end_date")
   trip        Trip      @relation(fields: [tripId], references: [id])

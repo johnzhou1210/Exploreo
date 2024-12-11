@@ -24,7 +24,10 @@ class TripRoute {
 
         var tripList = trips.map((trip) {
           var tripJson = trip.toJson();
-          tripJson['UsersOnTrips'] = trip.usersOnTrips?.map((userOnTrip) => userOnTrip.toJson()).toList() ?? [];
+          tripJson['UsersOnTrips'] = trip.usersOnTrips
+                  ?.map((userOnTrip) => userOnTrip.toJson())
+                  .toList() ??
+              [];
           return tripJson;
         }).toList();
 
@@ -87,6 +90,12 @@ class TripRoute {
               isShared: payload['isShared'] != null
                   ? bool.parse(payload['isShared'])
                   : null,
+              imageUrl: payload['imageUrl'] != null
+                  ? PrismaUnion.$1(payload['imageUrl'])
+                  : null,
+              notes: payload['notes'] != null
+                  ? PrismaUnion.$1(payload['notes'])
+                  : null,
               usersOnTrips: UsersOnTripsCreateNestedManyWithoutTripInput(
                 create: PrismaUnion.$1(
                   UsersOnTripsCreateWithoutTripInput(
@@ -119,6 +128,8 @@ class TripRoute {
           'startDate',
           'endDate',
           'isShared'
+              'imageUrl',
+          'notes',
         ];
 
         final fieldsToUpdate = extractUpdatableFields(payload, updatableFields);
@@ -152,6 +163,12 @@ class TripRoute {
                 : null,
             isShared: fieldsToUpdate['isShared'] != null
                 ? PrismaUnion.$1(bool.parse(fieldsToUpdate['isShared']))
+                : null,
+            imageUrl: fieldsToUpdate['imageUrl'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['imageUrl'])
+                : null,
+            notes: fieldsToUpdate['notes'] != null
+                ? PrismaUnion.$1(fieldsToUpdate['notes'])
                 : null,
           )),
         );
