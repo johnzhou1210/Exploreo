@@ -3,3 +3,5 @@
 .dart_tool/
 .env
 node_modules/
+service-account.json
+prisma-query-engine

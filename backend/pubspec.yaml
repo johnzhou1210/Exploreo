@@ -8,6 +8,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  dotenv: ^4.2.0
+  firebase_admin: ^0.3.0
   orm: ^5.1.0
   shelf: ^1.4.2
   shelf_docker_shutdown: ^1.1.0

@@ -30,9 +30,10 @@ class UserRoute {
     }
 
     Future<Response> createUser(Request request) async {
+      print("hello");
       try {
         final payload = jsonDecode(await request.readAsString());
-
+        print(payload);
         const requiredFields = [
           'firebaseUid',
           'email',
@@ -234,7 +235,7 @@ class UserRoute {
 
     router.get('/', getAllUsers);
     router.get('/<userId>', getUserById);
-    router.post('/', createUser);
+    router.post('/createUser', createUser);
     router.put('/<userId>', updateUser);
     router.delete('/<userId>', deleteUser);
 

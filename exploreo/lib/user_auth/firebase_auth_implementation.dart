@@ -10,7 +10,7 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } catch (e) {
-      print("There was an error with sign up with email and password");
+      print("There was an error with sign up with email and password: $e");
     }
     return null;
   }
@@ -22,20 +22,17 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } catch (e) {
-      print("There was an error with sign up with email and password");
+      print("There was an error with sign in with email and password: $e");
     }
     return null;
   }
 
   Future<User?> signInWithGoogle() async {
     try {
-      // Use Firebase Auth to start Google OAuth
       OAuthProvider googleProvider = OAuthProvider("google.com");
 
-      // Prompt the user to select a Google account
       googleProvider.setCustomParameters({'prompt': 'select_account'});
 
-      // Sign in with Google OAuth provider
       UserCredential userCredential =
           await _auth.signInWithPopup(googleProvider);
 
@@ -44,5 +41,15 @@ class FirebaseAuthService {
       print("There was an error with Google sign in: $e");
     }
     return null;
+  }
+
+  /// Logs out the currently signed-in user.
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+      print("User signed out successfully");
+    } catch (e) {
+      print("There was an error signing out: $e");
+    }
   }
 }

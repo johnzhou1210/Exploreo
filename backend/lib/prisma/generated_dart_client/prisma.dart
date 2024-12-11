@@ -1202,7 +1202,6 @@ class UserWhereUniqueInput
     this.firebaseUid,
     this.email,
     this.username,
-    this.providerId,
     this.AND,
     this.OR,
     this.NOT,
@@ -1210,6 +1209,7 @@ class UserWhereUniqueInput
     this.updatedAt,
     this.password,
     this.loginType,
+    this.providerId,
     this.profilePictureUrl,
     this.bio,
     this.trips,
@@ -1223,8 +1223,6 @@ class UserWhereUniqueInput
   final String? email;
 
   final String? username;
-
-  final String? providerId;
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? AND;
 
@@ -1240,6 +1238,8 @@ class UserWhereUniqueInput
       _i1.PrismaUnion<String, _i1.PrismaNull>>? password;
 
   final _i1.PrismaUnion<_i2.EnumLoginTypeFilter, _i3.LoginType>? loginType;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? providerId;
 
   final _i1.PrismaUnion<_i2.StringNullableFilter,
       _i1.PrismaUnion<String, _i1.PrismaNull>>? profilePictureUrl;
@@ -1257,7 +1257,6 @@ class UserWhereUniqueInput
         'firebaseUid': firebaseUid,
         'email': email,
         'username': username,
-        'providerId': providerId,
         'AND': AND,
         'OR': OR,
         'NOT': NOT,
@@ -1265,6 +1264,7 @@ class UserWhereUniqueInput
         'updatedAt': updatedAt,
         'password': password,
         'loginType': loginType,
+        'providerId': providerId,
         'profilePictureUrl': profilePictureUrl,
         'bio': bio,
         'trips': trips,

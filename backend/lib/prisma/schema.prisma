@@ -17,7 +17,7 @@ model User {
   updatedAt         DateTime       @updatedAt @map("updated_at")
   password          String?
   loginType         LoginType      @default(EMAIL) @map("login_type")
-  providerId        String         @unique @map("provider_id")
+  providerId        String         @map("provider_id")
   profilePictureUrl String?        @map("profile_picture_url")
   bio               String?
   trips             Trip[]
