@@ -91,7 +91,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
             children: [
               // Header and back button
               const SizedBox(height: 40),
-              Row(
+              const Row(
                 children: [
                   const SizedBox(width: 60),
                   const SizedBox(width: 80),
