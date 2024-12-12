@@ -1,20 +1,26 @@
 import 'dart:async';
 
-import 'package:exploreo/screens/AddEventsScreen.dart';
-import 'package:exploreo/screens/HomeScreen.dart';
+import 'package:exploreo/api_calls/trip_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:exploreo/api_calls/user_functions.dart';
+// import 'package:exploreo/screens/AddEventsScreen.dart';
+// import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exploreo/widgets/Navbar.dart';
-import 'package:exploreo/screens/LoginScreen.dart';
-import 'package:intl/intl.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+// import 'package:exploreo/widgets/Navbar.dart';
+// import 'package:exploreo/screens/LoginScreen.dart';
+// import 'package:intl/intl.dart';
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
+import '../user_auth/userState.dart';
 import '../util/ImageFetcher.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../util/TimeRangeFormatter.dart';
-import '../widgets/TripListTile.dart';
-import 'TripsScreen.dart';
+// import '../widgets/TripListTile.dart';
+import 'TripInfoScreen.dart';
+// import 'TripsScreen.dart';
 
 class PlanTripScreen extends StatefulWidget {
   const PlanTripScreen({super.key});
@@ -30,49 +36,80 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
   );
   final TextEditingController tripNameController = TextEditingController();
   final TextEditingController tripNotesController = TextEditingController();
-  List<TripEvent> events = [];
+
   String? _imageUrl;
   bool _isLoading = false;
 
   Future<void> _searchImage(String query) async {
+    if (!mounted) return;
+
     setState(() {
-      _isLoading = true; // Loading indicator visible
+      _isLoading = true;
     });
 
     try {
       final imageUrl = await FetchImage(query);
+      if (!mounted) return;
+
       setState(() {
         _imageUrl = imageUrl;
       });
     } catch (e) {
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
     } finally {
+      if (!mounted) return;
+
       setState(() {
         _isLoading = false;
       });
     }
   }
 
-  void _onContinuePressed() async {
-    String tripName =
+  Future<void> _onContinuePressed() async {
+    if (!mounted) return;
+
+    final String tripName =
         tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
+    final userId = Provider.of<UserState>(context, listen: false).userId;
+
+    print("in here $userId");
+    print("in here2 ${FirebaseAuth.instance.currentUser?.uid}");
+
+    if (userId == null) return;
+
     await _searchImage(tripName);
 
-    // Proceed to next screen after fetching image
-    Trip newTrip = Trip(
-      title: tripName,
-      date: FormatDateRange(selectedDates!),
-      imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg',
-      description: tripNotesController.text,
-      events: [],
-    );
+    if (!mounted) return;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => AddEventsScreen(trip: newTrip)),
-    );
+    try {
+      final Trip? tripObj = await addTripCall(
+          userId: userId,
+          tripName: tripNameController.text,
+          startDate: selectedDates!.start,
+          endDate: selectedDates!.end,
+          description: tripNotesController.text,
+          imageUrl: _imageUrl ?? 'https://placehold.co/600x400/png');
+
+      if (!mounted) return;
+
+      if (tripObj != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TripInfoScreen(tripId: tripObj.id)),
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error creating trip: $e')),
+      );
+    }
   }
 
   @override
@@ -93,9 +130,9 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
               const SizedBox(height: 40),
               const Row(
                 children: [
-                  const SizedBox(width: 60),
-                  const SizedBox(width: 80),
-                  const Text(
+                  SizedBox(width: 60),
+                  SizedBox(width: 80),
+                  Text(
                     'Plan a new trip',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -124,7 +161,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                   child: SizedBox(),
                 ),
               ]),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Input fields
               Column(
@@ -175,7 +212,8 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
                               }
                             },
                             decoration: InputDecoration(
-                              prefixIcon: Icon(CupertinoIcons.calendar_today),
+                              prefixIcon:
+                                  const Icon(CupertinoIcons.calendar_today),
                               border: const OutlineInputBorder(),
                               hintText: FormatDateRange(selectedDates!),
                             ),
@@ -249,6 +287,4 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
       ),
     );
   }
-
-
 }

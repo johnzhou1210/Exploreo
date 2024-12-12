@@ -1,10 +1,13 @@
-import 'package:exploreo/screens/HomeScreen.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:exploreo/screens/HomeScreen.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exploreo/widgets/Navbar.dart';
+// import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
-import '../data/TestTripData.dart';
+import '../api_calls/user_functions.dart';
+import '../data/objects.dart';
+import '../user_auth/userState.dart';
 import '../widgets/TripListTile.dart';
+import 'package:provider/provider.dart';
 
 class TripsScreen extends StatefulWidget {
   const TripsScreen({super.key});
@@ -13,91 +16,94 @@ class TripsScreen extends StatefulWidget {
 }
 
 class _TripsScreenState extends State<TripsScreen> {
+  late List<Trip> userTrips = [];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchTrips();
+  }
+
+  Future<void> fetchTrips() async {
+    try {
+      final userState = Provider.of<UserState>(context, listen: false);
+
+      if (userState.currentUser == null || userState.userId == null) {
+        // If not logged in, show the LoginScreen
+        // Navigator.of(context).pushReplacement(
+        //   MaterialPageRoute(builder: (context) => const LoginScreen()),
+        // );
+        return;
+      }
+      ;
+      List<Trip> trips = await getUserTrips(userId: userState.userId!);
+      setState(() {
+        userTrips = trips;
+      });
+    } catch (e) {
+      print("There was an error fetching trips");
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        body: Center(
-            child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Center(
+          child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
 
-          children: [
-            SizedBox(height: 40),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                /* Commenting this out because it doesn't make sense to exist (it is root page of itinerary tab */
-                // SizedBox(width: 15),
-                // Material(
-                //   child: Ink(
-                //     decoration: const ShapeDecoration(
-                //         shape: CircleBorder(),
-                //       color: Color.fromARGB(50, 200, 200, 200),
-                //     ),
-                //     child :IconButton(
-                //       onPressed: () {
-                //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen())); // Whatever page it will go back to
-                //       },
-                //       iconSize: 16,
-                //       icon: Icon(Icons.arrow_back_ios_new_rounded),
-                //
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(width: 40),
-                const Text(
-                  'Trips',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontFamily: 'Roboto'),
+        children: [
+          const SizedBox(height: 40),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Trips',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontFamily: 'Roboto'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Column(
+            children: [
+              const Text(
+                "Travel Trips",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontFamily: 'Serif'),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                userTrips.length.toString(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 30, 100, 255),
                 ),
-              ],
-            ),
-
-            const SizedBox(height: 15),
-
-            Container(
-              child: Column(
-                children: [
-                  const Text(
-                    "Travel Trips",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      fontFamily: 'Serif'
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    trips.length.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Color.fromARGB(255, 30, 100, 255),
-                    ),
-                  ),
-                ],
               ),
+            ],
+          ),
+          Flexible(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: userTrips.length,
+              itemBuilder: (context, index) {
+                List<Trip> sortedTrips = [...userTrips];
+
+                sortedTrips.sort((a, b) => a.startDate.compareTo(b.startDate));
+
+                return TripListTile(
+                  trip: sortedTrips[index],
+                );
+              },
             ),
-
-
-            Flexible(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: trips.length,
-                itemBuilder: (context, index) {
-                  return TripListTile(
-                    trip: trips[index]
-
-                  );
-                },
-              ),
-            )
-
-          ],
-        )),
-
+          )
+        ],
+      )),
     );
   }
 }

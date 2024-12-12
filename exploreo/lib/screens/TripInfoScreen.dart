@@ -1,22 +1,26 @@
+import 'package:exploreo/api_calls/trip_functions.dart';
+import 'package:exploreo/api_calls/user_functions.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
+import 'package:exploreo/user_auth/userState.dart';
 import 'package:exploreo/util/TimeRangeFormatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../widgets/EventTile.dart';
 import '../widgets/TripListTile.dart';
 import 'EditTripScreen.dart';
 import 'TripsScreen.dart';
+import 'package:provider/provider.dart';
 
 class TripInfoScreen extends StatefulWidget {
-  final Trip trip;
+  final String tripId;
 
   const TripInfoScreen({
     super.key,
-    required this.trip,
+    required this.tripId,
   });
 
   @override
@@ -24,13 +28,37 @@ class TripInfoScreen extends StatefulWidget {
 }
 
 class _TripInfoScreenState extends State<TripInfoScreen> {
-  List<TripEvent> sortedEvents = [];
-  @override
-  void initState() {
-    super.initState();
-    sortedEvents = [...widget.trip.events];
+  Trip? trip;
 
-    sortedEvents.sort((a,b) => a.date.compareTo(b.date));
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchTripWithPlaces();
+  }
+
+  Future<void> fetchTripWithPlaces() async {
+    try {
+      final userState = Provider.of<UserState>(context, listen: false);
+
+      if (userState.currentUser == null || userState.userId == null) {
+        // If not logged in, show the LoginScreen
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+        return;
+      }
+      Trip? response = await getTripById(widget.tripId);
+      if (response != null) {
+        setState(() {
+          trip = response;
+        });
+      } else {
+        print("Error fetching trip");
+      }
+    } catch (e) {
+      print("There was an error fetching trips");
+      print(e);
+    }
   }
 
   @override
@@ -38,18 +66,21 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
     return Scaffold(
       body: Stack(children: [
         // Background image
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(widget.trip.imageUrl ??
-                  'https://example.com/default-image.jpg'),
-              // Use your image URL here
-              fit: BoxFit.cover, // Options: cover, contain, fill, etc.
+
+        if (trip != null) ...[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: trip!.imageUrl != null
+                    ? NetworkImage(trip!.imageUrl!)
+                    : const AssetImage("assets/images/placeholder.jpeg"),
+                fit: BoxFit.cover, // Options: cover, contain, fill, etc.
+              ),
             ),
           ),
-        ),
+        ],
 
         // Tint overlay
         Container(
@@ -85,7 +116,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          HomeScreen(entryIndex: 1)),
+                                          const HomeScreen(entryIndex: 1)),
                                   (Route<dynamic> route) =>
                                       false, // Keeps only the home route
                                 );
@@ -106,11 +137,11 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                             ),
                             child: IconButton(
                               onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => EditTripScreen(
-                                        trip: widget
-                                            .trip // change to EditTripScreen
-                                        )));
+                                if (trip != null) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditTripScreen(trip: trip!)));
+                                }
                               },
                               iconSize: 24,
                               icon: const Icon(Icons.edit),
@@ -125,7 +156,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
-                            'Your trip to ${widget.trip.title}',
+                            'Your trip to ${trip?.tripName ?? ""}',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 fontSize: 20, fontFamily: 'Roboto'),
@@ -139,19 +170,32 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                 const SizedBox(height: 15),
 
                 // Events list for this trip
+                //　GET ALL PLACES, FILTER BY USER ID
 
-                Flexible(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: trips
-                        .firstWhere((trip) => trip.id == widget.trip.id)
-                        .events
-                        .length,
-                    itemBuilder: (context, index) {
-                      return EventTile(trip: widget.trip, event: sortedEvents[index]);
-                    },
+                if (trip != null) ...[
+                  Flexible(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: trip!.places.length,
+                      itemBuilder: (context, index) {
+                        List<Place> sortedEvents = [...trip!.places];
+                        sortedEvents.sort((a, b) =>
+                            DateTime.parse(a.startDate ?? '')
+                                .compareTo(DateTime.parse(b.startDate ?? '')));
+
+                        DateTime tripStart = DateTime.parse(trip!.startDate);
+                        DateTime tripEnd = DateTime.parse(trip!.endDate);
+
+                        return EventTile(
+                            tripStart: tripStart,
+                            tripEnd: tripEnd,
+                            imageUrl: trip!.imageUrl,
+                            eventId: int.parse(sortedEvents[index].id),
+                            tripName: trip!.tripName);
+                      },
+                    ),
                   ),
-                ),
+                ]
               ]),
         ),
       ]),
@@ -169,11 +213,13 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
             ),
             onPressed: () {
               // Go to add event screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddEventsScreen(trip: widget.trip)),
-              );
+              if (trip != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddEventsScreen(tripId: trip!.id)),
+                );
+              }
             }),
       ),
     );
