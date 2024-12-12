@@ -33,9 +33,9 @@ class Trip {
       isShared: json['isShared'] == null ? null : json['isShared'] as bool,
       imageUrl: json['imageUrl'],
       notes: json['notes'],
-      usersOnTrips: json['UsersOnTrips'],
+      usersOnTrips: json['UsersOnTrips'] ?? [],
       places:
-          json['places'].map<Place>((place) => Place.fromJson(place)).toList(),
+          json['places']?.map<Place>((place) => Place.fromJson(place)).toList() ?? [],
     );
   }
 }

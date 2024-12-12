@@ -16,8 +16,8 @@ Future<Place?> addPlaceCall({
     Map<String, dynamic> placeBody = {
       'placeName': placeName,
       'tripId': tripId,
-      if (startDate != null) 'startDate': startDate.toIso8601String(),
-      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (startDate != null) 'startDate': '${startDate.toIso8601String().substring(0, 19)}Z',
+      if (endDate != null) 'endDate': '${endDate.toIso8601String().substring(0, 19)}Z',
       if (description != null) 'description': description,
       if (notes != null) 'notes': notes,
     };
@@ -60,8 +60,8 @@ Future<Place?> updatePlaceCall({
     Map<String, dynamic> placeBody = {
       if (placeName != null) 'placeName': placeName,
       if (description != null) 'description': description,
-      if (startDate != null) 'startDate': startDate.toIso8601String(),
-      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (startDate != null) 'startDate': '${startDate.toIso8601String().substring(0, 19)}Z',
+      if (endDate != null) 'endDate': '${endDate.toIso8601String().substring(0, 19)}Z',
       if (notes != null) 'notes': notes,
     };
 

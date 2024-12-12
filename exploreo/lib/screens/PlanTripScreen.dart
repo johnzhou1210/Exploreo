@@ -73,7 +73,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
 
     final String tripName =
         tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
-    final userId = Provider.of<UserState>(context).userId;
+    final userId = Provider.of<UserState>(context, listen: false).userId;
 
     if (userId == null) return;
 
@@ -88,7 +88,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
           startDate: selectedDates!.start,
           endDate: selectedDates!.end,
           description: tripNotesController.text,
-          imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg');
+          imageUrl: _imageUrl ?? 'https://placehold.co/600x400/png');
 
       if (!mounted) return;
 

@@ -26,7 +26,7 @@ class _TripsScreenState extends State<TripsScreen> {
 
   Future<void> fetchTrips() async {
     try {
-      final userState = Provider.of<UserState>(context);
+      final userState = Provider.of<UserState>(context, listen: false);
 
       if (userState.currentUser == null || userState.userId == null) {
         // If not logged in, show the LoginScreen

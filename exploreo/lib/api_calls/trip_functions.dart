@@ -18,10 +18,10 @@ Future<Trip?> addTripCall({
     Map<String, dynamic> tripBody = {
       'userId': userId,
       'tripName': tripName,
-      'startDate': startDate.toIso8601String(),
-      'endDate': endDate.toIso8601String(),
+      'startDate': '${startDate.toIso8601String().substring(0, 19)}Z',
+      'endDate': '${endDate.toIso8601String().substring(0, 19)}Z',
       if (description != null) 'description': description,
-      if (isShared != null) 'isShared': isShared.toString(),
+      if (isShared != null) 'isShared': isShared,
       if (imageUrl != null) 'imageUrl': imageUrl,
       if (notes != null) 'notes': notes,
     };
@@ -62,8 +62,8 @@ Future<Trip?> updateTripCall({
     Map<String, dynamic> tripBody = {
       if (tripName != null) 'tripName': tripName,
       if (description != null) 'description': description,
-      if (startDate != null) 'startDate': startDate.toIso8601String(),
-      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (startDate != null) 'startDate': '${startDate.toIso8601String().substring(0, 19)}Z',
+      if (endDate != null) 'endDate': '${endDate.toIso8601String().substring(0, 19)}Z',
       if (isShared != null) 'isShared': isShared.toString(),
       if (imageUrl != null) 'imageUrl': imageUrl,
       if (notes != null) 'notes': notes,
