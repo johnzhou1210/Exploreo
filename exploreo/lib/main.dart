@@ -17,9 +17,12 @@ void main() async {
   await Hive.initFlutter();
 
 
+  UserState userState = UserState();
+  await userState.initializeUser();
+
   runApp(
     ChangeNotifierProvider(
-      create: (context) => UserState()..initializeUser(), // Initialize UserState here
+      create: (context) => userState, // Pass initialized UserState here
       child: const MyApp(),
     ),
   );

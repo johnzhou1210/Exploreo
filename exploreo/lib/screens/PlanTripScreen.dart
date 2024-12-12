@@ -92,7 +92,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
           startDate: selectedDates!.start,
           endDate: selectedDates!.end,
           description: tripNotesController.text,
-          imageUrl: _imageUrl ?? 'https://placehold.co/600x400/png');
+          imageUrl: _imageUrl ?? 'https://placehold.co/600x600/png');
 
       if (!mounted) return;
 
