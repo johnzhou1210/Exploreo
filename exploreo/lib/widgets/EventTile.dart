@@ -8,19 +8,17 @@ import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
 class EventTile extends StatefulWidget {
-  int eventId;
-  String? imageUrl; // just for visuals
-  String tripName; // just for visuals
-
-  // Just to restrict user input to date range when editing. These dates are start and end dates for Trip, NOT Place.
-  DateTime tripStart, tripEnd;
+  Place place;
+  DateTime minDate, maxDate;
+  String tripName;
+  String imageUrl;
 
   EventTile({
-    required this.eventId,
-    this.imageUrl,
+    required this.place,
+    required this.minDate,
+    required this.maxDate,
     required this.tripName,
-    required this.tripStart,
-    required this.tripEnd,
+    required this.imageUrl,
   });
 
   @override
@@ -28,13 +26,6 @@ class EventTile extends StatefulWidget {
 }
 
 class _EventTileState extends State<EventTile> {
-  late Place eventRef;
-
-  @override
-  void initState() async {
-    super.initState();
-    eventRef = (await getPlaceByIdCall(widget.eventId.toString()))!;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +33,11 @@ class _EventTileState extends State<EventTile> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => EditEventScreen(
-                minDate: widget.tripStart,
-                maxDate: widget.tripEnd,
+                minDate: widget.minDate,
+                maxDate: widget.maxDate,
                 tripName: widget.tripName,
                 imageUrl: widget.imageUrl,
-                eventId: widget.eventId)));
+                place: widget.place)));
       },
       child: Container(
         height: 80,
@@ -70,7 +61,7 @@ class _EventTileState extends State<EventTile> {
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          eventRef.placeName,
+                          widget.place.placeName,
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -89,8 +80,8 @@ class _EventTileState extends State<EventTile> {
                           const SizedBox(width: 5),
                           Text(
                             FormatDateRange(DateTimeRange(
-                                start: DateTime.parse(eventRef.startDate ?? ''),
-                                end: DateTime.parse(eventRef.endDate ?? ''))),
+                                start: DateTime.parse(widget.place.startDate ?? ''),
+                                end: DateTime.parse(widget.place.endDate ?? ''))),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
