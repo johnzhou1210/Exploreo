@@ -213,7 +213,8 @@ class UserRoute {
               usersOnTrips: UsersOnTripsListRelationFilter(
                   some:
                       UsersOnTripsWhereInput(userId: PrismaUnion.$2(userId)))),
-          include: TripInclude(usersOnTrips: PrismaUnion.$1(true)),
+          include: TripInclude(
+              places: PrismaUnion.$1(true), usersOnTrips: PrismaUnion.$1(true)),
         );
 
         var tripList = trips.map((trip) {
@@ -222,6 +223,8 @@ class UserRoute {
                   ?.map((userOnTrip) => userOnTrip.toJson())
                   .toList() ??
               [];
+          tripJson['places'] =
+              trip.places?.map((place) => place.toJson()).toList() ?? [];
           return tripJson;
         }).toList();
 
@@ -243,10 +246,12 @@ class UserRoute {
 
     router.get('/<userId>/trips', getAllTrips);
 
-    router.get('/firebase/<firebaseUid>', firebaseUserHandler.getUserByFirebaseUid);
+    router.get(
+        '/firebase/<firebaseUid>', firebaseUserHandler.getUserByFirebaseUid);
     router.delete('/firebase/<firebaseUid>', firebaseUserHandler.deleteUser);
     router.put('/firebase/<firebaseUid>', firebaseUserHandler.updateUser);
-    router.get('/firebase/<firebaseUid>/trips', firebaseUserHandler.getAllTrips);
+    router.get(
+        '/firebase/<firebaseUid>/trips', firebaseUserHandler.getAllTrips);
 
     return router;
   }

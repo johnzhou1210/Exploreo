@@ -19,7 +19,8 @@ class TripRoute {
     Future<Response> getAllTrips(Request request) async {
       try {
         var trips = await prisma.trip.findMany(
-          include: TripInclude(usersOnTrips: PrismaUnion.$1(true)),
+          include: TripInclude(
+              places: PrismaUnion.$1(true), usersOnTrips: PrismaUnion.$1(true)),
         );
 
         var tripList = trips.map((trip) {
@@ -28,6 +29,8 @@ class TripRoute {
                   ?.map((userOnTrip) => userOnTrip.toJson())
                   .toList() ??
               [];
+          tripJson['places'] =
+              trip.places?.map((place) => place.toJson()).toList() ?? [];
           return tripJson;
         }).toList();
 
@@ -43,15 +46,26 @@ class TripRoute {
 
     Future<Response> getTripById(Request request, String tripId) async {
       try {
-        final trip = await prisma.trip
-            .findUnique(where: TripWhereUniqueInput(id: tripId));
+        final trip = await prisma.trip.findUnique(
+            where: TripWhereUniqueInput(id: tripId),
+            include: TripInclude(
+                places: PrismaUnion.$1(true),
+                usersOnTrips: PrismaUnion.$1(true)));
 
         if (trip == null) {
           return Response(404, body: 'NOT_FOUND');
         }
 
+        final tripJson = trip.toJson();
+        tripJson['UsersOnTrips'] = trip.usersOnTrips
+                ?.map((userOnTrip) => userOnTrip.toJson())
+                .toList() ??
+            [];
+        tripJson['places'] =
+            trip.places?.map((place) => place.toJson()).toList() ?? [];
+
         return Response.ok(
-          json.encode(trip.toJson()),
+          json.encode(tripJson),
           headers: {'Content-Type': 'application/json'},
         );
       } catch (e) {
