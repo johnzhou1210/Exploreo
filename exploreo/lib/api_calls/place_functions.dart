@@ -126,7 +126,7 @@ Future<Place?> getPlaceByIdCall(String placeId) async {
 Future<bool> deletePlaceByIdCall(String placeId) async {
   try {
     // Construct the endpoint URL
-    final String endpoint = 'http://10.0.2.2:8080/places/$placeId';
+    final String endpoint = '${Config.apiUrl}/places/$placeId';
 
     // Make the DELETE request to the backend
     final response = await makeAuthenticatedRequest(

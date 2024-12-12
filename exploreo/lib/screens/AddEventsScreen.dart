@@ -55,12 +55,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-
                     // TODO
                     // SET IMAGE URL TO TRIP's IMAGE URL (USE GET REQUEST TO GET TRIP BY ID)
-                       image: NetworkImage(widget.imageUrl ?? 'https://example.com/default-image.jpg'),
-
-
+                    image: NetworkImage(widget.imageUrl ??
+                        'https://example.com/default-image.jpg'),
 
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
@@ -90,8 +88,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     children: [
                       Row(
                         children: [
-                          const SizedBox(
-                                width: 15),
+                          const SizedBox(width: 15),
                           Visibility(
                             child: Material(
                               color: Colors.transparent,
@@ -102,8 +99,12 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                 ),
                                 child: IconButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(); // Whatever page it will go back to
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => TripInfoScreen(
+                                                tripId: widget
+                                                    .tripId))); // Whatever page it will go back to
                                   },
                                   iconSize: 16,
                                   icon: const Icon(Icons.close),
@@ -187,13 +188,19 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                       await showDateRangePicker(
                                           context: context,
                                           firstDate: DateTime(
-                                              DateTime.parse(widget.minDate).year,
-                                              DateTime.parse(widget.minDate).month,
-                                              DateTime.parse(widget.minDate).day),
+                                              DateTime.parse(widget.minDate)
+                                                  .year,
+                                              DateTime.parse(widget.minDate)
+                                                  .month,
+                                              DateTime.parse(widget.minDate)
+                                                  .day),
                                           lastDate: DateTime(
-                                              DateTime.parse(widget.maxDate).year,
-                                              DateTime.parse(widget.maxDate).month,
-                                              DateTime.parse(widget.maxDate).day));
+                                              DateTime.parse(widget.maxDate)
+                                                  .year,
+                                              DateTime.parse(widget.maxDate)
+                                                  .month,
+                                              DateTime.parse(widget.maxDate)
+                                                  .day));
                                   if (dateTimeRange != null) {
                                     setState(() {
                                       selectedDates = dateTimeRange;
@@ -251,16 +258,26 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () async {
-
-                            Place? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
+                            Place? newPlace = await addPlaceCall(
+                                placeName: eventNameController.text.isEmpty
+                                    ? 'Untitled'
+                                    : eventNameController.text,
+                                tripId: widget.tripId.toString(),
+                                startDate: selectedDates?.start,
+                                endDate: selectedDates?.end,
+                                description: eventNotesController.text);
                             // We don't need the newPlace object at the moment
 
                             // Send user to this screen again to add another event
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        AddEventsScreen(tripId: widget.tripId, minDate: widget.minDate, maxDate: widget.maxDate, imageUrl: widget.imageUrl, tripName: widget.tripName)));
+                                    builder: (context) => AddEventsScreen(
+                                        tripId: widget.tripId,
+                                        minDate: widget.minDate,
+                                        maxDate: widget.maxDate,
+                                        imageUrl: widget.imageUrl,
+                                        tripName: widget.tripName)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -285,8 +302,14 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             // CREATE EVENT. DON'T CREATE TRIP HERE ANYMORE!
-                            Place? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
-
+                            Place? newPlace = await addPlaceCall(
+                                placeName: eventNameController.text.isEmpty
+                                    ? 'Untitled'
+                                    : eventNameController.text,
+                                tripId: widget.tripId.toString(),
+                                startDate: selectedDates?.start,
+                                endDate: selectedDates?.end,
+                                description: eventNotesController.text);
 
                             // Send user to trips page
                             Navigator.pushReplacement(
