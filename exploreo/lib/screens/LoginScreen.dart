@@ -11,9 +11,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'ForgotPasswordScreen.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -21,9 +21,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isObscure = true;
   final FirebaseAuthService _auth = FirebaseAuthService();
   final bool isTesting =
       bool.fromEnvironment('IS_TESTING', defaultValue: false);
+
   void showErrorPopup(BuildContext context, String errorMessage) {
     showDialog(
       context: context,
@@ -133,148 +135,171 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          // Just in case you want to handle small screens
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 20),
-              const Text(
-                "Login",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 34),
-              ),
-              const SizedBox(height: 100),
-
-              // Email field
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: TextFormField(
-                  key: const Key('email'),
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Password field
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: TextFormField(
-                  key: const Key('password'),
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  obscureText: true,
-                ),
-              ),
-
-              const SizedBox(height:15),
-
-              // Forgot Password
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: RichText(
-                  textAlign: TextAlign.right,
-                  text: TextSpan(
-                    text: "Forgot Password?",
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(),
-                          ),
-                        );
-                      },
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              // Google sign-in
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SignInButton(
-                  Buttons.googleDark,
-                  onPressed: _signInWithGoogle,
-                ),
-              ),
-
-              const SizedBox(height: 5),
-
-              // Twitter sign-in
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SignInButton(
-                  Buttons.twitter,
-                  text: "Sign in with Twitter",
-                  onPressed: _signInWithTwitter,
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // Login button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ElevatedButton(
-                  onPressed: _loginWithEmailAndPassword,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  child: const Text("Sign In", style: TextStyle(color: Colors.white),),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Sign up link
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: RichText(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Center(
+          child: SingleChildScrollView(
+            // Just in case you want to handle small screens
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 20),
+                const Text(
+                  "Login",
                   textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: "Don't have an account? ",
-                    style: const TextStyle(color: Colors.black),
-                    children: [
-                      TextSpan(
-                        text: "Sign up here",
-                        style: const TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SignupScreen(),
-                              ),
-                            );
-                          },
-                      ),
-                    ],
+                  style: TextStyle(fontSize: 34),
+                ),
+                const SizedBox(height: 100),
+
+                // Email field
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: TextFormField(
+                    key: const Key('email'),
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
-            ],
+                const SizedBox(height: 20),
+
+                // Password field
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: TextFormField(
+                    key: const Key('password'),
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure; // Toggle the obscure text state
+                          });
+                        },
+                      ),
+                    ),
+                    obscureText: _isObscure,
+                  ),
+                ),
+
+
+
+
+
+                const SizedBox(height: 15),
+
+                // Forgot Password
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: RichText(
+                    textAlign: TextAlign.right,
+                    text: TextSpan(
+                      text: "Forgot Password?",
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordScreen(),
+                            ),
+                          );
+                        },
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                // Google sign-in
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: SignInButton(
+                    Buttons.googleDark,
+                    onPressed: _signInWithGoogle,
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+
+                // Twitter sign-in
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: SignInButton(
+                    Buttons.twitter,
+                    text: "Sign in with Twitter",
+                    onPressed: _signInWithTwitter,
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+
+                // Login button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ElevatedButton(
+                    onPressed: _loginWithEmailAndPassword,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    child: const Text(
+                      "Sign In",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Sign up link
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text: "Don't have an account? ",
+                      style: const TextStyle(color: Colors.black),
+                      children: [
+                        TextSpan(
+                          text: "Sign up here",
+                          style: const TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SignupScreen(),
+                                ),
+                              );
+                            },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
