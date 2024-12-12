@@ -30,9 +30,9 @@ class _TripsScreenState extends State<TripsScreen> {
 
       if (userState.currentUser == null || userState.userId == null) {
         // If not logged in, show the LoginScreen
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
+        // Navigator.of(context).pushReplacement(
+        //   MaterialPageRoute(builder: (context) => const LoginScreen()),
+        // );
         return;
       }
       ;
