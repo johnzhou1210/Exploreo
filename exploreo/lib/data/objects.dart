@@ -8,6 +8,7 @@ class Trip {
   final String? imageUrl;
   final String? notes;
   final List<dynamic> usersOnTrips;
+  final List<Place> places;
 
   Trip({
     required this.id,
@@ -19,6 +20,7 @@ class Trip {
     this.imageUrl,
     this.notes,
     required this.usersOnTrips,
+    required this.places,
   });
 
   factory Trip.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,8 @@ class Trip {
       imageUrl: json['imageUrl'],
       notes: json['notes'],
       usersOnTrips: json['UsersOnTrips'] ?? [],
+      places:
+          json['places']?.map<Place>((place) => Place.fromJson(place)).toList() ?? [],
     );
   }
 }
@@ -43,6 +47,7 @@ class Place {
   final String? startDate;
   final String? endDate;
   final String? notes;
+  final String tripId;
 
   Place({
     required this.id,
@@ -51,6 +56,7 @@ class Place {
     this.startDate,
     this.endDate,
     this.notes,
+    required this.tripId,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
@@ -61,6 +67,7 @@ class Place {
       startDate: json['startDate'],
       endDate: json['endDate'],
       notes: json['notes'],
+      tripId: json['tripId'],
     );
   }
 }

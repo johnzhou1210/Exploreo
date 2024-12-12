@@ -16,8 +16,8 @@ Future<Place?> addPlaceCall({
     Map<String, dynamic> placeBody = {
       'placeName': placeName,
       'tripId': tripId,
-      if (startDate != null) 'startDate': startDate.toIso8601String(),
-      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (startDate != null) 'startDate': '${startDate.toIso8601String().substring(0, 19)}Z',
+      if (endDate != null) 'endDate': '${endDate.toIso8601String().substring(0, 19)}Z',
       if (description != null) 'description': description,
       if (notes != null) 'notes': notes,
     };
@@ -60,8 +60,8 @@ Future<Place?> updatePlaceCall({
     Map<String, dynamic> placeBody = {
       if (placeName != null) 'placeName': placeName,
       if (description != null) 'description': description,
-      if (startDate != null) 'startDate': startDate.toIso8601String(),
-      if (endDate != null) 'endDate': endDate.toIso8601String(),
+      if (startDate != null) 'startDate': '${startDate.toIso8601String().substring(0, 19)}Z',
+      if (endDate != null) 'endDate': '${endDate.toIso8601String().substring(0, 19)}Z',
       if (notes != null) 'notes': notes,
     };
 
@@ -90,5 +90,65 @@ Future<Place?> updatePlaceCall({
   } catch (error) {
     print('Error making PATCH request: $error');
     return null; // Return null on exception
+  }
+}
+
+Future<Place?> getPlaceByIdCall(String placeId) async {
+  try {
+    // Construct the endpoint URL
+    final String endpoint = '${Config.apiUrl}/places/$placeId';
+
+    // Make the GET request to the backend
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "GET",
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      print('Place Retrieved Successfully: ${response.body}');
+      final responseData = jsonDecode(response.body);
+      return Place.fromJson(responseData);
+    } else if (response.statusCode == 404) {
+      print('Error: Place not found');
+      return null;
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return null;
+    }
+  } catch (error) {
+    print('Error making GET request: $error');
+    return null; // Return null on exception
+  }
+}
+
+
+Future<bool> deletePlaceByIdCall(String placeId) async {
+  try {
+    // Construct the endpoint URL
+    final String endpoint = 'http://10.0.2.2:8080/places/$placeId';
+
+    // Make the DELETE request to the backend
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "DELETE",
+    );
+
+    print("IN here");
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      print('Place Deleted Successfully');
+      return true; // Return true on successful deletion
+    } else if (response.statusCode == 404) {
+      print('Error: Place not found');
+      return false;
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return false;
+    }
+  } catch (error) {
+    print('Error making DELETE request: $error');
+    return false; // Return false on exception
   }
 }

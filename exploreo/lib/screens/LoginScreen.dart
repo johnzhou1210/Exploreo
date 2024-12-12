@@ -1,5 +1,5 @@
 import 'package:exploreo/screens/HomeScreen.dart';
-import 'package:exploreo/screens/SignUpScreen.dart'; 
+import 'package:exploreo/screens/SignUpScreen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuthService _auth = FirebaseAuthService();
-
+  final bool isTesting =
+      bool.fromEnvironment('IS_TESTING', defaultValue: false);
   void showErrorPopup(BuildContext context, String errorMessage) {
     showDialog(
       context: context,
@@ -66,18 +67,49 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _loginWithEmailAndPassword() async {
-    User? user = await _auth.signInWithEmailAndPassword(
-      _emailController.text,
-      _passwordController.text,
-    );
-    if (user != null) {
-      Provider.of<UserState>(context, listen: false).setUser(user);
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-        (Route<dynamic> route) => false,
-      );
+    if (isTesting) {
+      User? user = await _auth.signInWithEmailAndPassword(
+          'firebase@gmail.com', 'firebase');
+      if (user != null) {
+        Provider.of<UserState>(context, listen: false).setUser(user);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        showErrorPopup(context, "Couldn't login");
+      }
     } else {
-      showErrorPopup(context, "Couldn't login");
+      User? user = await _auth.signInWithEmailAndPassword(
+        _emailController.text,
+        _passwordController.text,
+      );
+      if (user != null) {
+        Provider.of<UserState>(context, listen: false).setUser(user);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        showErrorPopup(context, "Couldn't login");
+      }
+    }
+  }
+
+  Future<void> _handleLogin() async {
+    if (isTesting) {
+      // Simulate login with test credentials
+      await _loginWithEmailAndPassword();
+    } else {
+      // Check the current user
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // User is logged in, navigate or perform actions
+        print('User is logged in: ${user.email}');
+      } else {
+        // No user is logged in
+        print('No user is logged in');
+      }
     }
   }
 
@@ -89,10 +121,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _handleLogin(); // Call a separate method to handle login
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SingleChildScrollView( // Just in case you want to handle small screens
+        child: SingleChildScrollView(
+          // Just in case you want to handle small screens
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: TextFormField(
+                  key: const Key('email'),
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: 'Email',
@@ -141,6 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: TextFormField(
+                  key: const Key('password'),
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     labelText: 'Password',

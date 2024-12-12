@@ -1,3 +1,5 @@
+import 'package:exploreo/api_calls/place_functions.dart';
+import 'package:exploreo/api_calls/trip_functions.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,17 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:intl/intl.dart';
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../util/TimeRangeFormatter.dart';
 import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class AddEventsScreen extends StatefulWidget {
-  Trip trip;
+  String minDate, maxDate;
+  String tripId;
+  String imageUrl;
+  String tripName;
 
   AddEventsScreen({
     super.key,
-    required this.trip,
+    required this.tripId,
+    required this.minDate,
+    required this.maxDate,
+    required this.imageUrl,
+    required this.tripName,
   });
 
   @override
@@ -29,12 +38,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   );
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    selectedDates = ParseDateRange(widget.trip.date);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,13 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(widget.trip.imageUrl),
+
+                    // TODO
+                    // SET IMAGE URL TO TRIP's IMAGE URL (USE GET REQUEST TO GET TRIP BY ID)
+                       image: NetworkImage(widget.imageUrl ?? 'https://example.com/default-image.jpg'),
+
+
+
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
                   ),
@@ -81,16 +90,9 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     children: [
                       Row(
                         children: [
-                          SizedBox(
-                              width: (trips.indexWhere((trip) =>
-                                          trip.id == widget.trip.id) !=
-                                      -1)
-                                  ? 15
-                                  : 65),
+                          const SizedBox(
+                                width: 15),
                           Visibility(
-                            visible: (trips.indexWhere(
-                                    (trip) => trip.id == widget.trip.id) !=
-                                -1),
                             child: Material(
                               color: Colors.transparent,
                               child: Ink(
@@ -130,7 +132,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Add events to your trip to ${widget.trip.title}",
+                          "Add events to your trip to ${widget.tripName}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -185,25 +187,13 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                       await showDateRangePicker(
                                           context: context,
                                           firstDate: DateTime(
-                                              ParseDateRange(widget.trip.date)
-                                                  .start
-                                                  .year,
-                                              ParseDateRange(widget.trip.date)
-                                                  .start
-                                                  .month,
-                                              ParseDateRange(widget.trip.date)
-                                                  .start
-                                                  .day),
+                                              DateTime.parse(widget.minDate).year,
+                                              DateTime.parse(widget.minDate).month,
+                                              DateTime.parse(widget.minDate).day),
                                           lastDate: DateTime(
-                                              ParseDateRange(widget.trip.date)
-                                                  .end
-                                                  .year,
-                                              ParseDateRange(widget.trip.date)
-                                                  .end
-                                                  .month,
-                                              ParseDateRange(widget.trip.date)
-                                                  .end
-                                                  .day));
+                                              DateTime.parse(widget.maxDate).year,
+                                              DateTime.parse(widget.maxDate).month,
+                                              DateTime.parse(widget.maxDate).day));
                                   if (dateTimeRange != null) {
                                     setState(() {
                                       selectedDates = dateTimeRange;
@@ -212,7 +202,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                                 },
                                 decoration: InputDecoration(
                                   prefixIcon:
-                                      Icon(CupertinoIcons.calendar_today),
+                                      const Icon(CupertinoIcons.calendar_today),
                                   border: const OutlineInputBorder(),
                                   hintText: FormatDateRange(selectedDates!),
                                 ),
@@ -251,7 +241,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     ],
                   ),
 
-                  SizedBox(height: 230),
+                  const SizedBox(height: 230),
 
                   // Add another event button
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -260,20 +250,17 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            /*TODO: Redirect user to this same page but with the fields empty for input again to add another event*/
-                            widget.trip.events.add(TripEvent(
-                                title: eventNameController.text.isEmpty
-                                    ? 'Untitled'
-                                    : eventNameController.text,
-                                date: FormatDateRange(selectedDates!),
-                                description: eventNotesController.text));
-                            print(widget.trip.events.length);
+                          onPressed: () async {
+
+                            Place? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
+                            // We don't need the newPlace object at the moment
+
+                            // Send user to this screen again to add another event
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AddEventsScreen(trip: widget.trip)));
+                                        AddEventsScreen(tripId: widget.tripId, minDate: widget.minDate, maxDate: widget.maxDate, imageUrl: widget.imageUrl, tripName: widget.tripName)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
@@ -296,32 +283,17 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            /* TODO: Create a Trip object and add it to the user's database and also add the array of events to this new Trip object */
+                          onPressed: () async {
+                            // CREATE EVENT. DON'T CREATE TRIP HERE ANYMORE!
+                            Place? newPlace = await addPlaceCall(placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text, tripId: widget.tripId.toString(), startDate: selectedDates?.start, endDate: selectedDates?.end, description: eventNotesController.text);
 
-                            TripEvent newEvent = TripEvent(
-                                title: eventNameController.text.isEmpty
-                                    ? 'Untitled'
-                                    : eventNameController.text,
-                                date: FormatDateRange(selectedDates!),
-                                description: eventNotesController.text);
-                            widget.trip.events.add(newEvent);
-
-                            // Add to trips list if it doens't exist
-                            print(
-                                "${trips.indexWhere((trip) => trip.id == widget.trip.id)} ${widget.trip.id}");
-                            if (trips.indexWhere(
-                                    (trip) => trip.id == widget.trip.id) ==
-                                -1) {
-                              trips.add(widget.trip);
-                            }
 
                             // Send user to trips page
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TripInfoScreen(trip: widget.trip)));
+                                        TripInfoScreen(tripId: widget.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,

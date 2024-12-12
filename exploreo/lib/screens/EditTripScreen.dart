@@ -1,26 +1,27 @@
-import 'dart:io';
+// import 'dart:io';
 
-import 'package:exploreo/data/TestTripData.dart';
-import 'package:exploreo/screens/AddEventsScreen.dart';
+import 'package:exploreo/api_calls/trip_functions.dart';
+import 'package:exploreo/data/objects.dart';
+// import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exploreo/widgets/Navbar.dart';
-import 'package:exploreo/screens/LoginScreen.dart';
-import 'package:intl/intl.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+// import 'package:exploreo/widgets/Navbar.dart';
+// import 'package:exploreo/screens/LoginScreen.dart';
+// import 'package:intl/intl.dart';
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
 
 import '../util/ImageFetcher.dart';
 import '../util/TimeRangeFormatter.dart';
-import '../widgets/TripListTile.dart';
-import 'TripsScreen.dart';
+// import '../widgets/TripListTile.dart';
+// import 'TripsScreen.dart';
 
 class EditTripScreen extends StatefulWidget {
-  Trip trip;
+  final Trip trip;
 
-  EditTripScreen({
+  const EditTripScreen({
     super.key,
     required this.trip,
   });
@@ -36,21 +37,22 @@ class _EditTripScreenState extends State<EditTripScreen> {
   );
   final TextEditingController tripNameController = TextEditingController();
   final TextEditingController tripNotesController = TextEditingController();
-  List<TripEvent> events = [];
   String? _imageUrl;
   bool _isLoading = false;
-
+  List<Place> places = [];
 
   @override
   void initState() {
     super.initState();
-    tripNameController.text = widget.trip.title;
-    tripNotesController.text = widget.trip.description;
-    events = widget.trip.events;
+    tripNameController.text = widget.trip.tripName;
+    tripNotesController.text = widget.trip.description ?? "";
+    places = widget.trip.places;
     _imageUrl = widget.trip.imageUrl;
-    selectedDates = ParseDateRange(widget.trip.date);
+    selectedDates = DateTimeRange(
+    start: DateTime.parse(widget.trip.startDate),
+    end: DateTime.parse(widget.trip.endDate)
+  );
   }
-
 
   Future<void> _searchImage(String query) async {
     setState(() {
@@ -71,7 +73,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
         _isLoading = false;
       });
     }
-
   }
 
   void _onContinuePressed() async {
@@ -81,22 +82,16 @@ class _EditTripScreenState extends State<EditTripScreen> {
           : tripNameController.text;
       await _searchImage(tripNameController.text);
 
-
       // UPDATE TRIP
-      Trip foundTrip = trips.firstWhere((item) => item.id == widget.trip.id);
-      foundTrip.title =
-      tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
-      foundTrip.date = FormatDateRange(selectedDates!);
-      foundTrip.imageUrl = _imageUrl ?? 'https://example.com/default-image.jpg';
-      foundTrip.description = tripNotesController.text;
+      Trip? updatedTrip = await updateTripCall(tripId: widget.trip.id, tripName:  tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text, description: tripNotesController.text, imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg', startDate: selectedDates?.start, endDate: selectedDates?.end);
 
-      Navigator.pushReplacement(context,
+      Navigator.pushReplacement(
+        context,
         MaterialPageRoute(
-            builder: (context) => TripInfoScreen(trip: foundTrip)),
+            builder: (context) => TripInfoScreen(tripId: updatedTrip!.id)),
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +120,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          Navigator.of(context).pop(); // Whatever page it will go back to
+                          Navigator.of(context)
+                              .pop(); // Whatever page it will go back to
                         },
                         iconSize: 16,
                         icon: const Icon(Icons.close),
@@ -162,7 +158,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                   child: SizedBox(),
                 ),
               ]),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Input fields
               Column(
@@ -213,7 +209,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                               }
                             },
                             decoration: InputDecoration(
-                              prefixIcon: Icon(CupertinoIcons.calendar_today),
+                              prefixIcon:
+                                  const Icon(CupertinoIcons.calendar_today),
                               border: const OutlineInputBorder(),
                               hintText: FormatDateRange(selectedDates!),
                             ),
@@ -254,7 +251,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
               const SizedBox(height: 200),
 
-
               // Delete Trip Button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const Flexible(flex: 1, child: SizedBox()),
@@ -262,17 +258,21 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Remove trip form trips
-                        int indexToRemove = trips.indexWhere((trip) => trip.id == widget.trip.id);
-                        trips.removeAt(indexToRemove);
+                      onPressed: () async {
+                        // Remove trip from trips
+                        // TODO
+                        // TRIPS DELETE REQUEST TO DELETE TRIP BY ID
+                        print("deleting trip of id ${widget.trip.id}");
+                        bool success = await deleteTripCall(widget.trip.id);
+
+
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  HomeScreen(entryIndex: 1)),
-                              (Route<dynamic> route) =>
-                          false, // Keeps only the home route
+                                  const HomeScreen(entryIndex: 1)),
+                          (Route<dynamic> route) =>
+                              false, // Keeps only the home route
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -287,9 +287,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                 const Flexible(flex: 1, child: SizedBox()),
               ]),
 
-              const SizedBox(height:25),
-
-
+              const SizedBox(height: 25),
 
               // Confirm changes button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -298,7 +296,11 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: _isLoading ? null : () {_onContinuePressed();},
+                      onPressed: _isLoading
+                          ? null
+                          : () {
+                              _onContinuePressed();
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
                         foregroundColor: Colors.white,
@@ -316,7 +318,4 @@ class _EditTripScreenState extends State<EditTripScreen> {
       ),
     );
   }
-
-
-
 }

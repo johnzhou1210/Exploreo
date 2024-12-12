@@ -1,17 +1,22 @@
+import 'package:exploreo/api_calls/place_functions.dart';
+import 'package:exploreo/util/TimeRangeFormatter.dart';
 import 'package:flutter/material.dart';
 
-import '../data/TestTripData.dart';
+import '../data/objects.dart';
 import '../screens/EditEventScreen.dart';
 import '../screens/TripInfoScreen.dart';
 import '../screens/TripsScreen.dart';
 
 class EventTile extends StatefulWidget {
-  TripEvent event;
-  Trip trip;
+  Place place;
+  DateTime minDate, maxDate;
+  String imageUrl;
 
   EventTile({
-    required this.trip,
-    required this.event,
+    required this.place,
+    required this.minDate,
+    required this.maxDate,
+    required this.imageUrl,
   });
 
   @override
@@ -19,11 +24,17 @@ class EventTile extends StatefulWidget {
 }
 
 class _EventTileState extends State<EventTile> {
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(trip: widget.trip, eventId: widget.event.id)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditEventScreen(
+                minDate: widget.minDate,
+                maxDate: widget.maxDate,
+                imageUrl: widget.imageUrl,
+                place: widget.place)));
       },
       child: Container(
         height: 80,
@@ -37,7 +48,9 @@ class _EventTileState extends State<EventTile> {
               children: [
                 const SizedBox(width: 15),
                 ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 50, maxWidth: MediaQuery.of(context).size.width / 1.33),
+                  constraints: BoxConstraints(
+                      minWidth: 50,
+                      maxWidth: MediaQuery.of(context).size.width / 1.33),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -45,7 +58,7 @@ class _EventTileState extends State<EventTile> {
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          widget.event.title,
+                          widget.place.placeName,
                           style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -63,7 +76,9 @@ class _EventTileState extends State<EventTile> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            widget.event.date,
+                            FormatDateRange(DateTimeRange(
+                                start: DateTime.parse(widget.place.startDate ?? ''),
+                                end: DateTime.parse(widget.place.endDate ?? ''))),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

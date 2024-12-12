@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:exploreo/user_auth/firebase_auth_implementation.dart'; // Ensure this is the correct import path for FirebaseAuthService
 import 'package:exploreo/screens/LoginScreen.dart'; // Ensure this is the correct import path for your LoginScreen
+import 'package:exploreo/user_auth/userState.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   final FirebaseAuthService _auth =
@@ -18,6 +20,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userState = Provider.of<UserState>(context);
+    final String email = userState.currentUser?.email ?? "not logged in";
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,16 +49,16 @@ class ProfileScreen extends StatelessWidget {
             child: Icon(Icons.person, size: 50, color: Colors.grey[700]),
           ),
           const SizedBox(height: 15),
-          const Text(
-            'John Doe', // Replace with actual user info
-            style: TextStyle(
+          Text(
+            userState.currentUser?.displayName ?? "Unknown User",
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 5),
-          const Text(
-            'johndoe@gmail.com', // Replace with actual user email
+          Text(
+            email, // Replace with actual user email
             style: TextStyle(
               color: Colors.grey,
               fontSize: 14,
