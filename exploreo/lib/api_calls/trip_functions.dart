@@ -123,3 +123,30 @@ Future<Trip?> getTripById(String tripId) async {
   }
 }
 
+Future<bool> deleteTripCall(String tripId) async {
+  try {
+    final String endpoint = '${Config.apiUrl}/trips/$tripId';
+
+    print('Deleting Trip with ID: $tripId');
+
+    // Make the DELETE request to remove the trip
+    final response = await makeAuthenticatedRequest(
+      endpoint: endpoint,
+      method: "DELETE",
+    );
+
+    if (response.statusCode == 200) {
+      print('Trip Deleted Successfully');
+      return true; // Return true on successful deletion
+    } else if (response.statusCode == 404) {
+      print('Error: Trip not found');
+      return false; // Return false if the trip was not found
+    } else {
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      return false; // Return false for any other errors
+    }
+  } catch (error) {
+    print('Error making DELETE request: $error');
+    return false; // Return false on exception
+  }
+}

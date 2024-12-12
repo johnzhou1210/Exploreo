@@ -1,5 +1,6 @@
 // import 'dart:io';
 
+import 'package:exploreo/api_calls/trip_functions.dart';
 import 'package:exploreo/data/objects.dart';
 // import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
@@ -43,12 +44,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
   @override
   void initState() {
     super.initState();
-
-    /* // TODO:  GET TRIP OBJECT WITH TRIP GET REQUEST AND TRIP ID
-    * INIT DEFAULT VALUES WITH TRIP OBJECT CONTENT
-    *
-     */
-
     tripNameController.text = widget.trip.tripName;
     tripNotesController.text = widget.trip.description ?? "";
     places = widget.trip.places;
@@ -88,22 +83,12 @@ class _EditTripScreenState extends State<EditTripScreen> {
       await _searchImage(tripNameController.text);
 
       // UPDATE TRIP
-      /* // TODO: TRIP PUT REQUEST TO UPDATE CURRENT TRIP BY ID
-      *
-      *
-      Trip foundTrip = trips.firstWhere((item) => item.id == widget.trip.id);
-      foundTrip.title =
-      tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
-      foundTrip.date = FormatDateRange(selectedDates!);
-      foundTrip.imageUrl = _imageUrl ?? 'https://example.com/default-image.jpg';
-      foundTrip.description = tripNotesController.text;
-
-      */
+      Trip? updatedTrip = await updateTripCall(tripId: widget.trip.id, tripName:  tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text, description: tripNotesController.text, imageUrl: _imageUrl ?? 'https://example.com/default-image.jpg', startDate: selectedDates?.start, endDate: selectedDates?.end);
 
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => TripInfoScreen(tripId: widget.trip.id)),
+            builder: (context) => TripInfoScreen(tripId: updatedTrip!.id)),
       );
     }
   }
@@ -273,16 +258,11 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // Remove trip from trips
-                        /* // TODO
-                          // TRIPS DELETE REQUEST TO DELETE TRIP BY ID
-
-                          int indexToRemove = trips.indexWhere((trip) => trip.id == widget.trip.id);
-                          trips.removeAt(indexToRemove);
-
-
-                        * */
+                        // TODO
+                        // TRIPS DELETE REQUEST TO DELETE TRIP BY ID
+                        bool success = await deleteTripCall(widget.trip.id);
 
                         Navigator.pushAndRemoveUntil(
                           context,
