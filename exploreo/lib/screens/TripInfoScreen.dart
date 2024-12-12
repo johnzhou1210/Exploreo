@@ -196,7 +196,6 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                           place: sortedEvents[index],
                           minDate: DateTime.parse(trip!.startDate),
                           maxDate: DateTime.parse(trip!.endDate),
-                          tripName: trip!.tripName,
                           imageUrl: trip?.imageUrl ?? '',
 
 

@@ -88,7 +88,7 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     try {
       final Trip? tripObj = await addTripCall(
           userId: userId,
-          tripName: tripNameController.text,
+          tripName: tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text,
           startDate: selectedDates!.start,
           endDate: selectedDates!.end,
           description: tripNotesController.text,
