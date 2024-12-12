@@ -20,9 +20,8 @@ class _TripListTileState extends State<TripListTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) =>
-        //         TripInfoScreen(tripId: widget.trip.id)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => TripInfoScreen(tripId: widget.trip.id)));
       },
       child: Container(
         height: 130,

@@ -9,7 +9,7 @@ import '../screens/TripsScreen.dart';
 
 class EventTile extends StatefulWidget {
   int eventId;
-  String imageUrl; // just for visuals
+  String? imageUrl; // just for visuals
   String tripName; // just for visuals
 
   // Just to restrict user input to date range when editing. These dates are start and end dates for Trip, NOT Place.
@@ -17,7 +17,7 @@ class EventTile extends StatefulWidget {
 
   EventTile({
     required this.eventId,
-    required this.imageUrl,
+    this.imageUrl,
     required this.tripName,
     required this.tripStart,
     required this.tripEnd,
@@ -28,7 +28,6 @@ class EventTile extends StatefulWidget {
 }
 
 class _EventTileState extends State<EventTile> {
-
   late Place eventRef;
 
   @override
@@ -41,7 +40,13 @@ class _EventTileState extends State<EventTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEventScreen(minDate: widget.tripStart, maxDate: widget.tripEnd,  tripName: widget.tripName, imageUrl: widget.imageUrl, eventId: widget.eventId)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditEventScreen(
+                minDate: widget.tripStart,
+                maxDate: widget.tripEnd,
+                tripName: widget.tripName,
+                imageUrl: widget.imageUrl,
+                eventId: widget.eventId)));
       },
       child: Container(
         height: 80,
@@ -55,7 +60,9 @@ class _EventTileState extends State<EventTile> {
               children: [
                 const SizedBox(width: 15),
                 ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 50, maxWidth: MediaQuery.of(context).size.width / 1.33),
+                  constraints: BoxConstraints(
+                      minWidth: 50,
+                      maxWidth: MediaQuery.of(context).size.width / 1.33),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -81,7 +88,9 @@ class _EventTileState extends State<EventTile> {
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            FormatDateRange(DateTimeRange(start:  DateTime.parse(eventRef.startDate ?? ''), end: DateTime.parse(eventRef.endDate ?? ''))),
+                            FormatDateRange(DateTimeRange(
+                                start: DateTime.parse(eventRef.startDate ?? ''),
+                                end: DateTime.parse(eventRef.endDate ?? ''))),
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

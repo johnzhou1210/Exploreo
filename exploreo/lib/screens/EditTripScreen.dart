@@ -1,28 +1,28 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:exploreo/data/objects.dart';
-import 'package:exploreo/screens/AddEventsScreen.dart';
+// import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exploreo/widgets/Navbar.dart';
-import 'package:exploreo/screens/LoginScreen.dart';
-import 'package:intl/intl.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+// import 'package:exploreo/widgets/Navbar.dart';
+// import 'package:exploreo/screens/LoginScreen.dart';
+// import 'package:intl/intl.dart';
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
 
 import '../util/ImageFetcher.dart';
 import '../util/TimeRangeFormatter.dart';
-import '../widgets/TripListTile.dart';
-import 'TripsScreen.dart';
+// import '../widgets/TripListTile.dart';
+// import 'TripsScreen.dart';
 
 class EditTripScreen extends StatefulWidget {
-  final int tripId;
+  final Trip trip;
 
-  EditTripScreen({
+  const EditTripScreen({
     super.key,
-    required this.tripId,
+    required this.trip,
   });
 
   @override
@@ -38,7 +38,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
   final TextEditingController tripNotesController = TextEditingController();
   String? _imageUrl;
   bool _isLoading = false;
-
+  List<Place> places = [];
 
   @override
   void initState() {
@@ -47,17 +47,17 @@ class _EditTripScreenState extends State<EditTripScreen> {
     /* // TODO:  GET TRIP OBJECT WITH TRIP GET REQUEST AND TRIP ID
     * INIT DEFAULT VALUES WITH TRIP OBJECT CONTENT
     *
-
-    tripNameController.text = widget.trip.title;
-    tripNotesController.text = widget.trip.description;
-    events = widget.trip.events;
-    _imageUrl = widget.trip.imageUrl;
-    selectedDates = ParseDateRange(widget.trip.date);
-
-
      */
-  }
 
+    tripNameController.text = widget.trip.tripName;
+    tripNotesController.text = widget.trip.description ?? "";
+    places = widget.trip.places;
+    _imageUrl = widget.trip.imageUrl;
+    selectedDates = DateTimeRange(
+    start: DateTime.parse(widget.trip.startDate),
+    end: DateTime.parse(widget.trip.endDate)
+  );
+  }
 
   Future<void> _searchImage(String query) async {
     setState(() {
@@ -78,7 +78,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
         _isLoading = false;
       });
     }
-
   }
 
   void _onContinuePressed() async {
@@ -87,7 +86,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
           ? 'Untitled'
           : tripNameController.text;
       await _searchImage(tripNameController.text);
-
 
       // UPDATE TRIP
       /* // TODO: TRIP PUT REQUEST TO UPDATE CURRENT TRIP BY ID
@@ -102,13 +100,13 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
       */
 
-      Navigator.pushReplacement(context,
+      Navigator.pushReplacement(
+        context,
         MaterialPageRoute(
-            builder: (context) => TripInfoScreen(tripId: widget.tripId)),
+            builder: (context) => TripInfoScreen(tripId: widget.trip.id)),
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +135,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          Navigator.of(context).pop(); // Whatever page it will go back to
+                          Navigator.of(context)
+                              .pop(); // Whatever page it will go back to
                         },
                         iconSize: 16,
                         icon: const Icon(Icons.close),
@@ -225,7 +224,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                               }
                             },
                             decoration: InputDecoration(
-                              prefixIcon: const Icon(CupertinoIcons.calendar_today),
+                              prefixIcon:
+                                  const Icon(CupertinoIcons.calendar_today),
                               border: const OutlineInputBorder(),
                               hintText: FormatDateRange(selectedDates!),
                             ),
@@ -266,7 +266,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
               const SizedBox(height: 200),
 
-
               // Delete Trip Button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const Flexible(flex: 1, child: SizedBox()),
@@ -290,8 +289,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                           MaterialPageRoute(
                               builder: (context) =>
                                   const HomeScreen(entryIndex: 1)),
-                              (Route<dynamic> route) =>
-                          false, // Keeps only the home route
+                          (Route<dynamic> route) =>
+                              false, // Keeps only the home route
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -306,9 +305,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                 const Flexible(flex: 1, child: SizedBox()),
               ]),
 
-              const SizedBox(height:25),
-
-
+              const SizedBox(height: 25),
 
               // Confirm changes button
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -317,7 +314,11 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: _isLoading ? null : () {_onContinuePressed();},
+                      onPressed: _isLoading
+                          ? null
+                          : () {
+                              _onContinuePressed();
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
                         foregroundColor: Colors.white,
@@ -335,7 +336,4 @@ class _EditTripScreenState extends State<EditTripScreen> {
       ),
     );
   }
-
-
-
 }

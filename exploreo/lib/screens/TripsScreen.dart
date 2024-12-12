@@ -1,7 +1,7 @@
-import 'package:exploreo/screens/HomeScreen.dart';
+// import 'package:exploreo/screens/HomeScreen.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:exploreo/widgets/Navbar.dart';
+// import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import '../api_calls/user_functions.dart';
 import '../data/objects.dart';
@@ -17,11 +17,6 @@ class TripsScreen extends StatefulWidget {
 
 class _TripsScreenState extends State<TripsScreen> {
   late List<Trip> userTrips = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -45,8 +40,6 @@ class _TripsScreenState extends State<TripsScreen> {
       setState(() {
         userTrips = trips;
       });
-      print("FETCHED TRIPS");
-      trips.forEach(print);
     } catch (e) {
       print("There was an error fetching trips");
       print(e);

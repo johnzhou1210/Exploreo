@@ -13,7 +13,7 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class AddEventsScreen extends StatefulWidget {
-  int tripId;
+  String tripId;
 
   AddEventsScreen({
     super.key,

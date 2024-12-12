@@ -20,9 +20,8 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class EditEventScreen extends StatefulWidget {
-
   int eventId;
-  String imageUrl; // just for visuals
+  String? imageUrl; // just for visuals
   String tripName; // just for visuals
 
   // just to restrict user input the dates within trip period
@@ -32,7 +31,7 @@ class EditEventScreen extends StatefulWidget {
   EditEventScreen({
     super.key,
     required this.eventId,
-    required this.imageUrl,
+    this.imageUrl,
     required this.tripName,
     required this.minDate,
     required this.maxDate,
@@ -50,7 +49,6 @@ class _EditEventScreenState extends State<EditEventScreen> {
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
 
-
   String? _imageUrl;
   bool _isLoading = false;
 
@@ -63,8 +61,9 @@ class _EditEventScreenState extends State<EditEventScreen> {
     Place? eventRef = await getPlaceByIdCall(widget.eventId.toString());
     eventNameController.text = eventRef!.placeName;
     eventNotesController.text = eventRef.description!;
-    selectedDates = DateTimeRange(start: DateTime.parse(eventRef.startDate ?? ''), end: DateTime.parse(eventRef.endDate ?? ''));
-
+    selectedDates = DateTimeRange(
+        start: DateTime.parse(eventRef.startDate ?? ''),
+        end: DateTime.parse(eventRef.endDate ?? ''));
   }
 
   @override
@@ -83,7 +82,9 @@ class _EditEventScreenState extends State<EditEventScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(widget.imageUrl),
+                    image: widget.imageUrl != null
+                        ? NetworkImage(widget.imageUrl!)
+                        : const AssetImage("assets/images/placeholder.jpeg"),
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
                   ),
@@ -259,15 +260,15 @@ class _EditEventScreenState extends State<EditEventScreen> {
                           onPressed: () async {
                             // Remove event from trips
 
-
                             // TODO: PLACES DELETE REQUEST BY GET REQUEST TO GET PLACE ID
-                            bool success = await deletePlaceByIdCall(widget.eventId.toString());
+                            bool success = await deletePlaceByIdCall(
+                                widget.eventId.toString());
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        TripInfoScreen(tripId: int.parse(eventRef.tripId) )));
+                                    builder: (context) => TripInfoScreen(
+                                        tripId: eventRef.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
@@ -303,13 +304,11 @@ class _EditEventScreenState extends State<EditEventScreen> {
                              eventRef.date = FormatDateRange(selectedDates!);
                             * */
 
-
-
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        TripInfoScreen(tripId: int.parse(eventRef.tripId) )));
+                                    builder: (context) => TripInfoScreen(
+                                        tripId: eventRef.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,

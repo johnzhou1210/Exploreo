@@ -8,6 +8,7 @@ class Trip {
   final String? imageUrl;
   final String? notes;
   final List<dynamic> usersOnTrips;
+  final List<Place> places;
 
   Trip({
     required this.id,
@@ -19,6 +20,7 @@ class Trip {
     this.imageUrl,
     this.notes,
     required this.usersOnTrips,
+    required this.places,
   });
 
   factory Trip.fromJson(Map<String, dynamic> json) {
@@ -31,7 +33,9 @@ class Trip {
       isShared: json['isShared'] == null ? null : json['isShared'] as bool,
       imageUrl: json['imageUrl'],
       notes: json['notes'],
-      usersOnTrips: json['UsersOnTrips'] ?? [],
+      usersOnTrips: json['UsersOnTrips'],
+      places:
+          json['places'].map<Place>((place) => Place.fromJson(place)).toList(),
     );
   }
 }
