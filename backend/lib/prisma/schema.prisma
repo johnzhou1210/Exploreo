@@ -55,7 +55,7 @@ model UsersOnTrips {
   userId    String   @map("user_id") @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
   tripId    String   @map("trip_id") @db.Uuid
-  trip      Trip     @relation(fields: [tripId], references: [id])
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   role      Role     @default(VIEWER)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -76,7 +76,7 @@ model Place {
   notes       String?
   startDate   DateTime? @map("start_date")
   endDate     DateTime? @map("end_date")
-  trip        Trip      @relation(fields: [tripId], references: [id])
+  trip        Trip      @relation(fields: [tripId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tripId      String    @map("trip_id") @db.Uuid
   tags        Tag[]
   createdAt   DateTime  @default(now()) @map("created_at")

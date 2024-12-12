@@ -13,6 +13,7 @@ Future<http.Response> makeAuthenticatedRequest(
     throw Exception('User not authenticated');
   }
 
+  print('Bearer $idToken');
   final Map<String, String> defaultHeaders = {
     'Authorization': 'Bearer $idToken',
     'Content-Type': 'application/json',
