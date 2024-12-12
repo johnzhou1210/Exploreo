@@ -2,6 +2,7 @@ import 'package:exploreo/widgets/AuthWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:exploreo/user_auth/userState.dart';
@@ -13,6 +14,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Hive.initFlutter();
+
 
   runApp(
     ChangeNotifierProvider(

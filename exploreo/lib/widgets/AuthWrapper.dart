@@ -1,15 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:exploreo/user_auth/userState.dart';
 
 import '../screens/HomeScreen.dart';
 import '../screens/LoginScreen.dart';
 
 class AuthWrapper extends StatelessWidget {
-  Future<void> initializeUser() async {
-    // Add your user initialization logic here
-    await Future.delayed(Duration(seconds: 1)); // Example delay
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +18,7 @@ class AuthWrapper extends StatelessWidget {
           } else if (snapshot.hasData) {
             // User is signed in
             return FutureBuilder(
-              future: initializeUser(),
+              future: UserState().initializeUser(),
               builder: (context, initSnapshot) {
                 if (initSnapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());

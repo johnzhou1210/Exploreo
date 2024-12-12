@@ -17,7 +17,9 @@ class UserState extends ChangeNotifier {
     try {
       _currentUser = user;
       _userId = await getUserId(firebaseUid: user.uid);
-      await _saveUserToHive(user);
+      await _saveUserToHive(_userId!);
+      print("User set with userId: $_userId");
+
       notifyListeners();
     } catch (e) {
       print("Failed to fetch or save userId: $e");
@@ -38,14 +40,19 @@ class UserState extends ChangeNotifier {
     try {
       var userBox = await Hive.openBox(_userBoxName);
       String? savedUserId = userBox.get('userId');
+      User? user = FirebaseAuth.instance.currentUser;
 
-      if (savedUserId != null) {
-        User? user = FirebaseAuth.instance.currentUser;
+      if (savedUserId == null) {
         if (user != null) {
-          _currentUser = user;
           _userId = await getUserId(firebaseUid: user.uid);
+          await userBox.put('userId', _userId);
+          print('User initialized from Firebase Auth with userId: $_userId');
         }
+      } else {
+        _userId = savedUserId;
+        print('User initialized from Hive with userId: $_userId');
       }
+      _currentUser = user;
       notifyListeners();
     } catch (e) {
       print("Error during user initialization: $e");
@@ -53,10 +60,11 @@ class UserState extends ChangeNotifier {
   }
 
   /// Saves user information to Hive.
-  Future<void> _saveUserToHive(User user) async {
+  Future<void> _saveUserToHive(String userId) async {
     try {
       var userBox = await Hive.openBox(_userBoxName);
-      await userBox.put('userId', user.uid);
+      await userBox.put('userId', userId);
+      print("User saved to Hive with userId: $userId");
       // Save other user details if needed
     } catch (e) {
       print("Failed to save user to Hive: $e");
