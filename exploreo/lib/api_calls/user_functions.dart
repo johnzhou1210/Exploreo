@@ -20,8 +20,7 @@ Future<void> addUserCall({
       if (password != null) 'password': password
     };
     final response = await makeAuthenticatedRequest(
-      endpoint:
-          '${Config.apiUrl}/users',
+      endpoint: '${Config.apiUrl}/users',
       method: "POST",
       body: userBody,
     );
@@ -38,7 +37,6 @@ Future<void> addUserCall({
     print('Error making POST request: $error');
   }
 }
-
 
 /// Sends Twitter login user information to the PostgreSQL backend.
 Future<void> addTwitterUserCall({
@@ -57,8 +55,41 @@ Future<void> addTwitterUserCall({
       // 'password' is omitted for Twitter login
     };
     final response = await makeAuthenticatedRequest(
-      endpoint:
-          '${Config.apiUrl}/users',
+      endpoint: '${Config.apiUrl}/users',
+      method: "POST",
+      body: userBody,
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Handle successful response
+      print('Success: ${response.body}');
+    } else {
+      // Handle error response
+      print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+    }
+  } catch (error) {
+    print('Error making POST request: $error');
+  }
+}
+
+/// Sends Twitter login user information to the PostgreSQL backend.
+Future<void> addGoogleUserCall({
+  required User user,
+  required String username,
+}) async {
+  try {
+    Map<String, dynamic> userBody = {
+      'email': user.email ?? '', // Twitter may not provide email
+      'username': username,
+      'firebaseUid': user.uid,
+      'providerId': user.providerData.isNotEmpty
+          ? user.providerData[0].providerId
+          : 'google.com', // Default to 'twitter.com' if providerData is empty
+      'loginType': 'GOOGLE',
+      // 'password' is omitted for Twitter login
+    };
+    final response = await makeAuthenticatedRequest(
+      endpoint: '${Config.apiUrl}/users',
       method: "POST",
       body: userBody,
     );
@@ -106,10 +137,12 @@ Future<List<Trip>> getUserTrips({required String userId}) async {
   }
 }
 
-Future<List<Trip>> getUserTripsByFirebaseUid({required String firebaseUid}) async {
+Future<List<Trip>> getUserTripsByFirebaseUid(
+    {required String firebaseUid}) async {
   try {
     // Construct the endpoint with the userId as a dynamic parameter
-    final String endpoint = '${Config.apiUrl}/users/firebase/$firebaseUid/trips';
+    final String endpoint =
+        '${Config.apiUrl}/users/firebase/$firebaseUid/trips';
 
     print('Fetching trips for firebaseUid: $firebaseUid'); // Debugging
 
@@ -137,7 +170,7 @@ Future<List<Trip>> getUserTripsByFirebaseUid({required String firebaseUid}) asyn
   }
 }
 
-Future<String> getUserId({required String firebaseUid}) async{
+Future<String> getUserId({required String firebaseUid}) async {
   try {
     final String endpoint = '${Config.apiUrl}/users/firebase/$firebaseUid';
     final response = await makeAuthenticatedRequest(
@@ -175,7 +208,7 @@ Future<List<Place>> getTripPlaces({required String tripId}) async {
     // Handle the response
     if (response.statusCode == 200) {
       final placesJson =
-      jsonDecode(response.body) as List<dynamic>; // Parse the response body
+          jsonDecode(response.body) as List<dynamic>; // Parse the response body
       print('Trip Places: $placesJson');
 
       // Convert JSON data to a list of `PlaceObject`

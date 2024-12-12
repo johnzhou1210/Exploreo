@@ -73,6 +73,17 @@ class FirebaseAuthService {
       // Sign in to Firebase with the credential
       final UserCredential userCredential =
           await _auth.signInWithCredential(credential);
+      final user = userCredential.user;
+      if (user != null) {
+        // Extract username from displayName or set a default
+        String username = user.displayName ?? 'TwitterUser';
+        // Send user info to PostgreSQL backend
+        await addGoogleUserCall(
+          user: user,
+          username: username,
+        );
+      }
+
       print('User signed in: ${userCredential.user?.email}');
 
       return userCredential.user;
