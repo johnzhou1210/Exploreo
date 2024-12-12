@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:exploreo/data/TestTripData.dart';
+import 'package:exploreo/api_calls/place_functions.dart';
+import 'package:exploreo/data/objects.dart';
 import 'package:exploreo/screens/AddEventsScreen.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/screens/TripInfoScreen.dart';
@@ -19,13 +20,19 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class EditEventScreen extends StatefulWidget {
-  Trip trip;
-  int eventId;
+  final Place place;
+  String? imageUrl; // just for visuals
+
+  // just to restrict user input the dates within trip period
+  DateTime minDate;
+  DateTime maxDate;
 
   EditEventScreen({
     super.key,
-    required this.trip,
-    required this.eventId,
+    required this.place,
+    this.imageUrl,
+    required this.minDate,
+    required this.maxDate,
   });
 
   @override
@@ -39,18 +46,13 @@ class _EditEventScreenState extends State<EditEventScreen> {
   );
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
-  List<TripEvent> events = [];
-  String? _imageUrl;
-  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    TripEvent eventRef =
-        widget.trip.events.firstWhere((event) => event.id == widget.eventId);
-    eventNameController.text = eventRef.title;
-    eventNotesController.text = eventRef.description;
-    selectedDates = ParseDateRange(eventRef.date);
+    eventNameController.text = widget.place.placeName;
+    selectedDates = DateTimeRange(start: DateTime.parse(widget.place.startDate ?? ''), end: DateTime.parse(widget.place.endDate ?? ''));
+    eventNotesController.text = widget.place.description!;
   }
 
   @override
@@ -69,7 +71,9 @@ class _EditEventScreenState extends State<EditEventScreen> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(widget.trip.imageUrl),
+                    image: widget.imageUrl != null
+                        ? NetworkImage(widget.imageUrl!)
+                        : const AssetImage("assets/images/placeholder.jpeg"),
                     // Use your image URL here
                     fit: BoxFit.cover, // Options: cover, contain, fill, etc.
                   ),
@@ -131,7 +135,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Make changes to ${widget.trip.events.firstWhere((event) => event.id == widget.eventId).title}",
+                          "Make changes to ${widget.place.placeName}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -142,7 +146,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                       child: SizedBox(),
                     ),
                   ]),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
 
                   // Input fields
                   Column(
@@ -184,26 +188,8 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                   final DateTimeRange? dateTimeRange =
                                       await showDateRangePicker(
                                           context: context,
-                                          firstDate: DateTime(
-                                              ParseDateRange(widget.trip.date)
-                                                  .start
-                                                  .year,
-                                              ParseDateRange(widget.trip.date)
-                                                  .start
-                                                  .month,
-                                              ParseDateRange(widget.trip.date)
-                                                  .start
-                                                  .day),
-                                          lastDate: DateTime(
-                                              ParseDateRange(widget.trip.date)
-                                                  .end
-                                                  .year,
-                                              ParseDateRange(widget.trip.date)
-                                                  .end
-                                                  .month,
-                                              ParseDateRange(widget.trip.date)
-                                                  .end
-                                                  .day));
+                                          firstDate: widget.minDate,
+                                          lastDate: widget.maxDate);
                                   if (dateTimeRange != null) {
                                     setState(() {
                                       selectedDates = dateTimeRange;
@@ -212,7 +198,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                 },
                                 decoration: InputDecoration(
                                   prefixIcon:
-                                      Icon(CupertinoIcons.calendar_today),
+                                      const Icon(CupertinoIcons.calendar_today),
                                   border: const OutlineInputBorder(),
                                   hintText: FormatDateRange(selectedDates!),
                                 ),
@@ -260,23 +246,18 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // Remove event from trips
-                            int targetTripIndex = trips.indexWhere(
-                                (trip) => trip.id == widget.trip.id);
-                            String eventNameToRemove = trips[targetTripIndex]
-                                .events
-                                .firstWhere(
-                                    (event) => event.id == widget.eventId)
-                                .title;
-                            trips[targetTripIndex].events.removeWhere(
-                                (event) => event.id == widget.eventId);
+                            bool success = await deletePlaceByIdCall(
+                                widget.place.id);
+
+                            print ("RESULT : $success");
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        TripInfoScreen(trip: widget.trip)));
+                                    builder: (context) => TripInfoScreen(
+                                        tripId: widget.place.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
@@ -299,26 +280,22 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // Update event
-                            TripEvent eventRef = widget.trip.events.firstWhere(
-                                (event) => event.id == widget.eventId);
-                            eventRef.title = eventNameController.text.isEmpty
-                                ? 'Untitled'
-                                : eventNameController.text;
-                            eventRef.description = eventNotesController.text;
-                            eventRef.date = FormatDateRange(selectedDates!);
 
-                            Snack(
-                                context: context,
-                                message: "Updated event '${eventRef.title}'",
-                                duration: const Duration(milliseconds: 500));
+                            Place? updatedPlace = await updatePlaceCall(
+                                placeId: widget.place.id,
+                                placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text,
+                                description: eventNotesController.text,
+                              startDate: selectedDates?.start,
+                              endDate: selectedDates?.end,
+                            );
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        TripInfoScreen(trip: widget.trip)));
+                                    builder: (context) => TripInfoScreen(
+                                        tripId: widget.place.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,

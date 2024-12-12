@@ -1,14 +1,18 @@
+// firebase_auth.dart
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:twitter_login/twitter_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'package:exploreo/api_calls/user_functions.dart'; // Added import
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async {
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -19,7 +23,8 @@ class FirebaseAuthService {
     return null;
   }
 
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -29,6 +34,7 @@ class FirebaseAuthService {
     }
     return null;
   }
+
 /*
   Future<User?> signInWithGoogle() async {
     try {
@@ -49,12 +55,14 @@ class FirebaseAuthService {
     try {
       print('Starting Google Sign-In...');
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null){  // User canceled sign-in
+      if (googleUser == null) {
+        // User canceled sign-in
         print('Google sign-in aborted by user.');
         return null;
       }
       // Obtain the GoogleSignInAuthentication
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       print('Google Auth Token: ${googleAuth.accessToken}');
       print('Google ID Token: ${googleAuth.idToken}');
       // Create a new credential
@@ -63,9 +71,9 @@ class FirebaseAuthService {
         idToken: googleAuth.idToken,
       );
       // Sign in to Firebase with the credential
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
       print('User signed in: ${userCredential.user?.email}');
-
 
       return userCredential.user;
     } catch (e) {
@@ -91,7 +99,19 @@ class FirebaseAuthService {
           );
           final userCredential =
               await _auth.signInWithCredential(twitterAuthCredential);
-          return userCredential.user;
+          final user = userCredential.user;
+
+          if (user != null) {
+            // Extract username from displayName or set a default
+            String username = user.displayName ?? 'TwitterUser';
+            // Send user info to PostgreSQL backend
+            await addTwitterUserCall(
+              user: user,
+              username: username,
+            );
+          }
+
+          return user;
 
         case TwitterLoginStatus.cancelledByUser:
           print("Twitter sign in cancelled by user");

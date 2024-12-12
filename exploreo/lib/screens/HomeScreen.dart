@@ -43,12 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // Check if the user is logged in using the UserState provider
-    final userState = Provider.of<UserState>(context);
+    // final userState = Provider.of<UserState>(context);
 
-    if (userState.currentUser == null) {
-      // If not logged in, show the LoginScreen
-      return const LoginScreen();
-    }
+    // if (userState.currentUser == null) {
+    //   // If not logged in, show the LoginScreen
+    //   return const LoginScreen();
+    // }
 
     // If logged in, show the bottom navigation bar and associated pages
     return Scaffold(
