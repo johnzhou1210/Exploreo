@@ -47,12 +47,16 @@ class FirebaseAuthService {
  */
   Future<User?> signInWithGoogle() async {
     try {
+      print('Starting Google Sign-In...');
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) return null; // User canceled sign-in
-
+      if (googleUser == null){  // User canceled sign-in
+        print('Google sign-in aborted by user.');
+        return null;
+      }
       // Obtain the GoogleSignInAuthentication
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
+      print('Google Auth Token: ${googleAuth.accessToken}');
+      print('Google ID Token: ${googleAuth.idToken}');
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -60,6 +64,8 @@ class FirebaseAuthService {
       );
       // Sign in to Firebase with the credential
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      print('User signed in: ${userCredential.user?.email}');
+
 
       return userCredential.user;
     } catch (e) {
@@ -109,6 +115,14 @@ class FirebaseAuthService {
     try {
       await _auth.signOut();
       print("User signed out successfully");
+
+      // Sign out from Google
+      await _googleSignIn.signOut();
+      print("User signed out from Google.");
+
+      // Disconnect Google account
+      await _googleSignIn.disconnect();
+      print("Google account disconnected.");
     } catch (e) {
       print("There was an error signing out: $e");
     }
