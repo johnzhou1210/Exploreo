@@ -1,6 +1,9 @@
+// firebase_auth.dart
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:twitter_login/twitter_login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:exploreo/api_calls/user_functions.dart'; // Added import
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -59,7 +62,19 @@ class FirebaseAuthService {
           );
           final userCredential =
               await _auth.signInWithCredential(twitterAuthCredential);
-          return userCredential.user;
+          final user = userCredential.user;
+
+          if (user != null) {
+            // Extract username from displayName or set a default
+            String username = user.displayName ?? 'TwitterUser';
+            // Send user info to PostgreSQL backend
+            await addTwitterUserCall(
+              user: user,
+              username: username,
+            );
+          }
+
+          return user;
 
         case TwitterLoginStatus.cancelledByUser:
           print("Twitter sign in cancelled by user");
@@ -88,4 +103,3 @@ class FirebaseAuthService {
     }
   }
 }
-
