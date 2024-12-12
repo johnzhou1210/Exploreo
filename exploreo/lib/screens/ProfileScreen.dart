@@ -28,12 +28,6 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
-          },
-        ),
         title: const Text(
           'Profile',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -62,29 +56,10 @@ class ProfileScreen extends StatelessWidget {
             style: TextStyle(
               color: Colors.grey,
               fontSize: 14,
+
             ),
           ),
           const SizedBox(height: 30),
-          ListTile(
-            leading: const Icon(Icons.person_outline),
-            title: const Text('Profile'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {},
-          ),
-          Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
-          ListTile(
-            leading: const Icon(Icons.bookmark_outline),
-            title: const Text('Bookmarked'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {},
-          ),
-          Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
-          ListTile(
-            leading: const Icon(Icons.history),
-            title: const Text('Previous Trips'),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: () {},
-          ),
           Divider(height: 1, thickness: 0.5, color: Colors.grey[300]),
           // Logout Option
           ListTile(

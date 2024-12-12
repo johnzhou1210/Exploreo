@@ -16,11 +16,11 @@ class Navbar extends StatelessWidget {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
-          label: 'Locate',
+          label: 'Create Trip',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.checklist),
-          label: 'Itinerary',
+          label: 'Trips',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:exploreo/user_auth/firebase_auth_implementation.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
+import 'package:exploreo/screens/LoginScreen.dart';
 import 'package:exploreo/user_auth/userState.dart';
 import 'package:provider/provider.dart';
 import 'package:exploreo/api_calls/user_functions.dart';
@@ -164,11 +165,11 @@ class _SignupScreenState extends State<SignupScreen> {
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: "Don't have an account? ",
+                  text: "Already have an account? ",
                   style: const TextStyle(color: Colors.black),
                   children: [
                     TextSpan(
-                      text: "Sign up here",
+                      text: "Log in here",
                       style: const TextStyle(
                           color: Colors.blue,
                           decoration: TextDecoration.underline),
@@ -176,7 +177,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ..onTap = () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const SignupScreen(),
+                              builder: (context) => const LoginScreen(),
                             ),
                           );
                         },
