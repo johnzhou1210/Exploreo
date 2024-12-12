@@ -22,7 +22,6 @@ import 'TripsScreen.dart';
 class EditEventScreen extends StatefulWidget {
   final Place place;
   String? imageUrl; // just for visuals
-  String tripName; // just for visuals
 
   // just to restrict user input the dates within trip period
   DateTime minDate;
@@ -32,7 +31,6 @@ class EditEventScreen extends StatefulWidget {
     super.key,
     required this.place,
     this.imageUrl,
-    required this.tripName,
     required this.minDate,
     required this.maxDate,
   });
@@ -49,20 +47,13 @@ class _EditEventScreenState extends State<EditEventScreen> {
   final TextEditingController eventNameController = TextEditingController();
   final TextEditingController eventNotesController = TextEditingController();
 
-  String? _imageUrl;
-  bool _isLoading = false;
-
-  // @override
-  // Future<void> initState() async {
-  //   super.initState();
-  //
-  //   Place? eventRef = await getPlaceByIdCall(widget.place.id);
-  //   eventNameController.text = eventRef!.placeName;
-  //   eventNotesController.text = eventRef.description!;
-  //   selectedDates = DateTimeRange(
-  //       start: DateTime.parse(eventRef.startDate ?? ''),
-  //       end: DateTime.parse(eventRef.endDate ?? ''));
-  // }
+  @override
+  void initState() {
+    super.initState();
+    eventNameController.text = widget.place.placeName;
+    selectedDates = DateTimeRange(start: DateTime.parse(widget.place.startDate ?? ''), end: DateTime.parse(widget.place.endDate ?? ''));
+    eventNotesController.text = widget.place.description!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +135,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                     Flexible(
                         flex: 5,
                         child: Text(
-                          "Make changes to ${widget.tripName}",
+                          "Make changes to ${widget.place.placeName}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black54,
@@ -257,10 +248,10 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             // Remove event from trips
-
-                            // TODO: PLACES DELETE REQUEST BY GET REQUEST TO GET PLACE ID
                             bool success = await deletePlaceByIdCall(
                                 widget.place.id);
+
+                            print ("RESULT : $success");
 
                             Navigator.pushReplacement(
                                 context,
@@ -289,18 +280,16 @@ class _EditEventScreenState extends State<EditEventScreen> {
                         width: 180,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // Update event
 
-                            /* // TODO: PLACES PUT REQUEST TO UPDATE PLACE
-                                     TripEvent eventRef = widget.trip.events.firstWhere(
-                                  (event) => event.id == widget.eventId);
-                              eventRef.title = eventNameController.text.isEmpty
-                                ? 'Untitled'
-                                : eventNameController.text;
-                              eventRef.description = eventNotesController.text;
-                             eventRef.date = FormatDateRange(selectedDates!);
-                            * */
+                            Place? updatedPlace = await updatePlaceCall(
+                                placeId: widget.place.id,
+                                placeName: eventNameController.text.isEmpty ? 'Untitled' : eventNameController.text,
+                                description: eventNotesController.text,
+                              startDate: selectedDates?.start,
+                              endDate: selectedDates?.end,
+                            );
 
                             Navigator.pushReplacement(
                                 context,

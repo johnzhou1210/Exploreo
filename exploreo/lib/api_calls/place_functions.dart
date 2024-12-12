@@ -134,6 +134,8 @@ Future<bool> deletePlaceByIdCall(String placeId) async {
       method: "DELETE",
     );
 
+    print("IN here");
+
     // Handle the response
     if (response.statusCode == 200) {
       print('Place Deleted Successfully');

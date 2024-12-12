@@ -10,14 +10,12 @@ import '../screens/TripsScreen.dart';
 class EventTile extends StatefulWidget {
   Place place;
   DateTime minDate, maxDate;
-  String tripName;
   String imageUrl;
 
   EventTile({
     required this.place,
     required this.minDate,
     required this.maxDate,
-    required this.tripName,
     required this.imageUrl,
   });
 
@@ -35,7 +33,6 @@ class _EventTileState extends State<EventTile> {
             builder: (context) => EditEventScreen(
                 minDate: widget.minDate,
                 maxDate: widget.maxDate,
-                tripName: widget.tripName,
                 imageUrl: widget.imageUrl,
                 place: widget.place)));
       },
