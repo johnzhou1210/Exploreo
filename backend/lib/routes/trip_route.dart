@@ -141,8 +141,8 @@ class TripRoute {
           'description',
           'startDate',
           'endDate',
-          'isShared'
-              'imageUrl',
+          'isShared',
+          'imageUrl',
           'notes',
         ];
 
