@@ -135,14 +135,19 @@ Future<bool> deleteTripCall(String tripId) async {
       method: "DELETE",
     );
 
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
     if (response.statusCode == 200) {
       print('Trip Deleted Successfully');
       return true; // Return true on successful deletion
     } else if (response.statusCode == 404) {
       print('Error: Trip not found');
+      print('Response body: ${response.body}');
       return false; // Return false if the trip was not found
     } else {
       print('Error: ${response.statusCode}, ${response.reasonPhrase}');
+      print('Response body: ${response.body}');
       return false; // Return false for any other errors
     }
   } catch (error) {

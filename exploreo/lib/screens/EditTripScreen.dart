@@ -262,7 +262,9 @@ class _EditTripScreenState extends State<EditTripScreen> {
                         // Remove trip from trips
                         // TODO
                         // TRIPS DELETE REQUEST TO DELETE TRIP BY ID
+                        print("deleting trip of id ${widget.trip.id}");
                         bool success = await deleteTripCall(widget.trip.id);
+
 
                         Navigator.pushAndRemoveUntil(
                           context,

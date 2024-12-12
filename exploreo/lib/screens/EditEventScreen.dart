@@ -20,7 +20,7 @@ import '../widgets/TripListTile.dart';
 import 'TripsScreen.dart';
 
 class EditEventScreen extends StatefulWidget {
-  int eventId;
+  final Place place;
   String? imageUrl; // just for visuals
   String tripName; // just for visuals
 
@@ -30,7 +30,7 @@ class EditEventScreen extends StatefulWidget {
 
   EditEventScreen({
     super.key,
-    required this.eventId,
+    required this.place,
     this.imageUrl,
     required this.tripName,
     required this.minDate,
@@ -52,19 +52,17 @@ class _EditEventScreenState extends State<EditEventScreen> {
   String? _imageUrl;
   bool _isLoading = false;
 
-  late Place eventRef;
-
-  @override
-  Future<void> initState() async {
-    super.initState();
-
-    Place? eventRef = await getPlaceByIdCall(widget.eventId.toString());
-    eventNameController.text = eventRef!.placeName;
-    eventNotesController.text = eventRef.description!;
-    selectedDates = DateTimeRange(
-        start: DateTime.parse(eventRef.startDate ?? ''),
-        end: DateTime.parse(eventRef.endDate ?? ''));
-  }
+  // @override
+  // Future<void> initState() async {
+  //   super.initState();
+  //
+  //   Place? eventRef = await getPlaceByIdCall(widget.place.id);
+  //   eventNameController.text = eventRef!.placeName;
+  //   eventNotesController.text = eventRef.description!;
+  //   selectedDates = DateTimeRange(
+  //       start: DateTime.parse(eventRef.startDate ?? ''),
+  //       end: DateTime.parse(eventRef.endDate ?? ''));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -262,13 +260,13 @@ class _EditEventScreenState extends State<EditEventScreen> {
 
                             // TODO: PLACES DELETE REQUEST BY GET REQUEST TO GET PLACE ID
                             bool success = await deletePlaceByIdCall(
-                                widget.eventId.toString());
+                                widget.place.id);
 
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => TripInfoScreen(
-                                        tripId: eventRef.tripId)));
+                                        tripId: widget.place.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
@@ -308,7 +306,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => TripInfoScreen(
-                                        tripId: eventRef.tripId)));
+                                        tripId: widget.place.tripId)));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange,
