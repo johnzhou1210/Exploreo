@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:exploreo/api_calls/trip_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:exploreo/api_calls/user_functions.dart';
 // import 'package:exploreo/screens/AddEventsScreen.dart';
 // import 'package:exploreo/screens/HomeScreen.dart';
@@ -74,6 +75,9 @@ class _PlanTripScreenState extends State<PlanTripScreen> {
     final String tripName =
         tripNameController.text.isEmpty ? 'Untitled' : tripNameController.text;
     final userId = Provider.of<UserState>(context, listen: false).userId;
+
+    print("in here $userId");
+    print("in here2 ${FirebaseAuth.instance.currentUser?.uid}");
 
     if (userId == null) return;
 

@@ -1,7 +1,3 @@
-// import 'package:exploreo/screens/AddEventsScreen.dart';
-// import 'package:exploreo/screens/LoginScreen.dart';
-// import 'package:exploreo/screens/PlanTripScreen.dart';
-// import 'package:exploreo/screens/TripsScreen.dart';
 import 'package:exploreo/widgets/AuthWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:exploreo/screens/HomeScreen.dart';
@@ -13,25 +9,22 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await dotenv.load(fileName: ".env");
-    print("Environment file loaded successfully.");
-  } catch (e) {
-    print("Failed to load environment file: $e");
-  }
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-    create: (context) => UserState(),
-    child: MyApp(),
-  ));
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserState()..initializeUser(), // Initialize UserState here
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,19 +32,19 @@ class MyApp extends StatelessWidget {
       title: 'Exploreo',
       theme: ThemeData(
         colorScheme: const ColorScheme(
-            brightness: Brightness.light,
-            primary: Color.fromARGB(255, 0, 133, 235),
-            onPrimary: Colors.white,
-            secondary: Colors.grey,
-            onSecondary: Colors.white,
-            error: Colors.red,
-            onError: Colors.red,
-            surface: Colors.white,
-            onSurface: Color.fromARGB(255, 0, 0, 0)),
+          brightness: Brightness.light,
+          primary: Color.fromARGB(255, 0, 133, 235),
+          onPrimary: Colors.white,
+          secondary: Colors.grey,
+          onSecondary: Colors.white,
+          error: Colors.red,
+          onError: Colors.red,
+          surface: Colors.white,
+          onSurface: Color.fromARGB(255, 0, 0, 0),
+        ),
         useMaterial3: true,
       ),
-      home: AuthWrapper(),
-      // home: PlanTripScreen(),
+      home: AuthWrapper(), // Use AuthWrapper to manage authentication flow
     );
   }
 }
