@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:exploreo/user_auth/userState.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'ForgotPasswordScreen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -144,24 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 34),
               ),
-              const SizedBox(height: 20),
-
-              // Google sign-in
-              SignInButton(
-                Buttons.googleDark,
-                onPressed: _signInWithGoogle,
-              ),
-
-              const SizedBox(height: 20),
-
-              // Twitter sign-in
-              SignInButton(
-                Buttons.twitter,
-                text: "Sign in with Twitter",
-                onPressed: _signInWithTwitter,
-              ),
-
-              const SizedBox(height: 20),
+              const SizedBox(height: 100),
 
               // Email field
               Padding(
@@ -193,14 +178,68 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height:15),
+
+              // Forgot Password
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: RichText(
+                  textAlign: TextAlign.right,
+                  text: TextSpan(
+                    text: "Forgot Password?",
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordScreen(),
+                          ),
+                        );
+                      },
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              // Google sign-in
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: SignInButton(
+                  Buttons.googleDark,
+                  onPressed: _signInWithGoogle,
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              // Twitter sign-in
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SignInButton(
+                  Buttons.twitter,
+                  text: "Sign in with Twitter",
+                  onPressed: _signInWithTwitter,
+                ),
+              ),
+
+              const SizedBox(height: 40),
 
               // Login button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
                   onPressed: _loginWithEmailAndPassword,
-                  child: const Text("Login"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  child: const Text("Sign In", style: TextStyle(color: Colors.white),),
                 ),
               ),
 
