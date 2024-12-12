@@ -6,11 +6,11 @@ in `lib/`, and example unit test in `test/`.
 1. Get the packages by running
 
 ```bash
-dart put get
+dart pub get
 npm install
 ```
 
-2. Run `dart run bin/backend.dart`
+2. Run `dart run bin/server.dart`
 3. Server is served on http://localhost:8080
 
 # How to access database locally
