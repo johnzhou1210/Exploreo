@@ -172,30 +172,40 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                 // Events list for this trip
                 //　GET ALL PLACES, FILTER BY USER ID
 
-                if (trip != null) ...[
+
+                if (trip != null && trip!.places.isNotEmpty) ...[
                   Flexible(
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: trip!.places.length,
+                      itemCount: trip?.places.length,
                       itemBuilder: (context, index) {
-                        List<Place> sortedEvents = [...trip!.places];
-                        sortedEvents.sort((a, b) =>
-                            DateTime.parse(a.startDate ?? '')
-                                .compareTo(DateTime.parse(b.startDate ?? '')));
+                        List<Place> sortedEvents = [...?trip?.places];
+                        sortedEvents.sort((a, b) {
+                          DateTime dateA = DateTime.tryParse(a.startDate ?? '') ?? DateTime.now();
+                          DateTime dateB = DateTime.tryParse(b.startDate ?? '') ?? DateTime.now();
+                          return dateA.compareTo(dateB);
+                        });
 
-                        DateTime tripStart = DateTime.parse(trip!.startDate);
-                        DateTime tripEnd = DateTime.parse(trip!.endDate);
+                        Place currPlace = sortedEvents[index];
+                        DateTime tripStart =  DateTime.tryParse(currPlace.startDate ?? '') ?? DateTime.now();
+                        DateTime tripEnd = DateTime.tryParse(currPlace.endDate ?? '') ?? DateTime.now();
+
+                        String eventId = sortedEvents[index].id ?? '';
 
                         return EventTile(
-                            tripStart: tripStart,
-                            tripEnd: tripEnd,
-                            imageUrl: trip!.imageUrl,
-                            eventId: int.parse(sortedEvents[index].id),
-                            tripName: trip!.tripName);
+                          place: sortedEvents[index],
+                          minDate: DateTime.parse(trip!.startDate),
+                          maxDate: DateTime.parse(trip!.endDate),
+                          imageUrl: trip?.imageUrl ?? '',
+
+
+                        );
+
                       },
                     ),
                   ),
                 ]
+
               ]),
         ),
       ]),
@@ -217,7 +227,7 @@ class _TripInfoScreenState extends State<TripInfoScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AddEventsScreen(tripId: trip!.id)),
+                      builder: (context) => AddEventsScreen(tripId: trip!.id, minDate: trip!.startDate, maxDate: trip!.endDate, imageUrl: trip!.imageUrl ?? '', tripName: trip!.tripName)),
                 );
               }
             }),

@@ -5,6 +5,7 @@ import 'package:exploreo/screens/HomeScreen.dart';
 import 'package:exploreo/user_auth/userState.dart';
 import 'package:provider/provider.dart';
 import 'package:exploreo/api_calls/user_functions.dart';
+import 'package:flutter/gestures.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -155,6 +156,35 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: ElevatedButton(
                       onPressed: () => {Signup()}, child: Text("Signup")),
                 )),
+            const SizedBox(height: 20),
+
+            // Sign up link
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: "Don't have an account? ",
+                  style: const TextStyle(color: Colors.black),
+                  children: [
+                    TextSpan(
+                      text: "Sign up here",
+                      style: const TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const SignupScreen(),
+                            ),
+                          );
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
