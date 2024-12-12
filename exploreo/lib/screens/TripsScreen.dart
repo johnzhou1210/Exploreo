@@ -1,7 +1,4 @@
-// import 'package:exploreo/screens/HomeScreen.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:exploreo/widgets/Navbar.dart';
 import 'package:exploreo/screens/LoginScreen.dart';
 import '../api_calls/user_functions.dart';
 import '../data/objects.dart';
@@ -29,10 +26,6 @@ class _TripsScreenState extends State<TripsScreen> {
       final userState = Provider.of<UserState>(context, listen: false);
 
       if (userState.currentUser == null || userState.userId == null) {
-        // If not logged in, show the LoginScreen
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(builder: (context) => const LoginScreen()),
-        // );
         return;
       }
       ;
