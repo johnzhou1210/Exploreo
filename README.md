@@ -1,5 +1,6 @@
 # Exploreo
 ## This project was built in a group of 5 for CUNY Hunter College's CSCI39540 Flutter App Development Class in Fall 2024.
+## This repository was moved from Gitlab onto Github.
 ### group-project-two-team-three
 
 ## Getting started
